@@ -51,10 +51,15 @@ bool PriortyQueueADT<T,MAX_SIZE>::ExtractMax(T& result)
 template<class T, int MAX_SIZE>
 bool PriortyQueueADT<T,MAX_SIZE>::Remove(int i)
 {
+	if (i > size)
+	{
+		return false;
+	}
 	H[i] = INT_MAX; // infinity (i will change it later)
 	SiftUp(i);
 	T temp;
 	ExtractMax(temp);
+	return true;
 }
 template<class T, int MAX_SIZE>
 bool PriortyQueueADT<T,MAX_SIZE>::Insert(T val)
