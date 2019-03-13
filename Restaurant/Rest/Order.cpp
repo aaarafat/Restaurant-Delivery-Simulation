@@ -29,7 +29,7 @@ REGION Order::GetRegion() const
 
 void Order::SetDistance(int d)
 {
-	Distance = d>0?d:0;
+	Distance = d>0?d:0; // d pos or zero
 }
 
 int Order::GetDistance() const

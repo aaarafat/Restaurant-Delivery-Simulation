@@ -18,7 +18,6 @@ enum ORD_TYPE	//types of orders
 	TYPE_FROZ,	//frozen
 	TYPE_VIP,	//VIP
 	TYPE_CNT	//Number of types
-
 };
 
 enum STATUS	//status of motorcycles
