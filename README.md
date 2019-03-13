@@ -34,7 +34,7 @@ At the bottom of the screen, the following information should be printed:
 e.g. N6(V3) ➔ normal motorcycle#6 assigned VIP order#3
 ▪ Total number of orders served so far of each order type
 
-![Project Interface](https://pasteboard.co/I4j3dtK.jpg)
+![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterface.jpg)
 
 
 Step-by-step mode is identical to interactive mode except that each time step, the program waits for one second (not for mouse click) then resumes automatically.
