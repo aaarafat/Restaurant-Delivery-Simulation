@@ -17,15 +17,13 @@ class PriortyQueueADT
 
 public:
 	bool Insert(T val);  // Insert new element in the Queue
-	T ExtractMax();      // Return the Maximum element
+	bool ExtractMax(T& result);      // Return the Maximum element
 	bool Remove(int i);  // Remove index i
 	void ChangePriority(int i, T val);   // Chnage priority of node(i)
 	PriortyQueueADT();
-	~PriortyQueueADT();
-
 };
-template<class T>
-void PriortyQueueADT<T>::ChangePriority(int i, T val)
+template<class T, int MAX_SIZE>
+void PriortyQueueADT<T,MAX_SIZE>::ChangePriority(int i, T val)
 {
 	T old = H[i];
 	H[i] = val;
@@ -38,16 +36,8 @@ void PriortyQueueADT<T>::ChangePriority(int i, T val)
 		SiftUp(i);
 	}
 }
-template<class T>
-bool PriortyQueueADT<T>::Remove(int i)
-{
-	H[i] = INT_MAX; // infinity (i will change it later)
-	SiftUp(i);
-	T temp;
-	ExtractMax(temp);
-}
-template<class T>
-bool PriortyQueueADT<T>::ExtractMax(T& result)
+template<class T, int MAX_SIZE>
+bool PriortyQueueADT<T,MAX_SIZE>::ExtractMax(T& result)
 {
 	if (size == 0)
 	{
@@ -58,10 +48,18 @@ bool PriortyQueueADT<T>::ExtractMax(T& result)
 	SiftDown(1);
 	return true;
 }
-template<class T>
-bool PriortyQueueADT<T>::Insert(T val)
+template<class T, int MAX_SIZE>
+bool PriortyQueueADT<T,MAX_SIZE>::Remove(int i)
 {
-	if (size == MaxSize)
+	H[i] = INT_MAX; // infinity (i will change it later)
+	SiftUp(i);
+	T temp;
+	ExtractMax(temp);
+}
+template<class T, int MAX_SIZE>
+bool PriortyQueueADT<T,MAX_SIZE>::Insert(T val)
+{
+	if (size == MAX_SIZE)
 	{
 		return false;
 	}
@@ -70,50 +68,46 @@ bool PriortyQueueADT<T>::Insert(T val)
 	SiftUp(size);
 	return true;
 }
-template<class T>
-PriortyQueueADT<T>::PriortyQueueADT()
+template<class T, int MAX_SIZE>
+PriortyQueueADT<T,MAX_SIZE>::PriortyQueueADT()
 {
 	size = 0;
 }
-template<class T>
-PriortyQueueADT<T>::~PriortyQueueADT()
-{
-}
 // Utility Functions
 //////////////////////////////////
-template<class T>
-int PriortyQueueADT<T>::Parent(int i) const  
+template<class T, int MAX_SIZE>
+int PriortyQueueADT<T,MAX_SIZE>::Parent(int i) const  
 {
 	return i/2;
 }
-template<class T>
-int PriortyQueueADT<T>::LeftChild(int i) const
+template<class T, int MAX_SIZE>
+int PriortyQueueADT<T,MAX_SIZE>::LeftChild(int i) const
 {
 	return 2 * i;
 }
-template<class T>	
-int PriortyQueueADT<T>::RightChild(int i) const
+template<class T, int MAX_SIZE>
+int PriortyQueueADT<T,MAX_SIZE>::RightChild(int i) const
 {
 	return 2 * i + 1;
 }
-template<class T>
-void PriortyQueueADT<T>::Swap(int i, int j)
+template<class T, int MAX_SIZE>
+void PriortyQueueADT<T,MAX_SIZE>::Swap(int i, int j)
 {
 	T temp = H[i];
 	H[i] = H[j];
 	H[j] = temp;
 }
-template<class T>	
-void PriortyQueueADT<T>::SiftUp(int i)
+template<class T, int MAX_SIZE>
+void PriortyQueueADT<T,MAX_SIZE>::SiftUp(int i)
 {
 	while (i > 1 && H[Parent(i)] < H[i])
 	{
-		swap(Parent(i),i);
+		Swap(Parent(i),i);
 		i = Parent(i);
 	}
 }
-template<class T>	
-void PriortyQueueADT<T>::SiftDown(int i)
+template<class T, int MAX_SIZE>
+void PriortyQueueADT<T,MAX_SIZE>::SiftDown(int i)
 {
 	int MaxIdx = i;
 	int left = LeftChild(i);
@@ -128,7 +122,7 @@ void PriortyQueueADT<T>::SiftDown(int i)
 	}
 	if (i != MaxIdx)
 	{
-		swap(i,MaxIdx);
+		Swap(i,MaxIdx);
 		SiftDown(MaxIdx);
 	}
 }
