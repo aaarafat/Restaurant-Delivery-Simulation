@@ -111,6 +111,12 @@
     <ClInclude Include="Generic_DS\PriorityQueueADT.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
+    <ClInclude Include="Generic_DS\HeapInterface.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic_DS\ArrayMaxHeap.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo_Main.cpp" />

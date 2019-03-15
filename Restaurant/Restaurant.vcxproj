@@ -98,6 +98,8 @@
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Events\ArrivalEvent.h" />
     <ClInclude Include="Events\Event.h" />
+    <ClInclude Include="Generic_DS\ArrayMaxHeap.h" />
+    <ClInclude Include="Generic_DS\HeapInterface.h" />
     <ClInclude Include="Generic_DS\Node.h" />
     <ClInclude Include="Generic_DS\PriorityQueueADT.h" />
     <ClInclude Include="Generic_DS\Queue.h" />
