@@ -120,6 +120,9 @@
     <ClInclude Include="Generic_DS\PriorityQueueInterface.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
+    <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo_Main.cpp" />
