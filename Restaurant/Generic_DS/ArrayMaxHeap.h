@@ -33,6 +33,15 @@ class ArrayMaxHeap : public HeapInterface
 
 	// Creates a heap from an unordered array.
 	void heapCreate();
+
+	// Swaps 2 elements
+	void Swap(T & item_1, T & item_2);
+
+	// Doubles the capacity of the array
+	void Double_Capacity();
+
+	// Shrinks the capacity of the array in half
+	void Shrink_Capacity();
 	////////////////////////////
 public:
 	ArrayMaxHeap();
@@ -84,7 +93,7 @@ int ArrayMaxHeap<T>::RightChild(int nodeIndex) const
 template<class T>
 int ArrayMaxHeap<T>::Parent(int nodeIndex) const
 {
-	return nodeIndex / 2;
+	return (nodeIndex - 1) / 2;
 }
 
 // sees whether this node is a leaf
@@ -102,6 +111,51 @@ void ArrayMaxHeap<T>::heapCreate()
 	{
 		heapRebuild(i);
 	}
+}
+
+// Converts a semiheap to a heap.
+template<class T>
+void ArrayMaxHeap<T>::heapRebuild(int subTreeRootIndex)
+{
+	if (!isLeaf(subTreeRootIndex))
+	{
+		int maxIndex = LeftChild(subTreeRootIndex);
+		if (RightChild(subTreeRootIndex) < count)
+		{
+			if (items[RightChild(subTreeRootIndex)] > items[maxIndex])
+			{
+				maxIndex = RightChild(subTreeRootIndex);
+			}
+		}
+		if (items[subTreeRootIndex] < items[maxIndex])
+		{
+			Swap(items[subTreeRootIndex], items[maxIndex]);
+			heapRebuild(maxIndex);
+		}
+	}
+}
+
+// Swaps 2 elements
+template<class T>
+void ArrayMaxHeap<T>::Swap(T & item_1, T & item_2)
+{
+	T temp = item_1;
+	item_1 = item_2;
+	item_2 = temp;
+}
+
+// Doubles the capacity of the array
+template<class T>
+void ArrayMaxHeap<T>::Double_Capacity()
+{
+
+}
+
+// Shrinks the capacity of the array in half
+template<class T>
+void ArrayMaxHeap<T>::Shrink_Capacity()
+{
+
 }
 
 template<class T>
@@ -193,14 +247,63 @@ T ArrayMaxHeap<T>::peekTop() const
 		std::cout << "ERROR: " << e.what();
 	}
 }
+
 // Adds new node to the heap
 template<class T>
-bool ArrayMaxHeap<T>::add(const T& newData);
+bool ArrayMaxHeap<T>::add(const T& newData)
+{
+	if (Count == maxItems)
+	{
+		Double_Capacity();
+	}
+	items[Count] = newData;
+
+	int newDataIndex = Count;
+	bool RightPlace = false;
+	
+	while (newDataIndex >= 0 && !RightPlace)
+	{
+		int parentIndex = Parent(newDataIndex);
+		if (items[newDataIndex] < items[parentIndex])
+		{
+			RightPlace = 1;
+		}
+		else
+		{
+			Swap(items[newDataIndex], items[parentIndex]);
+			newDataIndex = parentIndex;
+		}
+	}
+
+	Count++;
+}
+
 // Remove the root (top) node
 template<class T>
-bool ArrayMaxHeap<T>::remove();
+bool ArrayMaxHeap<T>::remove()
+{
+	items[0] = items[Count - 1];
+
+	Count--;
+
+	heapRebuild(0);
+
+	if (Count < (maxItems - DEFAULT_CAPACITY) / 2)
+	{
+		Shrink_Capacity();
+	}
+}
+
 // Removes all nodes from the heap
 template<class T>
-void ArrayMaxHeap<T>::clear();
+void ArrayMaxHeap<T>::clear()
+{
+	if (items)
+	{
+		delete items;
+		Count = 0;
+		maxItems = 0;
+	}
+}
 
 #endif _ARRAY_MAX_HEAP
