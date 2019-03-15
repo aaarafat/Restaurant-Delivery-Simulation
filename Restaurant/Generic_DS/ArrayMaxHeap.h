@@ -5,7 +5,7 @@
 #include <exception>
 
 template<class T>
-class ArrayMaxHeap : public HeapInterface
+class ArrayMaxHeap : public HeapInterface<T>
 {
 	static const int DEFAULT_CAPACITY = 15;
 	T* items; // Array of heap items
@@ -120,7 +120,7 @@ void ArrayMaxHeap<T>::heapRebuild(int subTreeRootIndex)
 	if (!isLeaf(subTreeRootIndex))
 	{
 		int maxIndex = LeftChild(subTreeRootIndex);
-		if (RightChild(subTreeRootIndex) < count)
+		if (RightChild(subTreeRootIndex) < Count)
 		{
 			if (items[RightChild(subTreeRootIndex)] > items[maxIndex])
 			{
@@ -234,7 +234,7 @@ ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // As
 	}
 }
 template<class T>
-virtual ArrayMaxHeap<T>::~ArrayMaxHeap()
+ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
 	this->clear();
 }
@@ -296,8 +296,9 @@ bool ArrayMaxHeap<T>::add(const T& newData)
 
 	int newDataIndex = Count;
 	bool RightPlace = false;
-	
-	while (newDataIndex >= 0 && !RightPlace)
+	bool added = false;
+
+	while (newDataIndex > 0 && !RightPlace)
 	{
 		int parentIndex = Parent(newDataIndex);
 		if (items[newDataIndex] < items[parentIndex])
@@ -306,28 +307,44 @@ bool ArrayMaxHeap<T>::add(const T& newData)
 		}
 		else
 		{
+			added = true;
 			Swap(items[newDataIndex], items[parentIndex]);
 			newDataIndex = parentIndex;
 		}
 	}
 
 	Count++;
+	return added;
 }
 
 // Remove the root (top) node
 template<class T>
 bool ArrayMaxHeap<T>::remove()
 {
-	items[0] = items[Count - 1];
+	if (Count == 0)
+	{
+		return false;
+	}
 
-	Count--;
+	if (Count == 1)
+	{
+		Count--;
+	}
+	else
+	{
+		items[0] = items[Count - 1];
 
-	heapRebuild(0);
+		Count--;
+
+		heapRebuild(0);
+
+	}
 
 	if (Count < (maxItems - DEFAULT_CAPACITY) / 2)
 	{
 		Shrink_Capacity();
 	}
+	return true;
 }
 
 // Removes all nodes from the heap
