@@ -148,14 +148,38 @@ void ArrayMaxHeap<T>::Swap(T & item_1, T & item_2)
 template<class T>
 void ArrayMaxHeap<T>::Double_Capacity()
 {
-
+	T* temp = new T [maxItems];
+	for (int i = 0; i < maxItems; i++)
+	{
+		temp[i] = items[i];
+	}
+	delete items;
+	items = new T [maxItems * 2];
+	for (int i = 0; i < maxItems; i++)
+	{
+		items[i] = temp[i];
+	}
+	delete temp;
+	maxItems *= 2;
 }
 
 // Shrinks the capacity of the array in half
 template<class T>
 void ArrayMaxHeap<T>::Shrink_Capacity()
 {
-
+	maxItems /= 2;
+	T* temp = new T [maxItems];
+	for (int i = 0; i < maxItems; i++)
+	{
+		temp[i] = items[i];
+	}
+	delete items;
+	items = new T [maxItems];
+	for (int i = 0; i < maxItems; i++)
+	{
+		items[i] = temp[i];
+	}
+	delete temp;
 }
 
 template<class T>
