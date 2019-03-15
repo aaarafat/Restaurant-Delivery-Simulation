@@ -186,6 +186,7 @@ T ArrayMaxHeap<T>::peekTop() const
 		{
 			throw std::exception("The Heap is Empty\n");
 		}
+		return items[0];
 	}
 	catch(std::exception& e)
 	{
