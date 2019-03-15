@@ -3,6 +3,7 @@
 #include "HeapInterface.h"
 #include <iostream>
 #include <exception>
+#include <cstdlib>
 
 template<class T>
 class ArrayMaxHeap : public HeapInterface<T>
@@ -281,6 +282,7 @@ T ArrayMaxHeap<T>::peekTop() const
 	catch(std::exception& e)
 	{
 		std::cout << "ERROR: " << e.what();
+		std::exit(0);
 	}
 }
 

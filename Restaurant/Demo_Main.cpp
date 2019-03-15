@@ -19,7 +19,7 @@ int main()
 		heap.add(x);
 		cin >> x;
 	}
-	while (!heap.isEmpty())
+	while (true)
 	{
 		std::cout << heap.peekTop() << '\n';
 		heap.remove();
