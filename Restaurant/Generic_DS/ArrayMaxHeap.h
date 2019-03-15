@@ -251,9 +251,21 @@ int ArrayMaxHeap<T>::getNumberOfNodes() const
 {
 	return Count;
 }
+
 // Gets the Height of the heap
 template<class T>
-int ArrayMaxHeap<T>::getHeight() const;
+int ArrayMaxHeap<T>::getHeight() const
+{
+	int lastNodeIndex = Count - 1;
+	int Count = 0;
+	while (lastNodeIndex > 0)
+	{
+		lastNodeIndex = Parent(lastNodeIndex);
+		Count++;
+	}
+	return Count;
+}
+
 // Gets the data that is in the root (top) of this heap
 template<class T>
 T ArrayMaxHeap<T>::peekTop() const
