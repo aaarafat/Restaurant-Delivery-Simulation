@@ -29,7 +29,7 @@ class ArrayMaxHeap : public HeapInterface
 	bool isLeaf(int nodeIndex) const;
 
 	// Converts a semiheap to a heap.
-	void heapRebuild( int subTreeRootIndex);
+	void heapRebuild(int subTreeRootIndex);
 
 	// Creates a heap from an unordered array.
 	void heapCreate();
@@ -70,14 +70,14 @@ public:
 template<class T>
 int ArrayMaxHeap<T>::LeftChild(int nodeIndex) const
 {
-	return 2 * nodeIndex;
+	return 2 * nodeIndex + 1;
 }
 
 // Gets the array index of the right child node
 template<class T>
 int ArrayMaxHeap<T>::RightChild(int nodeIndex) const
 {
-	return 2 * nodeIndex + 1;
+	return 2 * nodeIndex + 2;
 }
 
 // Gets the array index of the parent node
