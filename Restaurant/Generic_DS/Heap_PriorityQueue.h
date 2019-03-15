@@ -6,7 +6,7 @@
 template<class ItemType>
 class Heap_PriorityQueue :
 	public PriorityQueueInterface<ItemType>,
-	public ArrayMaxHeap<ItemType> 
+	private ArrayMaxHeap<ItemType> 
 {
 public:
 	Heap_PriorityQueue();
