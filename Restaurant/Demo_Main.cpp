@@ -12,13 +12,13 @@ int main()
 	delete pRest;
 	*/
 	Heap_PriorityQueue<int> Q;
-	Q.add(2);
-	Q.add(3);
-	Q.add(5);
-	Q.add(6);
-	Q.add(2);
-	Q.add(1);
-	Q.add(9);
+	int x;
+	cin >> x;
+	while (x != -1)
+	{
+		Q.add(x);
+		cin >> x;
+	}
 	Heap_PriorityQueue<int> Copy = Q;
 	while (!Copy.isEmpty())
 	{
