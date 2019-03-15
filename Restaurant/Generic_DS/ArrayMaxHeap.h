@@ -154,13 +154,13 @@ void ArrayMaxHeap<T>::Double_Capacity()
 	{
 		temp[i] = items[i];
 	}
-	delete items;
+	delete[] items;
 	items = new T [maxItems * 2];
 	for (int i = 0; i < maxItems; i++)
 	{
 		items[i] = temp[i];
 	}
-	delete temp;
+	delete[] temp;
 	maxItems *= 2;
 }
 
@@ -174,13 +174,13 @@ void ArrayMaxHeap<T>::Shrink_Capacity()
 	{
 		temp[i] = items[i];
 	}
-	delete items;
+	delete[] items;
 	items = new T [maxItems];
 	for (int i = 0; i < maxItems; i++)
 	{
 		items[i] = temp[i];
 	}
-	delete temp;
+	delete[] temp;
 }
 
 template<class T>
@@ -207,14 +207,13 @@ ArrayMaxHeap<T>::ArrayMaxHeap(const T Array[], const int Size) :
 template<class T>
 ArrayMaxHeap<T>::ArrayMaxHeap(const ArrayMaxHeap<T>& Array) // Copy constructor
 {
-	this->clear();
 	Count = Array.Count;
 	maxItems = Array.maxItems;
 
 	items = new T [maxItems];
 
 	// Copy
-	for (int i = 0; i < Size; i++)
+	for (int i = 0; i < maxItems; i++)
 	{
 		items[i] = Array.items[i];
 	}
@@ -222,7 +221,7 @@ ArrayMaxHeap<T>::ArrayMaxHeap(const ArrayMaxHeap<T>& Array) // Copy constructor
 template<class T>
 ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // Assignment Operator
 {
-	this->clear();
+	clear();
 	Count = Array.Count;
 	maxItems = Array.maxItems;
 
@@ -237,7 +236,7 @@ ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // As
 template<class T>
 ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
-	this->clear();
+	clear();
 }
 
 // sees whether the heap is empty
@@ -355,7 +354,7 @@ void ArrayMaxHeap<T>::clear()
 {
 	if (items)
 	{
-		delete items;
+		delete[] items;
 		Count = 0;
 		maxItems = 0;
 	}
