@@ -1,7 +1,8 @@
 #ifndef _ARRAY_MAX_HEAP
 #define _ARRAY_MAX_HEAP
 #include "HeapInterface.h"
-#include <functional> // std::bad_function_call
+#include <iostream>
+#include <exception>
 
 template<class T>
 class ArrayMaxHeap : public HeapInterface
@@ -37,6 +38,7 @@ public:
 	ArrayMaxHeap();
 	ArrayMaxHeap(const T Array[], const int Size);
 	ArrayMaxHeap(const ArrayMaxHeap<T>& Array); // Copy constructor
+	ArrayMaxHeap<T>& operator= (const ArrayMaxHeap<T>& Array); // Assignment Operator
 	virtual ~ArrayMaxHeap();
 
 	/* /////////////////////////
@@ -96,7 +98,10 @@ bool ArrayMaxHeap<T>::isLeaf(int nodeIndex) const
 template<class T>
 void ArrayMaxHeap<T>::heapCreate()
 {
-
+	for (int i = Count / 2; i >= 0; i--)
+	{
+		heapRebuild(i);
+	}
 }
 
 template<class T>
@@ -136,6 +141,21 @@ ArrayMaxHeap<T>::ArrayMaxHeap(const ArrayMaxHeap<T>& Array) // Copy constructor
 	}
 }
 template<class T>
+ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // Assignment Operator
+{
+	this->clear();
+	Count = Array.Count;
+	maxItems = Array.maxItems;
+
+	items = new T [maxItems];
+
+	// Copy
+	for (int i = 0; i < Size; i++)
+	{
+		items[i] = Array.items[i];
+	}
+}
+template<class T>
 virtual ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
 	this->clear();
@@ -143,16 +163,35 @@ virtual ArrayMaxHeap<T>::~ArrayMaxHeap()
 
 // sees whether the heap is empty
 template<class T>
-bool ArrayMaxHeap<T>::isEmpty() const;
+bool ArrayMaxHeap<T>::isEmpty() const
+{
+	return Count == 0;
+}
 // Gets the number of nodes
 template<class T>
-int ArrayMaxHeap<T>::getNumberOfNodes() const;
+int ArrayMaxHeap<T>::getNumberOfNodes() const
+{
+	return Count;
+}
 // Gets the Height of the heap
 template<class T>
 int ArrayMaxHeap<T>::getHeight() const;
 // Gets the data that is in the root (top) of this heap
 template<class T>
-T ArrayMaxHeap<T>::peekTop() const;
+T ArrayMaxHeap<T>::peekTop() const
+{
+	try
+	{
+		if (isEmpty())
+		{
+			throw std::exception("The Heap is Empty\n");
+		}
+	}
+	catch(std::exception& e)
+	{
+		std::cout << "ERROR: " << e.what();
+	}
+}
 // Adds new node to the heap
 template<class T>
 bool ArrayMaxHeap<T>::add(const T& newData);
