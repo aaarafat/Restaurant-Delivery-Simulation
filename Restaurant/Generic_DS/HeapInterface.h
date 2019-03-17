@@ -14,7 +14,7 @@ public:
 	virtual int getHeight() const = 0;
 	
 	// Gets the data that is in the root (top) of this heap
-	virtual T peekTop() const = 0;
+	virtual T* peekTop() const = 0;
 
 	// Adds new node to the heap
 	virtual bool add(const T& Item) = 0;

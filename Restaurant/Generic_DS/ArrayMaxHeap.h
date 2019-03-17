@@ -9,7 +9,7 @@ template<class T>
 class ArrayMaxHeap : public HeapInterface<T>
 {
 	static const int DEFAULT_CAPACITY = 15;
-	T* items; // Array of heap items
+	T** items; // Array of pointers to heap items
 	int Count; // Current count of heap items
 	int maxItems; // Maximum capacity of the heap
 
@@ -36,7 +36,7 @@ class ArrayMaxHeap : public HeapInterface<T>
 	void heapCreate();
 
 	// Swaps 2 elements
-	void Swap(T & item_1, T & item_2);
+	void Swap(T* & item_1, T* & item_2);
 
 	// Doubles the capacity of the array
 	void Double_Capacity();
@@ -50,11 +50,14 @@ public:
 	ArrayMaxHeap(const ArrayMaxHeap<T>& Array); // Copy constructor
 	ArrayMaxHeap<T>& operator= (const ArrayMaxHeap<T>& Array); // Assignment Operator
 	virtual ~ArrayMaxHeap();
-
+	
 	/* /////////////////////////
 			Methods
 	*///////////////////////////
 
+	// Gets the Capacity of the Heap
+	int Capacity() const;
+	
 	// sees whether the heap is empty
 	bool isEmpty() const;
 
@@ -65,7 +68,7 @@ public:
 	int getHeight() const;
 
 	// Gets the data that is in the root (top) of this heap
-	T peekTop() const;
+	T* peekTop() const;
 
 	// Adds new node to the heap
 	bool add(const T& newData);
@@ -123,12 +126,12 @@ void ArrayMaxHeap<T>::heapRebuild(int subTreeRootIndex)
 		int maxIndex = LeftChild(subTreeRootIndex);
 		if (RightChild(subTreeRootIndex) < Count)
 		{
-			if (items[RightChild(subTreeRootIndex)] > items[maxIndex])
+			if (*items[RightChild(subTreeRootIndex)] > *items[maxIndex])
 			{
 				maxIndex = RightChild(subTreeRootIndex);
 			}
 		}
-		if (items[subTreeRootIndex] < items[maxIndex])
+		if (*items[subTreeRootIndex] < *items[maxIndex])
 		{
 			Swap(items[subTreeRootIndex], items[maxIndex]);
 			heapRebuild(maxIndex);
@@ -138,9 +141,9 @@ void ArrayMaxHeap<T>::heapRebuild(int subTreeRootIndex)
 
 // Swaps 2 elements
 template<class T>
-void ArrayMaxHeap<T>::Swap(T & item_1, T & item_2)
+void ArrayMaxHeap<T>::Swap(T* & item_1, T* & item_2)
 {
-	T temp = item_1;
+	T* temp = item_1;
 	item_1 = item_2;
 	item_2 = temp;
 }
@@ -149,14 +152,14 @@ void ArrayMaxHeap<T>::Swap(T & item_1, T & item_2)
 template<class T>
 void ArrayMaxHeap<T>::Double_Capacity()
 {
-	T* temp = new T [maxItems];
-	for (int i = 0; i < maxItems; i++)
+	T** temp = new T* [maxItems];
+	for (int i = 0; i < Count; i++)
 	{
 		temp[i] = items[i];
 	}
 	delete[] items;
-	items = new T [maxItems * 2];
-	for (int i = 0; i < maxItems; i++)
+	items = new T* [maxItems * 2];
+	for (int i = 0; i < Count; i++)
 	{
 		items[i] = temp[i];
 	}
@@ -169,14 +172,14 @@ template<class T>
 void ArrayMaxHeap<T>::Shrink_Capacity()
 {
 	maxItems /= 2;
-	T* temp = new T [maxItems];
-	for (int i = 0; i < maxItems; i++)
+	T** temp = new T* [maxItems];
+	for (int i = 0; i < Count; i++)
 	{
 		temp[i] = items[i];
 	}
 	delete[] items;
-	items = new T [maxItems];
-	for (int i = 0; i < maxItems; i++)
+	items = new T* [maxItems];
+	for (int i = 0; i < Count; i++)
 	{
 		items[i] = temp[i];
 	}
@@ -187,18 +190,18 @@ template<class T>
 ArrayMaxHeap<T>::ArrayMaxHeap() :
 	Count(0), maxItems(DEFAULT_CAPACITY)
 {
-	items = new T [DEFAULT_CAPACITY];	
+	items = new T* [DEFAULT_CAPACITY];	
 }
 template<class T>
 ArrayMaxHeap<T>::ArrayMaxHeap(const T Array[], const int Size) : 
 	Count(Size), maxItems(2 * Size)
 {
-	items = new T [maxItems];
+	items = new T* [maxItems];
 
 	// Copy
 	for (int i = 0; i < Size; i++)
 	{
-		items[i] = Array[i];
+		items[i] = new T(Array[i]);
 	}
 
 	// Create the heap from the unordered items array
@@ -210,12 +213,13 @@ ArrayMaxHeap<T>::ArrayMaxHeap(const ArrayMaxHeap<T>& Array) // Copy constructor
 	Count = Array.Count;
 	maxItems = Array.maxItems;
 
-	items = new T [maxItems];
+	items = new T* [maxItems];
 
 	// Copy
-	for (int i = 0; i < maxItems; i++)
+	for (int i = 0; i < Count; i++)
 	{
-		items[i] = Array.items[i];
+		T* temp = new T(*Array.items[i]);
+		items[i] = temp;
 	}
 }
 template<class T>
@@ -225,18 +229,26 @@ ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // As
 	Count = Array.Count;
 	maxItems = Array.maxItems;
 
-	items = new T [maxItems];
+	items = new T* [maxItems];
 
 	// Copy
-	for (int i = 0; i < Size; i++)
+	for (int i = 0; i < Count; i++)
 	{
-		items[i] = Array.items[i];
+		items[i] = new T(*Array.items[i]);
 	}
+	return *this;
 }
 template<class T>
 ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
 	clear();
+}
+
+// Gets the Capacity of the Heap
+template<class T>
+int ArrayMaxHeap<T>::Capacity() const
+{
+	return maxItems;
 }
 
 // sees whether the heap is empty
@@ -268,7 +280,7 @@ int ArrayMaxHeap<T>::getHeight() const
 
 // Gets the data that is in the root (top) of this heap
 template<class T>
-T ArrayMaxHeap<T>::peekTop() const
+T* ArrayMaxHeap<T>::peekTop() const
 {
 	try
 	{
@@ -293,7 +305,7 @@ bool ArrayMaxHeap<T>::add(const T& newData)
 	{
 		Double_Capacity();
 	}
-	items[Count] = newData;
+	items[Count] = new T(newData);
 
 	int newDataIndex = Count;
 	bool RightPlace = false;
@@ -333,8 +345,9 @@ bool ArrayMaxHeap<T>::remove()
 	}
 	else
 	{
+		T* temp = items[0];
 		items[0] = items[Count - 1];
-
+		delete temp;
 		Count--;
 
 		heapRebuild(0);
@@ -354,6 +367,10 @@ void ArrayMaxHeap<T>::clear()
 {
 	if (items)
 	{
+		for (int i = 0; i < Count; i++)
+		{
+			delete items[i];
+		}
 		delete[] items;
 		Count = 0;
 		maxItems = 0;

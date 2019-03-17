@@ -10,24 +10,23 @@ class Heap_PriorityQueue :
 {
 public:
 	Heap_PriorityQueue();
-	Heap_PriorityQueue(const Heap_PriorityQueue<ItemType>& PriorityQueue);
 	bool isEmpty() const;
 	bool add(const ItemType& Item);
 	bool remove();
-	ItemType peek() const;
+	ItemType* peek() const;
+	int Capcity() const;
 };
+
+template<class ItemType>
+int Heap_PriorityQueue<ItemType>::Capcity() const
+{
+	return ArrayMaxHeap<ItemType>::Capacity();
+}
 
 template<class ItemType>
 Heap_PriorityQueue<ItemType>::Heap_PriorityQueue()
 {
 	ArrayMaxHeap<ItemType>();
-}
-
-template<class ItemType>
-Heap_PriorityQueue<ItemType>::Heap_PriorityQueue(const Heap_PriorityQueue<ItemType>& PriorityQueue) : 
-	ArrayMaxHeap<ItemType>(PriorityQueue)
-{
-	
 }
 
 template<class ItemType>
@@ -49,7 +48,7 @@ bool Heap_PriorityQueue<ItemType>::remove()
 }
 
 template<class ItemType>
-ItemType Heap_PriorityQueue<ItemType>::peek() const
+ItemType* Heap_PriorityQueue<ItemType>::peek() const
 {
 	return ArrayMaxHeap<ItemType>::peekTop();
 }

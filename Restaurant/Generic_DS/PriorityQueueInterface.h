@@ -15,6 +15,6 @@ public:
 	virtual bool remove() = 0;
 
 	// Returns the Item with the highest priority
-	virtual ItemType peek() const = 0;
+	virtual ItemType* peek() const = 0;
 };
 #endif _PRIORITY_QUEUE_INTERFACE
