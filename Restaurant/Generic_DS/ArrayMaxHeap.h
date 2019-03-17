@@ -2,8 +2,8 @@
 #define _ARRAY_MAX_HEAP
 #include "HeapInterface.h"
 #include <iostream>
-#include <exception>
-#include <cstdlib>
+#include <exception> // exception()
+#include <cstdlib>   // exit() 
 
 template<class T>
 class ArrayMaxHeap : public HeapInterface<T>
