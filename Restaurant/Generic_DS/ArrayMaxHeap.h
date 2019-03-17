@@ -314,7 +314,7 @@ bool ArrayMaxHeap<T>::add(const T& newData)
 	while (newDataIndex > 0 && !RightPlace)
 	{
 		int parentIndex = Parent(newDataIndex);
-		if (items[newDataIndex] < items[parentIndex])
+		if (*items[newDataIndex] < *items[parentIndex])
 		{
 			RightPlace = 1;
 		}
