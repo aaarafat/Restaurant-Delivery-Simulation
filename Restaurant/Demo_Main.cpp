@@ -6,12 +6,14 @@
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
 int main()
 {
-	/*	
+	
 	Restaurant* pRest = new Restaurant;
 	pRest->RunSimulation();
 	
 	delete pRest;
-	*/
+
+	//Priority Queue Test
+	/*
 	Heap_PriorityQueue<int> Q;
 	int x;
 	cin >> x;

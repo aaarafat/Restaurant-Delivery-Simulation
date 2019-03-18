@@ -20,10 +20,13 @@ void Restaurant::RunSimulation()
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
+		Interactive_Simulation();
 		break;
 	case MODE_STEP:
+		StepByStep_Simulation();
 		break;
 	case MODE_SLNT:
+		Silent_Simulation();
 		break;
 	case MODE_DEMO:
 		Just_A_Demo();
@@ -164,3 +167,67 @@ Order* Restaurant::getDemoOrder()
 
 
 /// ==> end of DEMO-related function
+
+
+
+//////////////////////////////////////////////////////////////
+//// Functions of Simulation
+//////////////////////////////////////////////////////////////
+
+
+//Steps Only when mouse is clicked and outputs the final file
+void Restaurant :: Interactive_Simulation()
+{
+
+	pGUI->PrintMessage("Interactive Simulation.Left Mouse Click to Step ");
+
+	//Call The ReadFile Function And Assign the Events to the Events Queue
+
+	//Loop on the Events Queue to execute the active Events
+
+	//Delete Finished Orders
+
+	//Generate the Output File
+
+	pGUI->PrintMessage("Simulation Finished. Please Click to Exit");
+	pGUI->waitForClick();
+
+}
+
+////////////
+
+
+//steps every one second and outputs the final file
+void Restaurant :: StepByStep_Simulation()
+{
+
+	pGUI->PrintMessage("Step By Step Simulation. Steps Every One second. Click to start Simulation.");
+
+	//Call The ReadFile Function And Assign the Events to the Events Queue
+
+	//Loop on the Events Queue to execute the active Events
+
+	//Delete Finished Orders
+
+	//Generate the Output File
+
+	pGUI->PrintMessage("Simulation Finished. Please Click to Exit");
+	pGUI->waitForClick();
+
+}
+
+////////////
+
+
+//only outputs the final file and doesnt open a GUI
+void Restaurant :: Silent_Simulation()   
+{
+
+
+	//Generate the Output File
+
+
+
+}
+
+///////////////////////////////////////////////////////
