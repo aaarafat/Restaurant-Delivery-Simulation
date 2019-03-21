@@ -26,6 +26,8 @@ public:
 	REGION GetRegion() const;
 	void SetStatus(STATUS st);
 	STATUS GetStatus() const;
+	friend bool operator> (const Motorcycle& moto, const Motorcycle& moto2);
+	friend bool operator< (const Motorcycle& moto, const Motorcycle& moto2);
 	virtual ~Motorcycle();
 };
 

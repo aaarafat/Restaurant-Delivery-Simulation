@@ -10,7 +10,7 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	//List of normal orders to search
 	//list of frozen orders to search
-
+	
 public:
 	Motorcycle* getVIPMotor() const;
 	void setVIPMotor(const Motorcycle& M);

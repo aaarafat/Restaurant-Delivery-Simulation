@@ -61,6 +61,16 @@ STATUS Motorcycle::GetStatus() const
 	return status;
 }
 
+bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
+{
+	return moto.speed > moto2.speed;
+}
+
+bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
+{
+	return moto.speed < moto2.speed;
+}
+
 Motorcycle::~Motorcycle()
 {
 

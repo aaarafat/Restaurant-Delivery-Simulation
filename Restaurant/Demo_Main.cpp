@@ -2,16 +2,17 @@
 #include "Rest\Restaurant.h"
 #include "GUI\GUI.h"
 #include "Generic_DS\Heap_PriorityQueue.h"
+#include "Rest\Motorcycle.h"
 #include <iostream>
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
 int main()
 {
-	
+	/*
 	Restaurant* pRest = new Restaurant;
 	pRest->RunSimulation();
 	
 	delete pRest;
-
+	*/
 	//Priority Queue Test
 	/*
 	Heap_PriorityQueue<int> Q;
@@ -43,5 +44,19 @@ int main()
 		Q.remove();
 	}
 	*/
+	/*Heap_PriorityQueue<Motorcycle> moto;
+	int n;
+	cin >> n;
+	while (n != -1)
+	{
+		moto.add(Motorcycle(TYPE_VIP,n,A_REG,IDLE));
+		cin >> n;
+	}
+	while (!moto.isEmpty())
+	{
+		cout << moto.peek()->GetSpeed() << '\n';
+		moto.remove();
+	}*/
+
 	return 0;
 }
