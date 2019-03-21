@@ -58,6 +58,8 @@ public:
 	// Gets the Capacity of the Heap
 	int Capacity() const;
 	
+	int Size() const;
+
 	// sees whether the heap is empty
 	bool isEmpty() const;
 
@@ -377,4 +379,9 @@ void ArrayMaxHeap<T>::clear()
 	}
 }
 
+template<class T>
+int ArrayMaxHeap<T>::Size() const
+{
+	return Count;
+}
 #endif _ARRAY_MAX_HEAP
