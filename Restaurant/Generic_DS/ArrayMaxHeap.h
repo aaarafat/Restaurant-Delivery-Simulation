@@ -45,7 +45,7 @@ class ArrayMaxHeap : public HeapInterface<T>
 	////////////////////////////
 public:
 	ArrayMaxHeap();
-	ArrayMaxHeap(const T Array[], const int Size);
+	ArrayMaxHeap(T* Array[], const int Size);
 	ArrayMaxHeap(const ArrayMaxHeap<T>& Array); // Copy constructor
 	ArrayMaxHeap<T>& operator= (const ArrayMaxHeap<T>& Array); // Assignment Operator
 	virtual ~ArrayMaxHeap();
@@ -72,7 +72,7 @@ public:
 	T* peekTop() const;
 
 	// Adds new node to the heap
-	bool add(const T& newData);
+	bool add(T* newData);
 
 	// Remove the root (top) node
 	bool remove();
@@ -194,7 +194,7 @@ ArrayMaxHeap<T>::ArrayMaxHeap() :
 	items = new T* [DEFAULT_CAPACITY];	
 }
 template<class T>
-ArrayMaxHeap<T>::ArrayMaxHeap(const T Array[], const int Size) : 
+ArrayMaxHeap<T>::ArrayMaxHeap(T* Array[], const int Size) : 
 	Count(Size), maxItems(2 * Size)
 {
 	items = new T* [maxItems];
@@ -202,7 +202,7 @@ ArrayMaxHeap<T>::ArrayMaxHeap(const T Array[], const int Size) :
 	// Copy
 	for (int i = 0; i < Size; i++)
 	{
-		items[i] = new T(Array[i]);
+		items[i] = Array[i];
 	}
 
 	// Create the heap from the unordered items array
@@ -242,7 +242,7 @@ ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // As
 template<class T>
 ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
-	clear();
+	//clear();
 }
 
 // Gets the Capacity of the Heap
@@ -300,13 +300,13 @@ T* ArrayMaxHeap<T>::peekTop() const
 
 // Adds new node to the heap
 template<class T>
-bool ArrayMaxHeap<T>::add(const T& newData)
+bool ArrayMaxHeap<T>::add(T* newData)
 {
 	if (Count == maxItems)
 	{
 		Double_Capacity();
 	}
-	items[Count] = new T(newData);
+	items[Count] = newData;
 
 	int newDataIndex = Count;
 	bool RightPlace = false;
@@ -346,9 +346,7 @@ bool ArrayMaxHeap<T>::remove()
 	}
 	else
 	{
-		T* temp = items[0];
 		items[0] = items[Count - 1];
-		delete temp;
 		Count--;
 
 		heapRebuild(0);

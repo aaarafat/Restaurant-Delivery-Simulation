@@ -14,15 +14,17 @@ int main()
 	delete pRest;
 	
 	//Priority Queue Test
-	/*
-	Heap_PriorityQueue<int> Q;
+	
+	/*Heap_PriorityQueue<int> Q;
 	int x;
-	cin >> x;
-	while (x != -1)
+	int* arr = new int[5];
+	for (int i = 0; i < 5; i++)
 	{
-		Q.add(x);
-		watch(Q.Capcity());
-		cin >> x;
+		cin >> arr[i];
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		Q.add(&arr[i]);
 	}
 	Heap_PriorityQueue<int> Copy = Q;
 	while (!Copy.isEmpty())
@@ -30,7 +32,7 @@ int main()
 		std::cout<< *Copy.peek() << '\n';
 		Copy.remove();
 		watch(Copy.Capcity());
-	}
+	}*/
 	/*cin >> x;
 	while (x != -1)
 	{

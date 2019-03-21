@@ -22,15 +22,15 @@ Motorcycle* Region::getNormalMotor() const
 //{
 //	return VIPOrder.peek();
 //}
-void Region::setVIPMotor(const Motorcycle& V)
+void Region::setVIPMotor(Motorcycle* V)
 {
 	VIPMotor.add(V);
 }
-void Region::setFrozenMotor(const Motorcycle& F)
+void Region::setFrozenMotor(Motorcycle* F)
 {
 	FrozenMotor.add(F);
 }
-void Region::setNormalMotor(const Motorcycle& N)
+void Region::setNormalMotor(Motorcycle* N)
 {
 	NormalMotor.add(N);
 }

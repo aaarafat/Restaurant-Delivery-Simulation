@@ -123,20 +123,20 @@
     <ClInclude Include="Events\PromoEvent.h">
       <Filter>Restaurant</Filter>
     </ClInclude>
-    <ClInclude Include="Generic_DS\ArrayMaxHeap.h">
-      <Filter>Restaurant</Filter>
-    </ClInclude>
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
-      <Filter>Restaurant</Filter>
+      <Filter>Generic_DS</Filter>
     </ClInclude>
     <ClInclude Include="Generic_DS\HeapInterface.h">
-      <Filter>Restaurant</Filter>
+      <Filter>Generic_DS</Filter>
     </ClInclude>
     <ClInclude Include="Generic_DS\PriorityQueueADT.h">
-      <Filter>Restaurant</Filter>
+      <Filter>Generic_DS</Filter>
     </ClInclude>
     <ClInclude Include="Generic_DS\PriorityQueueInterface.h">
-      <Filter>Restaurant</Filter>
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic_DS\ArrayMaxHeap.h">
+      <Filter>Generic_DS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ public:
 	virtual bool isEmpty() const = 0;
 
 	// Adds new item to the queue
-	virtual bool add(const ItemType& Item) = 0;
+	virtual bool add(ItemType* Item) = 0;
 
 	// Remove the item with the highest priority
 	virtual bool remove() = 0;

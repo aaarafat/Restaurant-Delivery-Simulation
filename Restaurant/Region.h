@@ -13,11 +13,11 @@ class Region
 	
 public:
 	Motorcycle* getVIPMotor() const;
-	void setVIPMotor(const Motorcycle& M);
+	void setVIPMotor(Motorcycle* M);
 	Motorcycle* getNormalMotor() const;
-	void setNormalMotor(const Motorcycle& M);
+	void setNormalMotor(Motorcycle* M);
 	Motorcycle* getFrozenMotor() const;
-	void setFrozenMotor(const Motorcycle& M);
+	void setFrozenMotor(Motorcycle* M);
 	//Order* getVIPOrder() const;
 	//void setVIPOrder(const Order& O);
 	//seter and getter for both the list

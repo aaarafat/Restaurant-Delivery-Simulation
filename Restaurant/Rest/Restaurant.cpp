@@ -179,17 +179,17 @@ void Restaurant::ReadFile()
 		for(int i = 0; i < N; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(*tmp);
+			Reg[k].setNormalMotor(tmp);
 		}
 		for(int i = 0; i < F; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(*tmp);
+			Reg[k].setNormalMotor(tmp);
 		}
 		for(int i = 0; i < V; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(*tmp);
+			Reg[k].setNormalMotor(tmp);
 		}
 	}
 	fin>>AutoPromo;

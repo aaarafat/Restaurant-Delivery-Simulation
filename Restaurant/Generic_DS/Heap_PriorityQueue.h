@@ -11,7 +11,7 @@ class Heap_PriorityQueue :
 public:
 	Heap_PriorityQueue();
 	bool isEmpty() const;
-	bool add(const ItemType& Item);
+	bool add(ItemType* Item);
 	bool remove();
 	ItemType* peek() const;
 	int Capcity() const;
@@ -42,7 +42,7 @@ bool Heap_PriorityQueue<ItemType>::isEmpty() const
 }
 
 template<class ItemType>
-bool Heap_PriorityQueue<ItemType>::add(const ItemType& Item)
+bool Heap_PriorityQueue<ItemType>::add(ItemType* Item)
 {
 	return ArrayMaxHeap<ItemType>::add(Item);
 }

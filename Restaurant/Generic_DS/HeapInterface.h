@@ -17,7 +17,7 @@ public:
 	virtual T* peekTop() const = 0;
 
 	// Adds new node to the heap
-	virtual bool add(const T& Item) = 0;
+	virtual bool add(T* Item) = 0;
 
 	// Remove the root (top) node
 	virtual bool remove() = 0;
