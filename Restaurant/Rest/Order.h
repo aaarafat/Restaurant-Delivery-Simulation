@@ -32,11 +32,12 @@ public:
 
 	void SetDistance(int d);
 	int GetDistance() const;
-
+	double Priorty() const;
 	//
 	// TODO: Add More Member Functions As Needed
 	//
-
+	bool operator> (const Order& o);
+	bool operator< (const Order& o);
 };
 
 #endif
