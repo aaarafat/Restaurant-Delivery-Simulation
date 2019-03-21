@@ -36,3 +36,16 @@ int Order::GetDistance() const
 {
 	return Distance;
 }
+double Order::Priorty() const
+{
+	return (float(Distance)/ArrTime)+(float(totalMoney)/Distance);
+}
+bool Order::operator< (const Order& o)
+{
+	return Priorty()<o.Priorty();
+}
+
+bool Order::operator> (const Order& o)
+{
+	return Priorty()>o.Priorty();
+}
