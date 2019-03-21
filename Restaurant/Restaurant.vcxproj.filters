@@ -123,16 +123,8 @@
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Generic_DS\LinkedList.h">
-      <Filter>Generic_DS</Filter>
-    </ClInclude>
-    <ClInclude Include="Generic_DS\LinkedListInterface.h">
-      <Filter>Generic_DS</Filter>
-=======
     <ClInclude Include="Region.h">
       <Filter>Restaurant</Filter>
->>>>>>> 4c88f965259e6e701b80dc7133f456348cd2a403
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

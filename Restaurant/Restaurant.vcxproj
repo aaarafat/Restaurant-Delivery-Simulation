@@ -101,8 +101,6 @@
     <ClInclude Include="Generic_DS\ArrayMaxHeap.h" />
     <ClInclude Include="Generic_DS\HeapInterface.h" />
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h" />
-    <ClInclude Include="Generic_DS\LinkedList.h" />
-    <ClInclude Include="Generic_DS\LinkedListInterface.h" />
     <ClInclude Include="Generic_DS\Node.h" />
     <ClInclude Include="Generic_DS\PriorityQueueADT.h" />
     <ClInclude Include="Generic_DS\PriorityQueueInterface.h" />
