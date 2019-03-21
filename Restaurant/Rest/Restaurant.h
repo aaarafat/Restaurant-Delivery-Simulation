@@ -1,15 +1,20 @@
 #ifndef __RESTAURANT_H_
 #define __RESTAURANT_H_
-
+#include <cstdlib>
+#include <time.h>
+#include <iostream>
+#include <fstream>
 #include "..\Defs.h"
 #include "..\CMUgraphicsLib\CMUgraphics.h"
 #include "..\GUI\GUI.h"
 #include "..\Generic_DS\Queue.h"
 #include "..\Events\Event.h"
-
-
+#include "..\Events\ArrivalEvent.h"
+#include "..\Events\CancelEvent.h"
+#include "..\Events\PromoEvent.h"
 #include "Order.h"
-
+#include "..\Region.h"
+using namespace std;
 // it is the maestro of the project
 class Restaurant  
 {	
@@ -21,6 +26,8 @@ private:
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2
 	Queue<Order*> DEMO_Queue;	//Important: This is just for demo
+	Region Reg[REG_CNT];
+	int AutoPromo;
 	/// ==>
 	
 	//
@@ -42,7 +49,7 @@ public:
 	Order* getDemoOrder();			//return the front order from demo queue
 	/// ==> 
 
-
+	void ReadFile();
 	//
 	// TODO: Add More Member Functions As Needed
 	//

@@ -7,7 +7,7 @@ class Region
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;
-	Heap_PriorityQueue<Order> VIPOrder;
+	//Heap_PriorityQueue<Order> VIPOrder;
 	//List of normal orders to search
 	//list of frozen orders to search
 	
@@ -18,8 +18,8 @@ public:
 	void setNormalMotor(const Motorcycle& M);
 	Motorcycle* getFrozenMotor() const;
 	void setFrozenMotor(const Motorcycle& M);
-	Order* getVIPOrder() const;
-	void setVIPOrder(const Order& O);
+	//Order* getVIPOrder() const;
+	//void setVIPOrder(const Order& O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 

@@ -97,7 +97,9 @@
     <ClInclude Include="CMUgraphicsLib\windowinput.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Events\ArrivalEvent.h" />
+    <ClInclude Include="Events\CancelEvent.h" />
     <ClInclude Include="Events\Event.h" />
+    <ClInclude Include="Events\PromoEvent.h" />
     <ClInclude Include="Generic_DS\ArrayMaxHeap.h" />
     <ClInclude Include="Generic_DS\HeapInterface.h" />
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h" />
@@ -150,8 +152,10 @@
     <ClCompile Include="CMUgraphicsLib\mousequeue.cpp" />
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp" />
     <ClCompile Include="Demo_Main.cpp" />
+    <ClCompile Include="Events\CancelEvent.cpp" />
     <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="Events\ArrivalEvent.cpp" />
+    <ClCompile Include="Events\PromoEvent.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Rest\Motorcycle.cpp" />

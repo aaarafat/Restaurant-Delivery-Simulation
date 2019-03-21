@@ -4,8 +4,6 @@
 using namespace std;
 
 #include "Restaurant.h"
-#include "..\Events\ArrivalEvent.h"
-
 
 Restaurant::Restaurant() 
 {
@@ -169,6 +167,66 @@ Order* Restaurant::getDemoOrder()
 /// ==> end of DEMO-related function
 
 
+void Restaurant::ReadFile()
+{
+	ifstream fin;
+	fin.open("input.txt");
+	int SN, SF, SV, N, F, V;
+	fin>>SN>>SF>>SV;
+	for(int k = A_REG; k < REG_CNT; k++)
+	{
+		fin>>N>>F>>V;
+		for(int i = 0; i < N; i++)
+		{
+			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k), IDLE); 
+			Reg[k].setNormalMotor(*tmp);
+		}
+		for(int i = 0; i < F; i++)
+		{
+			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SF, REGION(k), IDLE); 
+			Reg[k].setNormalMotor(*tmp);
+		}
+		for(int i = 0; i < V; i++)
+		{
+			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SV, REGION(k), IDLE); 
+			Reg[k].setNormalMotor(*tmp);
+		}
+	}
+	fin>>AutoPromo;
+	int n;
+	fin>>n;
+	for(int i = 0; i < n; i++)
+	{
+		Event* ptr;
+		char s;
+		fin>>s;
+		switch (s)
+		{
+		case 'R':
+			{
+				ptr = new ArrivalEvent();
+				ptr->ReadEvent(fin);
+				break;
+			}
+		case 'X':
+			{
+				ptr = new CancelEvent();
+				ptr->ReadEvent(fin);
+				break;
+			}
+		case 'P':
+			{
+				ptr = new PromoEvent();
+				ptr->ReadEvent(fin);
+				break;
+			}
+		}
+		AddEvent(ptr);
+	}
+	fin.close();
+
+
+}
 
 //////////////////////////////////////////////////////////////
 //// Functions of Simulation
