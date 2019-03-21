@@ -127,7 +127,7 @@ int LinkedList<ItemType>::Size() const
 	return itemCount;
 }
 template <class ItemType>
-ItemType LinkedList<ItemType>::Peek()
+ItemType* LinkedList<ItemType>::Peek()
 {
 	Node<ItemType>* nod = headPtr;
 	headPtr = headPtr->getNext();
