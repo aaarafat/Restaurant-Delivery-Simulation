@@ -12,8 +12,7 @@ class ArrayMaxHeap : public HeapInterface<T>
 	T** items; // Array of pointers to heap items
 	int Count; // Current count of heap items
 	int maxItems; // Maximum capacity of the heap
-
-	/* /////////////////////////
+    /* /////////////////////////
 			Utility Functions
 	*///////////////////////////
 
