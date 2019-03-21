@@ -12,8 +12,7 @@ class ArrayMaxHeap : public HeapInterface<T>
 	T** items; // Array of pointers to heap items
 	int Count; // Current count of heap items
 	int maxItems; // Maximum capacity of the heap
-
-	/* /////////////////////////
+    /* /////////////////////////
 			Utility Functions
 	*///////////////////////////
 
@@ -58,6 +57,8 @@ public:
 	// Gets the Capacity of the Heap
 	int Capacity() const;
 	
+	int Size() const;
+
 	// sees whether the heap is empty
 	bool isEmpty() const;
 
@@ -377,4 +378,9 @@ void ArrayMaxHeap<T>::clear()
 	}
 }
 
+template<class T>
+int ArrayMaxHeap<T>::Size() const
+{
+	return Count;
+}
 #endif _ARRAY_MAX_HEAP

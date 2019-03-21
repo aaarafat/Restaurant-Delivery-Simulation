@@ -2,6 +2,7 @@
 #include "Rest\Restaurant.h"
 #include "GUI\GUI.h"
 #include "Generic_DS\Heap_PriorityQueue.h"
+#include "Rest\Motorcycle.h"
 #include <iostream>
 #include "Generic_DS\LinkedList.h"
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
@@ -45,6 +46,7 @@ int main()
 	}
 	*/
 	LinkedList<int> l;
+	/*Heap_PriorityQueue<Motorcycle> moto;
 	int n;
 	cin >> n;
 	while (n != -1)
@@ -56,6 +58,14 @@ int main()
 	{
 		std::cout << l.getEntry(i) << '\n';
 	}
+		moto.add(Motorcycle(TYPE_VIP,n,A_REG,IDLE));
+		cin >> n;
+	}
+	while (!moto.isEmpty())
+	{
+		cout << moto.peek()->GetSpeed() << '\n';
+		moto.remove();
+	}*/
 
 	return 0;
 }
