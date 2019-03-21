@@ -3,15 +3,16 @@
 #include "GUI\GUI.h"
 #include "Generic_DS\Heap_PriorityQueue.h"
 #include <iostream>
+#include "Generic_DS\LinkedList.h"
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
 int main()
 {
-	
+	/*
 	Restaurant* pRest = new Restaurant;
 	pRest->RunSimulation();
 	
 	delete pRest;
-
+	*/
 	//Priority Queue Test
 	/*
 	Heap_PriorityQueue<int> Q;
@@ -43,5 +44,18 @@ int main()
 		Q.remove();
 	}
 	*/
+	LinkedList<int> l;
+	int n;
+	cin >> n;
+	while (n != -1)
+	{
+		l.Add(n);
+		cin >> n;
+	}
+	for (int i = 1; i <= 5; i++)
+	{
+		std::cout << l.getEntry(i) << '\n';
+	}
+
 	return 0;
 }

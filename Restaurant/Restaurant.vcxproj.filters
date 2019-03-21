@@ -123,6 +123,12 @@
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
+    <ClInclude Include="Generic_DS\LinkedList.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Generic_DS\LinkedListInterface.h">
+      <Filter>Generic_DS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo_Main.cpp" />
