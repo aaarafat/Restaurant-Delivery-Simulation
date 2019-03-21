@@ -15,6 +15,8 @@ public:
 	bool remove();
 	ItemType* peek() const;
 	int Capcity() const;
+	int Size() const;
+
 };
 
 template<class ItemType>
@@ -22,7 +24,11 @@ int Heap_PriorityQueue<ItemType>::Capcity() const
 {
 	return ArrayMaxHeap<ItemType>::Capacity();
 }
-
+template<class ItemType>
+int Heap_PriorityQueue<ItemType>::Size() const
+{
+	return ArrayMaxHeap<ItemType>::Size();
+}
 template<class ItemType>
 Heap_PriorityQueue<ItemType>::Heap_PriorityQueue()
 {

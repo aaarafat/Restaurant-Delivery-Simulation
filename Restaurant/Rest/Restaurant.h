@@ -46,6 +46,10 @@ public:
 	//
 	// TODO: Add More Member Functions As Needed
 	//
+	//Simulation Functions
+	void Interactive_Simulation(); //Steps on mouse clicks
+	void StepByStep_Simulation(); //Steps every Second
+	void Silent_Simulation();     //Doesn't generate a GUI 
 
 };
 

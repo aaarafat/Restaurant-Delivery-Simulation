@@ -123,6 +123,9 @@
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
+    <ClInclude Include="Region.h">
+      <Filter>Restaurant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demo_Main.cpp" />
@@ -249,6 +252,7 @@
     <ClCompile Include="Events\ArrivalEvent.cpp">
       <Filter>Events</Filter>
     </ClCompile>
+    <ClCompile Include="Region.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt">
