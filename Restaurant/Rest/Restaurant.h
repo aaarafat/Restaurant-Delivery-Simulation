@@ -26,7 +26,7 @@ private:
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2
 	Queue<Order*> DEMO_Queue;	//Important: This is just for demo
-	Region Reg[REG_CNT];
+	Region* Reg[REG_CNT];
 	int AutoPromo;
 	/// ==>
 	
@@ -50,6 +50,7 @@ public:
 	/// ==> 
 
 	void ReadFile();
+	Region* GetRegion(REGION x);
 	//
 	// TODO: Add More Member Functions As Needed
 	//

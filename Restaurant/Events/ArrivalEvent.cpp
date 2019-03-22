@@ -7,11 +7,11 @@ ArrivalEvent::ArrivalEvent(int eTime, int oID, ORD_TYPE oType, REGION reg):Event
 	OrdType = oType;
 	OrdRegion = reg;
 }
-ArrivalEvent::ArrivalEvent()
+ArrivalEvent::ArrivalEvent(Restaurant* pR) : Event(pR)
 {
 }
 
-void ArrivalEvent::Execute(Restaurant* pRest)
+void ArrivalEvent::Execute()
 {
 	//This function should create an order and fills its data 
 	// Then adds it to normal, frozen, or VIP order lists that you will create in phase1
@@ -40,6 +40,6 @@ void ArrivalEvent::ReadEvent(ifstream& fin)
 	case 'C': OrdRegion = C_REG; break;
 	case 'D': OrdRegion = D_REG; break;
 	}
-
+	OrdReg = pRest->GetRegion(OrdRegion);
 
 }

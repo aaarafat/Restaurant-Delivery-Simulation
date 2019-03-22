@@ -6,9 +6,9 @@ class PromoEvent :	public Event
 {
 	int ExMon;
 public:
-	PromoEvent(void);
+	PromoEvent(Restaurant* pR);
 	void ReadEvent(ifstream& fin);
-	void Execute(Restaurant* pRest);
+	void Execute();
 	~PromoEvent(void);
 };
 

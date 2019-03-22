@@ -8,6 +8,11 @@ using namespace std;
 Restaurant::Restaurant() 
 {
 	pGUI = NULL;
+	for(int i = A_REG; i < REG_CNT; i++)
+	{
+		Reg[i] = new Region();
+	}
+
 }
 
 void Restaurant::RunSimulation()
@@ -49,7 +54,7 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 		if(pE->getEventTime() > CurrentTimeStep )	//no more events at current time
 			return;
 
-		pE->Execute(this);
+		pE->Execute();
 		EventsQueue.dequeue(pE);	//remove event from the queue
 		delete pE;		//deallocate event object from memory
 	}
@@ -59,7 +64,11 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 
 Restaurant::~Restaurant()
 {
-		delete pGUI;
+	delete pGUI;
+	for(int i = A_REG; i < REG_CNT; i++)
+	{
+		delete Reg[i];
+	}
 }
 
 
@@ -179,17 +188,17 @@ void Restaurant::ReadFile()
 		for(int i = 0; i < N; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(tmp);
+			Reg[k]->setNormalMotor(tmp);
 		}
 		for(int i = 0; i < F; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(tmp);
+			Reg[k]->setFrozenMotor(tmp);
 		}
 		for(int i = 0; i < V; i++)
 		{
 			Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k), IDLE); 
-			Reg[k].setNormalMotor(tmp);
+			Reg[k]->setVIPMotor(tmp);
 		}
 	}
 	fin>>AutoPromo;
@@ -204,19 +213,19 @@ void Restaurant::ReadFile()
 		{
 		case 'R':
 			{
-				ptr = new ArrivalEvent();
+				ptr = new ArrivalEvent(this);
 				ptr->ReadEvent(fin);
 				break;
 			}
 		case 'X':
 			{
-				ptr = new CancelEvent();
+				ptr = new CancelEvent(this);
 				ptr->ReadEvent(fin);
 				break;
 			}
 		case 'P':
 			{
-				ptr = new PromoEvent();
+				ptr = new PromoEvent(this);
 				ptr->ReadEvent(fin);
 				break;
 			}
@@ -226,6 +235,10 @@ void Restaurant::ReadFile()
 	fin.close();
 
 
+}
+Region* Restaurant::GetRegion(REGION x)
+{
+	return Reg[x];
 }
 
 //////////////////////////////////////////////////////////////

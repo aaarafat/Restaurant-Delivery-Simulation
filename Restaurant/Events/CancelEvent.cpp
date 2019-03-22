@@ -1,7 +1,7 @@
 #include "CancelEvent.h"
 
 
-CancelEvent::CancelEvent(void)
+CancelEvent::CancelEvent(Restaurant* pR) : Event(pR)
 {
 }
 
@@ -9,7 +9,7 @@ void CancelEvent::ReadEvent(ifstream& fin)
 {
 	fin>>EventTime>>OrderID;
 }
-void CancelEvent::Execute(Restaurant* pRest)
+void CancelEvent::Execute()
 {
 
 }

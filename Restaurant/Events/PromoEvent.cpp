@@ -1,14 +1,14 @@
 #include "PromoEvent.h"
 
 
-PromoEvent::PromoEvent(void)
+PromoEvent::PromoEvent(Restaurant* pR) : Event(pR)
 {
 }
 void PromoEvent::ReadEvent(ifstream& fin)
 {
 	fin>>EventTime>>OrderID>>ExMon;
 }
-void PromoEvent::Execute(Restaurant* pRest)
+void PromoEvent::Execute()
 {
 
 }

@@ -6,9 +6,9 @@ class CancelEvent : public Event
 {
 
 public:
-	CancelEvent(void);
+	CancelEvent(Restaurant* pR);
 	void ReadEvent(ifstream& fin);
-	void Execute(Restaurant* pRest);
+	void Execute();
 	~CancelEvent(void);
 };
 

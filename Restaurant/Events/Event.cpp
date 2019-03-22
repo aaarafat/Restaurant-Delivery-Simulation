@@ -6,9 +6,8 @@ Event::Event(int eTime, int ordID)
 	EventTime = eTime;
 	OrderID	= ordID;
 }
-Event::Event()
+Event::Event(Restaurant* pR) : pRest(pR)
 {
-
 }
 
 
