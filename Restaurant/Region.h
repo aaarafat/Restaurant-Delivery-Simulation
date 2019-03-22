@@ -28,7 +28,9 @@ public:
 	void setNormalOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
-
+	bool VIPOrderIsEmpty();
+	bool NormalOrderIsEmpty();
+	bool FrozenOrderIsEmpty();
 	
 	Region();
 	~Region();

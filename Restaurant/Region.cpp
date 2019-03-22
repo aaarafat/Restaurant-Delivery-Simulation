@@ -62,6 +62,19 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
+bool Region::VIPOrderIsEmpty()
+{
+	return VIPOrder.isEmpty();
+}
+bool Region::NormalOrderIsEmpty()
+{
+	return NormalOrder.isEmpty();
+}
+bool Region::FrozenOrderIsEmpty()
+{
+	return FrozenOrder.isEmpty();
+}
+
 Region::~Region()
 {
 }

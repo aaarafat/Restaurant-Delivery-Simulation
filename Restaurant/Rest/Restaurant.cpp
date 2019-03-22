@@ -368,11 +368,12 @@ void Restaurant :: Test_Simulation()
 		//Let's draw all arrived orders by passing them to the GUI to draw
 		//function to draw 
 		//remove the loop once you finish the function
-		while(DEMO_Queue.dequeue(pOrd))
+		/*while(DEMO_Queue.dequeue(pOrd))
 		{
 			pGUI->AddOrderForDrawing(pOrd);
 			pGUI->UpdateInterface();
-		}
+		}*/
+		Test_Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 
@@ -393,8 +394,115 @@ void Restaurant :: Test_Simulation()
 
 void Restaurant :: Test_Draw_All()
 {
-	Order* pOrd;
-	while(Reg[A_REG]->getVIPOrder());
+	Order* pOrd=nullptr;
+	bool Empty=Reg[A_REG]->VIPOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[A_REG]->getVIPOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[A_REG]->VIPOrderIsEmpty();
+	}
+
+	Empty=Reg[B_REG]->VIPOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[B_REG]->getVIPOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[B_REG]->VIPOrderIsEmpty();
+	}
+
+	Empty=Reg[C_REG]->VIPOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[C_REG]->getVIPOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[C_REG]->VIPOrderIsEmpty();
+	}
+
+	Empty=Reg[D_REG]->VIPOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[D_REG]->getVIPOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[D_REG]->VIPOrderIsEmpty();
+	}
+
+	Empty=Reg[A_REG]->NormalOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[A_REG]->getNormalOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[A_REG]->NormalOrderIsEmpty();
+	}
+
+	Empty=Reg[B_REG]->NormalOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[B_REG]->getNormalOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[B_REG]->NormalOrderIsEmpty();
+	}
+
+	Empty=Reg[C_REG]->NormalOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[C_REG]->getNormalOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[C_REG]->NormalOrderIsEmpty();
+	}
+
+	Empty=Reg[D_REG]->NormalOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[D_REG]->getNormalOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[D_REG]->NormalOrderIsEmpty();
+	}
+
+	Empty=Reg[A_REG]->FrozenOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[A_REG]->getFrozenOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[A_REG]->FrozenOrderIsEmpty();
+	}
+
+	Empty=Reg[B_REG]->FrozenOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[B_REG]->getFrozenOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[B_REG]->FrozenOrderIsEmpty();
+	}
+
+	Empty=Reg[C_REG]->FrozenOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[C_REG]->getFrozenOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[C_REG]->FrozenOrderIsEmpty();
+		
+	}
+
+	Empty=Reg[D_REG]->FrozenOrderIsEmpty();
+	while(!Empty)
+	{
+		pOrd=Reg[D_REG]->getFrozenOrder();
+		pGUI->AddOrderForDrawing(pOrd);
+		pGUI->UpdateInterface();
+		Empty=Reg[D_REG]->FrozenOrderIsEmpty();
+	}
 
 
 }
