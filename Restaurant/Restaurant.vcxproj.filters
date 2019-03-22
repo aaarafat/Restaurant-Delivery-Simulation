@@ -117,12 +117,6 @@
     <ClInclude Include="Generic_DS\LinkedListInterface.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CancelEvent.h">
-      <Filter>Restaurant</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\PromoEvent.h">
-      <Filter>Restaurant</Filter>
-    </ClInclude>
     <ClInclude Include="Generic_DS\Heap_PriorityQueue.h">
       <Filter>Generic_DS</Filter>
     </ClInclude>
@@ -137,6 +131,12 @@
     </ClInclude>
     <ClInclude Include="Generic_DS\ArrayMaxHeap.h">
       <Filter>Generic_DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CancelEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PromoEvent.h">
+      <Filter>Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -264,10 +264,14 @@
     <ClCompile Include="Events\ArrivalEvent.cpp">
       <Filter>Events</Filter>
     </ClCompile>
-    <ClCompile Include="Events\CancelEvent.cpp" />
-    <ClCompile Include="Events\PromoEvent.cpp" />
     <ClCompile Include="Region.cpp">
       <Filter>Restaurant</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\CancelEvent.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\PromoEvent.cpp">
+      <Filter>Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

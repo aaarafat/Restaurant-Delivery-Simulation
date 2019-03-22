@@ -30,6 +30,14 @@ Order* Region::getVIPOrder()
 	VIPOrder.remove();
 	return O;
 }
+Order* Region::getFrozenOrder() 
+{
+	return FrozenOrder.removeBegin();
+}
+Order* Region::getNormalOrder() 
+{
+	return NormalOrder.removeBegin();
+}
 void Region::setVIPMotor(Motorcycle* V)
 {
 	VIPMotor.add(V);
