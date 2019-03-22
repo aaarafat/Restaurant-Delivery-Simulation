@@ -9,9 +9,9 @@ int main()
 {
 	
 	Restaurant* pRest = new Restaurant;
-	pRest->RunSimulation();
+	//pRest->RunSimulation();
 	
-	delete pRest;
+	
 	
 	//Priority Queue Test
 	
@@ -60,5 +60,13 @@ int main()
 		moto.remove();
 	}*/
 
+
+	//execute Test
+	ArrivalEvent ARR(4,23,TYPE_VIP,A_REG,pRest);
+	ARR.Execute();
+	Order*ord=NULL;
+	Region *R=pRest->GetRegion(A_REG);
+	ord=R->getVIPOrder();
+	delete pRest;
 	return 0;
 }

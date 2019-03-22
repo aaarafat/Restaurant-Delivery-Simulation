@@ -21,7 +21,87 @@ void ArrivalEvent::Execute()
 	///For the sake of demo, this function will just create an order and add it to DemoQueue
 	///Remove the next code lines in phase 1&2
 	Order* pOrd = new Order(OrderID,OrdType,OrdRegion);
-	pRest->AddtoDemoQueue(pOrd);
+	//pRest->AddtoDemoQueue(pOrd);
+	if (OrdRegion == A_REG)
+		{
+			if (OrdType == TYPE_NRM)
+			{
+				Region* R=pRest->GetRegion(A_REG);
+				R->setNormalOrder(pOrd);
+			}
+			if (OrdType == TYPE_VIP)
+			{
+				Region* R=pRest->GetRegion(A_REG);
+				R->setVIPOrder(pOrd);
+			}
+			if (OrdType == TYPE_FROZ)
+			{
+				Region* R=pRest->GetRegion(A_REG);
+				R->setFrozenOrder(pOrd);
+			}
+
+		}
+
+	if (OrdRegion == B_REG)
+		{
+			if (OrdType == TYPE_NRM)
+			{
+				Region* R=pRest->GetRegion(B_REG);
+				R->setNormalOrder(pOrd);
+			}
+			if (OrdType == TYPE_VIP)
+			{
+				Region* R=pRest->GetRegion(B_REG);
+				R->setVIPOrder(pOrd);
+			}
+			if (OrdType == TYPE_FROZ)
+			{
+				Region* R=pRest->GetRegion(B_REG);
+				R->setFrozenOrder(pOrd);
+			}
+
+		}
+
+	if (OrdRegion == C_REG)
+		{
+			if (OrdType == TYPE_NRM)
+			{
+				Region* R=pRest->GetRegion(C_REG);
+				R->setNormalOrder(pOrd);
+			}
+			if (OrdType == TYPE_VIP)
+			{
+				Region* R=pRest->GetRegion(C_REG);
+				R->setVIPOrder(pOrd);
+			}
+			if (OrdType == TYPE_FROZ)
+			{
+				Region* R=pRest->GetRegion(C_REG);
+				R->setFrozenOrder(pOrd);
+			}
+
+		}
+
+	if (OrdRegion == D_REG)
+		{
+			if (OrdType == TYPE_NRM)
+			{
+				Region* R=pRest->GetRegion(D_REG);
+				R->setNormalOrder(pOrd);
+			}
+			if (OrdType == TYPE_VIP)
+			{
+				Region* R=pRest->GetRegion(D_REG);
+				R->setVIPOrder(pOrd);
+			}
+			if (OrdType == TYPE_FROZ)
+			{
+				Region* R=pRest->GetRegion(D_REG);
+				R->setFrozenOrder(pOrd);
+			}
+
+		}
+
 }
 void ArrivalEvent::ReadEvent(ifstream& fin)
 {

@@ -26,13 +26,13 @@ private:
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2
 	Queue<Order*> DEMO_Queue;	//Important: This is just for demo
-	Region* Reg[REG_CNT];
-	int AutoPromo;
+	
 	/// ==>
 	
 	//
 	// TODO: Add More Data Members As Needed
-	//
+	Region* Reg[REG_CNT];
+	int AutoPromo;
 
 public:
 	

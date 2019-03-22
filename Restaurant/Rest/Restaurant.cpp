@@ -341,13 +341,18 @@ void Restaurant :: Test_Simulation()
 
 		//Randomize event time
 		EvTime += rand()%4;
-		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg);
+		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg,this);
 		AddEvent(pEv);
 
 	}	
 
+	// TODO add the events to the corresponding ADT's
+
+
 	int CurrentTimeStep = 1;
-	//as long as events queue is not empty yet
+
+	// TODO make the function to go until all queues are empty 
+	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty())
 	{
 		//print current timestep
@@ -369,15 +374,12 @@ void Restaurant :: Test_Simulation()
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 
-		//if(CurrentTimeStep==5)
-		//{
-		//	pGUI->ResetDrawingList();
-		//}
+		if(CurrentTimeStep==4)
+		{
+			pGUI->ResetDrawingList();
+		}
 	}
-	if(CurrentTimeStep==4)
-	{
-		pGUI->ResetDrawingList();
-	}
+	
 
 	pGUI->PrintMessage("generation done, click to END program");
 	pGUI->waitForClick();
