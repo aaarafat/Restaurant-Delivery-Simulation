@@ -23,7 +23,7 @@ protected:
 
 public:
 	Order(int ID, ORD_TYPE r_Type, REGION r_region);
-	Order();
+	
 	virtual ~Order();
 
 	int GetID();
