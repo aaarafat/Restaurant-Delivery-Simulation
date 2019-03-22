@@ -32,7 +32,7 @@ void Restaurant::RunSimulation()
 		Silent_Simulation();
 		break;
 	case MODE_DEMO:
-		Just_A_Demo();
+		Test_Simulation();
 	};
 
 }
@@ -301,4 +301,88 @@ void Restaurant :: Silent_Simulation()
 
 }
 
-///////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+
+void Restaurant :: Test_Simulation()
+{
+
+	int EventCnt;	
+	Order* pOrd;
+	Event* pEv;
+	srand(time(NULL));
+
+	pGUI->PrintMessage("Just a Demo. Enter EVENTS Count(next phases should read I/P filename):");
+	EventCnt = atoi(pGUI->GetString().c_str());	//get user input as a string then convert to integer
+
+	pGUI->UpdateInterface();
+
+	pGUI->PrintMessage("Generating orders randomly... In next phases, orders should be loaded from a file");
+		
+	int EvTime = 0;
+	
+	//Create Random events
+	//All generated event will be "ArrivalEvents" for the demo
+	for(int i=0; i<EventCnt; i++)
+	{
+		int O_id = i+1;
+		
+		//Rendomize order type
+		int OType;
+		if(i<EventCnt*0.2)	//let 1st 20% of orders be VIP (just for sake of demo)
+			OType = TYPE_VIP;
+		else if(i<EventCnt*0.5)	
+			OType = TYPE_FROZ;	//let next 30% be Frozen
+		else
+			OType = TYPE_NRM;	//let the rest be normal
+
+		
+		int reg = rand()% REG_CNT;	//randomize region
+
+
+		//Randomize event time
+		EvTime += rand()%4;
+		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg);
+		AddEvent(pEv);
+
+	}	
+
+	int CurrentTimeStep = 1;
+	//as long as events queue is not empty yet
+	while(!EventsQueue.isEmpty())
+	{
+		//print current timestep
+		char timestep[10];
+		itoa(CurrentTimeStep,timestep,10);	
+		pGUI->PrintMessage(timestep);
+
+
+		ExecuteEvents(CurrentTimeStep);	//execute all events at current time step
+		//The above line may add new orders to the DEMO_Queue
+
+		//Let's draw all arrived orders by passing them to the GUI to draw
+
+		while(DEMO_Queue.dequeue(pOrd))
+		{
+			pGUI->AddOrderForDrawing(pOrd);
+			pGUI->UpdateInterface();
+		}
+		Sleep(1000);
+		CurrentTimeStep++;	//advance timestep
+
+		//if(CurrentTimeStep==5)
+		//{
+		//	pGUI->ResetDrawingList();
+		//}
+	}
+	if(CurrentTimeStep==4)
+	{
+		pGUI->ResetDrawingList();
+	}
+
+	pGUI->PrintMessage("generation done, click to END program");
+	pGUI->waitForClick();
+
+
+}
+
+/////////////////////////////////////////////////////

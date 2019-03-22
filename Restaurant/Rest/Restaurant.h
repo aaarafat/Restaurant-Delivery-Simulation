@@ -58,7 +58,7 @@ public:
 	void Interactive_Simulation(); //Steps on mouse clicks
 	void StepByStep_Simulation(); //Steps every Second
 	void Silent_Simulation();     //Doesn't generate a GUI 
-
+	void Test_Simulation(); //Testing for phase 1
 };
 
 #endif
