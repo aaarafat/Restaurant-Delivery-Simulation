@@ -39,6 +39,7 @@ public:
 	//
 	bool operator> (const Order& o);
 	bool operator< (const Order& o);
+	bool operator== (int id);
 };
 
 #endif

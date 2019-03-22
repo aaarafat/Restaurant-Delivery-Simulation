@@ -50,3 +50,7 @@ bool Order::operator> (const Order& o)
 {
 	return Priorty()>o.Priorty();
 }
+bool Order::operator== (int id)
+{
+	return GetID() == id;
+}

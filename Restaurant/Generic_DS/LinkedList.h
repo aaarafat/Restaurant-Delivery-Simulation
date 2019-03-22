@@ -18,6 +18,7 @@ public :
 	int Size() const ; //done
 	bool add(const ItemType& newEntry); //done
 	bool remove( int position); //done
+	ItemType removeID( int id); //done
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
 	ItemType removeBegin();
@@ -134,6 +135,20 @@ ItemType LinkedList<ItemType>::removeBegin()
 	nod->setNext(nullptr);
 	return (nod->getItem());
 }
-
+template <class ItemType>
+ItemType LinkedList<ItemType>::removeID(int id)
+{
+	Node<ItemType>* trav = headPtr;
+	while(trav)
+	{
+		if (trav->getNext()->getItem()==id)
+		{
+			Node<ItemType>* nod = trav->getNext();
+			trav->setNext(nod->getNext());
+			nod->setNext(nullptr);
+			return nod->getItem();
+		}
+	}
+}
 
 #endif
