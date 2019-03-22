@@ -176,10 +176,14 @@ Order* Restaurant::getDemoOrder()
 /// ==> end of DEMO-related function
 
 
-void Restaurant::ReadFile()
+bool Restaurant::ReadFile(string filename)
 {
 	ifstream fin;
-	fin.open("input.txt");
+	fin.open(filename);
+	if(!fin.is_open())
+	{
+		return false;
+	}
 	int SN, SF, SV, N, F, V;
 	fin>>SN>>SF>>SV;
 	for(int k = A_REG; k < REG_CNT; k++)
@@ -234,7 +238,7 @@ void Restaurant::ReadFile()
 	}
 	fin.close();
 
-
+	return true;
 }
 Region* Restaurant::GetRegion(REGION x)
 {
@@ -311,46 +315,20 @@ void Restaurant :: Silent_Simulation()
 void Restaurant :: Test_Simulation()
 {
 
-	int EventCnt;	
-	Order* pOrd;
-	Event* pEv;
-	srand(time(NULL));
+	//int EventCnt;	
+	//Order* pOrd;
+	//Event* pEv;
+	//srand(time(NULL));
 
-	pGUI->PrintMessage("Just a Demo. Enter EVENTS Count(next phases should read I/P filename):");
-	EventCnt = atoi(pGUI->GetString().c_str());	//get user input as a string then convert to integer
+	pGUI->PrintMessage("Enter I/P Filename: ");
+	while(!ReadFile(pGUI->GetString().c_str()))
+	{
+		pGUI->UpdateInterface();
+		pGUI->PrintMessage("Please Enter a valid I/P Filename: ");
+	}
 
 	pGUI->UpdateInterface();
-
-	pGUI->PrintMessage("Generating orders randomly... In next phases, orders should be loaded from a file");
 		
-	int EvTime = 0;
-	
-	//Create Random events
-	//All generated event will be "ArrivalEvents" for the demo
-	for(int i=0; i<EventCnt; i++)
-	{
-		int O_id = i+1;
-		
-		//Rendomize order type
-		int OType;
-		if(i<EventCnt*0.2)	//let 1st 20% of orders be VIP (just for sake of demo)
-			OType = TYPE_VIP;
-		else if(i<EventCnt*0.5)	
-			OType = TYPE_FROZ;	//let next 30% be Frozen
-		else
-			OType = TYPE_NRM;	//let the rest be normal
-
-		
-		int reg = rand()% REG_CNT;	//randomize region
-
-
-		//Randomize event time
-		EvTime += rand()%4;
-		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg,this);
-		AddEvent(pEv);
-
-	}	
-
 	int CurrentTimeStep = 1;
 
 	// Save the drawings in a Linked List 
@@ -367,24 +345,18 @@ void Restaurant :: Test_Simulation()
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
 		//function to draw 
-		//remove the loop once you finish the function
-		/*while(DEMO_Queue.dequeue(pOrd))
-		{
-			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
-		}*/
 		Test_Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 
-		if(CurrentTimeStep==4)
+		/*if(CurrentTimeStep==4)
 		{
 			pGUI->ResetDrawingList();
-		}
+		}*/
 	}
 	
 
-	pGUI->PrintMessage("generation done, click to END program");
+	pGUI->PrintMessage("click to END program");
 	pGUI->waitForClick();
 
 
@@ -395,113 +367,39 @@ void Restaurant :: Test_Simulation()
 void Restaurant :: Test_Draw_All()
 {
 	Order* pOrd=nullptr;
-	bool Empty=Reg[A_REG]->VIPOrderIsEmpty();
-	while(!Empty)
+	bool Empty;
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		pOrd=Reg[A_REG]->getVIPOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[A_REG]->VIPOrderIsEmpty();
+		Empty=Reg[i]->VIPOrderIsEmpty();
+		while(!Empty)
+		{
+			pOrd=Reg[i]->getVIPOrder();
+			pGUI->AddOrderForDrawing(pOrd);
+			pGUI->UpdateInterface();
+			Empty=Reg[i]->VIPOrderIsEmpty();
+		}
 	}
-
-	Empty=Reg[B_REG]->VIPOrderIsEmpty();
-	while(!Empty)
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		pOrd=Reg[B_REG]->getVIPOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[B_REG]->VIPOrderIsEmpty();
+		Empty=Reg[i]->NormalOrderIsEmpty();
+		while(!Empty)
+		{
+			pOrd=Reg[i]->getNormalOrder();
+			pGUI->AddOrderForDrawing(pOrd);
+			pGUI->UpdateInterface();
+			Empty=Reg[i]->NormalOrderIsEmpty();
+		}
 	}
-
-	Empty=Reg[C_REG]->VIPOrderIsEmpty();
-	while(!Empty)
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		pOrd=Reg[C_REG]->getVIPOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[C_REG]->VIPOrderIsEmpty();
-	}
-
-	Empty=Reg[D_REG]->VIPOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[D_REG]->getVIPOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[D_REG]->VIPOrderIsEmpty();
-	}
-
-	Empty=Reg[A_REG]->NormalOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[A_REG]->getNormalOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[A_REG]->NormalOrderIsEmpty();
-	}
-
-	Empty=Reg[B_REG]->NormalOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[B_REG]->getNormalOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[B_REG]->NormalOrderIsEmpty();
-	}
-
-	Empty=Reg[C_REG]->NormalOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[C_REG]->getNormalOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[C_REG]->NormalOrderIsEmpty();
-	}
-
-	Empty=Reg[D_REG]->NormalOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[D_REG]->getNormalOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[D_REG]->NormalOrderIsEmpty();
-	}
-
-	Empty=Reg[A_REG]->FrozenOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[A_REG]->getFrozenOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[A_REG]->FrozenOrderIsEmpty();
-	}
-
-	Empty=Reg[B_REG]->FrozenOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[B_REG]->getFrozenOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[B_REG]->FrozenOrderIsEmpty();
-	}
-
-	Empty=Reg[C_REG]->FrozenOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[C_REG]->getFrozenOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[C_REG]->FrozenOrderIsEmpty();
-		
-	}
-
-	Empty=Reg[D_REG]->FrozenOrderIsEmpty();
-	while(!Empty)
-	{
-		pOrd=Reg[D_REG]->getFrozenOrder();
-		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
-		Empty=Reg[D_REG]->FrozenOrderIsEmpty();
+		Empty=Reg[i]->FrozenOrderIsEmpty();
+		while(!Empty)
+		{
+			pOrd=Reg[i]->getFrozenOrder();
+			pGUI->AddOrderForDrawing(pOrd);
+			pGUI->UpdateInterface();
+			Empty=Reg[i]->FrozenOrderIsEmpty();
+		}
 	}
 
 
