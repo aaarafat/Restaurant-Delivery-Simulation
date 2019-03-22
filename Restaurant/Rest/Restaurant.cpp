@@ -122,7 +122,7 @@ void Restaurant::Just_A_Demo()
 
 		//Randomize event time
 		EvTime += rand()%4;
-		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg);
+		pEv = new ArrivalEvent(EvTime,O_id,(ORD_TYPE)OType,(REGION)reg, this);
 		AddEvent(pEv);
 
 	}	

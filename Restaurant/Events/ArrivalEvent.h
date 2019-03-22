@@ -15,7 +15,7 @@ class ArrivalEvent: public Event
 	double OrdMoney;	//Total order money
 	Region* OrdReg;
 public:
-	ArrivalEvent(int eTime, int oID, ORD_TYPE oType, REGION reg);
+	ArrivalEvent(int eTime, int oID, ORD_TYPE oType, REGION reg, Restaurant* pR);
 	ArrivalEvent(Restaurant* pR);
 	//Add more constructors if needed
 	void ReadEvent(ifstream& fin);
