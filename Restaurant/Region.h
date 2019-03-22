@@ -9,8 +9,8 @@ class Region
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;
 	Heap_PriorityQueue<Order> VIPOrder;
-	LinkedList<Order> FrozenOrder;
-	LinkedList<Order> NormalOrder;
+	LinkedList<Order*> FrozenOrder;
+	LinkedList<Order*> NormalOrder;
 
 	
 public:
@@ -23,9 +23,9 @@ public:
 	Order* getVIPOrder() const;
 	void setVIPOrder(Order* O);
 	Order* getFrozenOrder() const;
-	void setFrozenOrder(const Order& O);
+	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() const;
-	void setNormalOrder(const Order& O);
+	void setNormalOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 

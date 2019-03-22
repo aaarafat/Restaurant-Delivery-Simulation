@@ -38,11 +38,11 @@ void Region::setVIPOrder( Order* O)
 {
 	VIPOrder.add(O);
 }
-void Region::setFrozenOrder(const Order& O)
+void Region::setFrozenOrder(Order* O)
 {
 	FrozenOrder.add(O);
 }
-void Region::setNormalOrder(const Order& O)
+void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
