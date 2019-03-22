@@ -20,7 +20,7 @@ public :
 	bool remove( int position); //done
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
-	ItemType* peek();
+	ItemType removeBegin();
 	
 };
 template < class ItemType>
@@ -127,12 +127,12 @@ int LinkedList<ItemType>::Size() const
 	return itemCount;
 }
 template <class ItemType>
-ItemType* LinkedList<ItemType>::peek()
+ItemType LinkedList<ItemType>::removeBegin()
 {
 	Node<ItemType>* nod = headPtr;
 	headPtr = headPtr->getNext();
 	nod->setNext(nullptr);
-	return &(nod->getItem());
+	return (nod->getItem());
 }
 
 
