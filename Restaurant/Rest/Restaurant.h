@@ -49,7 +49,7 @@ public:
 	Order* getDemoOrder();			//return the front order from demo queue
 	/// ==> 
 
-	void ReadFile();
+	bool ReadFile(string filename);
 	Region* GetRegion(REGION x);
 	//
 	// TODO: Add More Member Functions As Needed
