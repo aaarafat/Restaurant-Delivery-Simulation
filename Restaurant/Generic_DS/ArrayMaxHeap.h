@@ -242,7 +242,7 @@ ArrayMaxHeap<T>& ArrayMaxHeap<T>::operator= (const ArrayMaxHeap<T>& Array) // As
 template<class T>
 ArrayMaxHeap<T>::~ArrayMaxHeap()
 {
-	//clear();
+	clear();
 }
 
 // Gets the Capacity of the Heap
