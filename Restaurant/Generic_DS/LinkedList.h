@@ -16,11 +16,11 @@ public :
 	virtual ~LinkedList(); //done
 	bool isEmpty() const ; //done
 	int Size() const ; //done
-	bool Add(const ItemType& newEntry); //done
+	bool add(const ItemType& newEntry); //done
 	bool remove( int position); //done
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
-	ItemType* Peek();
+	ItemType* peek();
 	
 };
 template < class ItemType>
@@ -56,7 +56,7 @@ Node<ItemType>* LinkedList<ItemType>::getNodeAt( int position) const
 	return curPtr ;
 }
 template < class ItemType>
-bool LinkedList<ItemType>::Add(const ItemType& newEntry)
+bool LinkedList<ItemType>::add(const ItemType& newEntry)
 {
 	Node<ItemType>* nod = new Node<ItemType>(newEntry);
 	if(!nod) return false;
@@ -127,7 +127,7 @@ int LinkedList<ItemType>::Size() const
 	return itemCount;
 }
 template <class ItemType>
-ItemType* LinkedList<ItemType>::Peek()
+ItemType* LinkedList<ItemType>::peek()
 {
 	Node<ItemType>* nod = headPtr;
 	headPtr = headPtr->getNext();

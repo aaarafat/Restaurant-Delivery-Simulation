@@ -6,6 +6,7 @@ Order::Order(int id, ORD_TYPE r_Type, REGION r_region)
 	type = r_Type;
 	Region = r_region;	
 }
+Order::Order(){};
 
 Order::~Order()
 {

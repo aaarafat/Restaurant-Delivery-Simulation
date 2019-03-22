@@ -18,10 +18,10 @@ Motorcycle* Region::getNormalMotor() const
 {
 	return NormalMotor.peek();
 }
-//Order* Region::getVIPOrder() const
-//{
-//	return VIPOrder.peek();
-//}
+Order* Region::getVIPOrder() const
+{
+	return VIPOrder.peek();
+}
 void Region::setVIPMotor(Motorcycle* V)
 {
 	VIPMotor.add(V);
@@ -34,10 +34,18 @@ void Region::setNormalMotor(Motorcycle* N)
 {
 	NormalMotor.add(N);
 }
-//void Region::setVIPOrder(const Order& O)
-//{
-//	VIPOrder.add(O);
-//}
+void Region::setVIPOrder( Order* O)
+{
+	VIPOrder.add(O);
+}
+void Region::setFrozenOrder(const Order& O)
+{
+	FrozenOrder.add(O);
+}
+void Region::setNormalOrder(const Order& O)
+{
+	NormalOrder.add(O);
+}
 Region::~Region()
 {
 }

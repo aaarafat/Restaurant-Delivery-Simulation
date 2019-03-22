@@ -264,9 +264,11 @@
     <ClCompile Include="Events\ArrivalEvent.cpp">
       <Filter>Events</Filter>
     </ClCompile>
-    <ClCompile Include="Region.cpp" />
     <ClCompile Include="Events\CancelEvent.cpp" />
     <ClCompile Include="Events\PromoEvent.cpp" />
+    <ClCompile Include="Region.cpp">
+      <Filter>Restaurant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt">
