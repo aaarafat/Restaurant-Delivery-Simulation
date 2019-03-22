@@ -6,21 +6,29 @@ Region::Region()
 
 }
 
-Motorcycle* Region::getVIPMotor() const
+Motorcycle* Region::getVIPMotor() 
 {
-	return VIPMotor.peek();
+	Motorcycle*M=VIPMotor.peek();
+	VIPMotor.remove();
+	return M;
 }
-Motorcycle* Region::getFrozenMotor() const
+Motorcycle* Region::getFrozenMotor() 
 {
-	return FrozenMotor.peek();
+	Motorcycle*M=FrozenMotor.peek();
+	FrozenMotor.remove();
+	return M;
 }
-Motorcycle* Region::getNormalMotor() const
+Motorcycle* Region::getNormalMotor() 
 {
-	return NormalMotor.peek();
+	Motorcycle*M=NormalMotor.peek();
+	NormalMotor.remove();
+	return M;
 }
-Order* Region::getVIPOrder() const
+Order* Region::getVIPOrder() 
 {
-	return VIPOrder.peek();
+	Order*O=VIPOrder.peek();
+	VIPOrder.remove();
+	return O;
 }
 void Region::setVIPMotor(Motorcycle* V)
 {

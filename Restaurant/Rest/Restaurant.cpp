@@ -303,6 +303,11 @@ void Restaurant :: Silent_Simulation()
 
 /////////////////////////////////////////////////////
 
+
+/////////////////////////////
+////Testing Functions 
+////////////////////////////
+
 void Restaurant :: Test_Simulation()
 {
 
@@ -346,12 +351,8 @@ void Restaurant :: Test_Simulation()
 
 	}	
 
-	// TODO add the events to the corresponding ADT's
-
-
 	int CurrentTimeStep = 1;
 
-	// TODO make the function to go until all queues are empty 
 	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty())
 	{
@@ -365,7 +366,8 @@ void Restaurant :: Test_Simulation()
 		//The above line may add new orders to the DEMO_Queue
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
-
+		//function to draw 
+		//remove the loop once you finish the function
 		while(DEMO_Queue.dequeue(pOrd))
 		{
 			pGUI->AddOrderForDrawing(pOrd);
@@ -388,3 +390,11 @@ void Restaurant :: Test_Simulation()
 }
 
 /////////////////////////////////////////////////////
+
+void Restaurant :: Test_Draw_All()
+{
+	Order* pOrd;
+	while(Reg[A_REG]->getVIPOrder());
+
+
+}

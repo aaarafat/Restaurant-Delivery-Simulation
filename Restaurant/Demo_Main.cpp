@@ -9,7 +9,7 @@ int main()
 {
 	
 	Restaurant* pRest = new Restaurant;
-	//pRest->RunSimulation();
+	pRest->RunSimulation();
 	
 	
 	
@@ -62,11 +62,11 @@ int main()
 
 
 	//execute Test
-	ArrivalEvent ARR(4,23,TYPE_VIP,A_REG,pRest);
+	/*ArrivalEvent ARR(4,23,TYPE_VIP,A_REG,pRest);
 	ARR.Execute();
 	Order*ord=NULL;
 	Region *R=pRest->GetRegion(A_REG);
-	ord=R->getVIPOrder();
+	ord=R->getVIPOrder();*/
 	delete pRest;
 	return 0;
 }

@@ -14,17 +14,17 @@ class Region
 
 	
 public:
-	Motorcycle* getVIPMotor() const;
+	Motorcycle* getVIPMotor() ;
 	void setVIPMotor(Motorcycle* M);
-	Motorcycle* getNormalMotor() const;
+	Motorcycle* getNormalMotor() ;
 	void setNormalMotor(Motorcycle* M);
-	Motorcycle* getFrozenMotor() const;
+	Motorcycle* getFrozenMotor() ;
 	void setFrozenMotor(Motorcycle* M);
-	Order* getVIPOrder() const;
+	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
-	Order* getFrozenOrder() const;
+	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
-	Order* getNormalOrder() const;
+	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
