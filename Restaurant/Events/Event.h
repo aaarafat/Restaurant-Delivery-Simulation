@@ -12,7 +12,7 @@ protected:
 	int OrderID;	//each event is related to certain order
 	Restaurant* pRest;
 public:
-	Event(int eTime, int ordID);
+	Event(int eTime, int ordID, Restaurant* pR);
 	Event(Restaurant* pR);
 	int getEventTime();
 	int getOrderID();

@@ -1,8 +1,9 @@
 #include "Event.h"
 
 
-Event::Event(int eTime, int ordID)
+Event::Event(int eTime, int ordID, Restaurant* pR)
 {
+	pRest = pR;
 	EventTime = eTime;
 	OrderID	= ordID;
 }
