@@ -37,7 +37,7 @@ public:
 	bool VIPOrderIsEmpty();
 	bool NormalOrderIsEmpty();
 	bool FrozenOrderIsEmpty();
-	
+	bool CancelOrder(int id);
 	Region();
 	~Region();
 };

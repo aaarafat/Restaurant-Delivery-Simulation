@@ -141,7 +141,7 @@ bool LinkedList<ItemType>::removeID(int id)
 	Node<ItemType>* trav = headPtr;
 	while(trav)
 	{
-		if (trav->getNext()->getItem()==id)
+		if (*(trav->getNext()->getItem())==id)
 		{
 			Node<ItemType>* nod = trav->getNext();
 			trav->setNext(nod->getNext());

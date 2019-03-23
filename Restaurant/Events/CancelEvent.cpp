@@ -11,9 +11,10 @@ void CancelEvent::ReadEvent(ifstream& fin)
 }
 void CancelEvent::Execute()
 {
-	
+	cout<<"lol"<<endl;
 }
 
 CancelEvent::~CancelEvent(void)
 {
+	
 }

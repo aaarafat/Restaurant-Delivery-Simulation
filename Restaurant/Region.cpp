@@ -79,7 +79,10 @@ bool Region::FrozenOrderIsEmpty()
 {
 	return FrozenOrder.isEmpty();
 }
-
+bool Region::CancelOrder(int id)
+{
+	return NormalOrder.removeID(id);
+}
 Region::~Region()
 {
 }
