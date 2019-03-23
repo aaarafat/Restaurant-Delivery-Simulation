@@ -32,7 +32,7 @@ void Restaurant::RunSimulation()
 		Silent_Simulation();
 		break;
 	case MODE_DEMO:
-		Test_Simulation();
+		Just_A_Demo();
 	};
 
 }
@@ -159,11 +159,7 @@ void Restaurant::Just_A_Demo()
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
 
-		while(DEMO_Queue.dequeue(pOrd))
-		{
-			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
-		}
+		Test_Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 	}
@@ -390,7 +386,6 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getVIPOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->VIPOrderIsEmpty();
 		}
 	}
@@ -401,7 +396,6 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getNormalOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->NormalOrderIsEmpty();
 		}
 	}
@@ -412,10 +406,9 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getFrozenOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->FrozenOrderIsEmpty();
 		}
 	}
-
+	pGUI->UpdateInterface();
 
 }
