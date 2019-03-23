@@ -64,7 +64,8 @@ bool LinkedList<ItemType>::add(const ItemType& newEntry)
 	if(!headPtr)
 	{
 		headPtr = nod;
-		tailPtr = nod;
+		tailPtr = headPtr;
+		
 	}
 	else
 	{
@@ -139,7 +140,7 @@ template <class ItemType>
 bool LinkedList<ItemType>::removeID(int id)
 {
 	Node<ItemType>* trav = headPtr;
-	cout<<"oh"<<endl;
+	
 	while(trav)
 	{
 		if (*(trav->getNext()->getItem())==id)
