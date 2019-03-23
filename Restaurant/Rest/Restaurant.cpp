@@ -32,7 +32,7 @@ void Restaurant::RunSimulation()
 		Silent_Simulation();
 		break;
 	case MODE_DEMO:
-		Test_Simulation();
+		Just_A_Demo();
 	};
 
 }
@@ -377,7 +377,6 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getVIPOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->VIPOrderIsEmpty();
 		}
 	}
@@ -388,7 +387,6 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getNormalOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->NormalOrderIsEmpty();
 		}
 	}
@@ -399,10 +397,9 @@ void Restaurant :: Test_Draw_All()
 		{
 			pOrd=Reg[i]->getFrozenOrder();
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 			Empty=Reg[i]->FrozenOrderIsEmpty();
 		}
 	}
-
+	pGUI->UpdateInterface();
 
 }
