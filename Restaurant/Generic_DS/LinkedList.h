@@ -64,7 +64,8 @@ bool LinkedList<ItemType>::add(const ItemType& newEntry)
 	if(!headPtr)
 	{
 		headPtr = nod;
-		tailPtr = nod;
+		tailPtr = headPtr;
+		
 	}
 	else
 	{
