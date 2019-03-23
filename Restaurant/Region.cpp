@@ -81,6 +81,7 @@ bool Region::FrozenOrderIsEmpty()
 }
 bool Region::CancelOrder(int id)
 {
+	cout<<"yeah"<<endl;
 	return NormalOrder.removeID(id);
 }
 Region::~Region()

@@ -3,6 +3,8 @@
 #include "Generic_DS\Heap_PriorityQueue.h"
 #include "Rest\Motorcycle.h"
 #include "Rest\Order.h"
+#include <iostream>
+using namespace std;
 class Region
 {
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
