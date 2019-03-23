@@ -51,6 +51,7 @@ public:
 
 	bool ReadFile(string filename);
 	Region* GetRegion(REGION x);
+	bool CancelOrder(int id);
 	//
 	// TODO: Add More Member Functions As Needed
 	//

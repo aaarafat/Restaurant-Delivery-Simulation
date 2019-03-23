@@ -3,64 +3,69 @@
 
 Region::Region()
 {
-
+	NormOrd = FrozOrd =	VIPOrd = NormMoto = VIPMoto = FrozMoto = 0;
+	
 }
 
 Motorcycle* Region::getVIPMotor() 
 {
 	Motorcycle*M=VIPMotor.peek();
-	VIPMotor.remove();
+	if(VIPMotor.remove()) VIPMoto--;
 	return M;
 }
 Motorcycle* Region::getFrozenMotor() 
 {
 	Motorcycle*M=FrozenMotor.peek();
-	FrozenMotor.remove();
+	if(FrozenMotor.remove()) FrozMoto--;
 	return M;
 }
 Motorcycle* Region::getNormalMotor() 
 {
 	Motorcycle*M=NormalMotor.peek();
-	NormalMotor.remove();
+	if(NormalMotor.remove()) NormMoto--;
 	return M;
 }
 Order* Region::getVIPOrder() 
 {
 	Order*O=VIPOrder.peek();
-	VIPOrder.remove();
+	if(VIPOrder.remove()) VIPOrd--;
 	return O;
 }
 Order* Region::getFrozenOrder() 
 {
-	return FrozenOrder.removeBegin();
+	Order* ptr = FrozenOrder.removeBegin();
+	if(ptr) FrozOrd--;
+	return ptr;
 }
 Order* Region::getNormalOrder() 
 {
-	return NormalOrder.removeBegin();
+	Order* ptr = NormalOrder.removeBegin();
+	if(ptr) NormOrd--;
+	return ptr;
 }
 void Region::setVIPMotor(Motorcycle* V)
 {
-	VIPMotor.add(V);
+	if(VIPMotor.add(V)) VIPMoto++;
 }
 void Region::setFrozenMotor(Motorcycle* F)
 {
-	FrozenMotor.add(F);
+	if(FrozenMotor.add(F)) FrozMoto++;
 }
 void Region::setNormalMotor(Motorcycle* N)
 {
-	NormalMotor.add(N);
+	if(NormalMotor.add(N)) NormMoto++;
 }
 void Region::setVIPOrder( Order* O)
 {
-	VIPOrder.add(O);
+	if(VIPOrder.add(O)) VIPOrd++;
 }
 void Region::setFrozenOrder(Order* O)
 {
-	FrozenOrder.add(O);
+	if(FrozenOrder.add(O)) FrozOrd++;
 }
 void Region::setNormalOrder(Order* O)
 {
-	NormalOrder.add(O);
+	if(NormalOrder.add(O)) NormOrd++;
 }
 bool Region::VIPOrderIsEmpty()
 {
@@ -74,7 +79,11 @@ bool Region::FrozenOrderIsEmpty()
 {
 	return FrozenOrder.isEmpty();
 }
-
+bool Region::CancelOrder(int id)
+{
+	cout<<"yeah"<<endl;
+	return NormalOrder.removeID(id);
+}
 Region::~Region()
 {
 }

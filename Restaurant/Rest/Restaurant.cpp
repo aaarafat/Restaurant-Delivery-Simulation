@@ -44,7 +44,15 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 {
 	EventsQueue.enqueue(pE);
 }
-
+bool Restaurant::CancelOrder(int id)
+{
+	cout<<"aaaaah"<<endl;
+		for(int i = A_REG; i < REG_CNT; i++)
+	{
+		if(Reg[i]->CancelOrder(id)) return true;
+	}
+		return false;
+}
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
@@ -339,7 +347,6 @@ void Restaurant :: Test_Simulation()
 		itoa(CurrentTimeStep,timestep,10);	
 		pGUI->PrintMessage(timestep);
 
-
 		ExecuteEvents(CurrentTimeStep);	//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 
@@ -355,7 +362,6 @@ void Restaurant :: Test_Simulation()
 		}*/
 	}
 	
-
 	pGUI->PrintMessage("click to END program");
 	pGUI->waitForClick();
 

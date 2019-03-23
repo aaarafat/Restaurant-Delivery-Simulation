@@ -3,6 +3,8 @@
 #include "Generic_DS\Heap_PriorityQueue.h"
 #include "Rest\Motorcycle.h"
 #include "Rest\Order.h"
+#include <iostream>
+using namespace std;
 class Region
 {
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
@@ -11,6 +13,12 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	LinkedList<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
+	int NormOrd;
+	int FrozOrd;
+	int VIPOrd;
+	int NormMoto;
+	int VIPMoto;
+	int FrozMoto;
 
 	
 public:
@@ -31,7 +39,7 @@ public:
 	bool VIPOrderIsEmpty();
 	bool NormalOrderIsEmpty();
 	bool FrozenOrderIsEmpty();
-	
+	bool CancelOrder(int id);
 	Region();
 	~Region();
 };
