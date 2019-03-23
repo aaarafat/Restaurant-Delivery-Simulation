@@ -44,7 +44,14 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 {
 	EventsQueue.enqueue(pE);
 }
-
+bool Restaurant::CancelOrder(int id)
+{
+		for(int i = A_REG; i < REG_CNT; i++)
+	{
+		if(Reg[i]->CancelOrder(id)) return true;
+	}
+		return false;
+}
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
