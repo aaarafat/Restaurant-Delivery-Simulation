@@ -65,8 +65,10 @@ private:
 	// to point to the current waiting orders only
 	
 
-
-
+	//Numbers Of the Orders and Motorcycles in Each Region
+	int NumberOfVIPOrders[REG_CNT];        
+	int NumberOfNormalOrders[REG_CNT];
+	int NumberOfFrozenOrders[REG_CNT];
 
 	// 
 	// TODO: Add more members if needed
@@ -82,6 +84,8 @@ private:
 
 	void ClearStatusBar() const;    // clears the status bar
 	void ClearDrawingArea() const;	// clears the Drawing area from all drawings
+	void CountNumbersOfRegions();   // Counts the Number of Orders in each region
+	void DrawNumbersForRegion();    // Draws the number of orders of all Regions
 
 public:
 	GUI();
