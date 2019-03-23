@@ -11,6 +11,12 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	LinkedList<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
+	int NormOrd;
+	int FrozOrd;
+	int VIPOrd;
+	int NormMoto;
+	int VIPMoto;
+	int FrozMoto;
 
 	
 public:

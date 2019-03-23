@@ -1,7 +1,7 @@
 #pragma once
 #include "Event.h"
-class Event;
 class Restaurant;
+class Region;
 class CancelEvent : public Event
 {
 

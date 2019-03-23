@@ -1,5 +1,5 @@
 #include "CancelEvent.h"
-
+#include "..\Rest\Restaurant.h"
 
 CancelEvent::CancelEvent(Restaurant* pR) : Event(pR)
 {
@@ -11,7 +11,7 @@ void CancelEvent::ReadEvent(ifstream& fin)
 }
 void CancelEvent::Execute()
 {
-
+	
 }
 
 CancelEvent::~CancelEvent(void)
