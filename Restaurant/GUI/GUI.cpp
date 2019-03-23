@@ -11,7 +11,17 @@ GUI::GUI()
 	//Set color for each order type
 	OrdersClrs[TYPE_NRM] = 	DARKBLUE;	//normal-order color
 	OrdersClrs[TYPE_FROZ] = VIOLET;		//Frozen-order color
-	OrdersClrs[TYPE_VIP] = 	RED;		//VIP-order color					
+	OrdersClrs[TYPE_VIP] = 	RED;		//VIP-order color
+
+	//Initializing the Number of Orders and Motors in each region
+	for(int i=A_REG;i<REG_CNT;i++)
+	{
+
+		NumberOfVIPOrders[i]=0;        
+		NumberOfNormalOrders[i]=0;
+		NumberOfFrozenOrders[i]=0;
+
+	}
 
 	ClearStatusBar();
 	ClearDrawingArea(); 
@@ -245,7 +255,7 @@ PROG_MODE	GUI::getGUIMode() const
 	PROG_MODE Mode;
 	do
 	{
-		PrintMessage("Please select GUI mode: (1)Interactive, (2)StepByStep, (3)Silent, (4)DEMO... ");
+		PrintMessage("Please select GUI mode: (1)Interactive, (2)StepByStep, (3)Silent, (4)Test ");
 		string S = GetString();
 		Mode = (PROG_MODE) (atoi(S.c_str())-1);
 	}
