@@ -11,7 +11,7 @@ void CancelEvent::ReadEvent(ifstream& fin)
 }
 void CancelEvent::Execute()
 {
-	pRest->CancelOrder(OrderID);
+	if(pRest->CancelOrder(OrderID))
 	cout<<"lol"<<endl;
 }
 

@@ -139,7 +139,7 @@ template <class ItemType>
 bool LinkedList<ItemType>::removeID(int id)
 {
 	Node<ItemType>* trav = headPtr;
-	cout<<"oh"<<endl;
+	
 	while(trav)
 	{
 		if (*(trav->getNext()->getItem())==id)
