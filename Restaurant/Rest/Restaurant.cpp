@@ -46,7 +46,8 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 }
 bool Restaurant::CancelOrder(int id)
 {
-	
+//	if(DrawOrders.removeID(id)) return true; //was testing Cancel and draw list
+
 		for(int i = A_REG; i < REG_CNT; i++)
 	{
 		if(Reg[i]->CancelOrder(id)) return true;
@@ -67,6 +68,14 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 		delete pE;		//deallocate event object from memory
 	}
 
+}
+Order* Restaurant::getDrawOrder()
+{
+	return DrawOrders.removeBegin();
+}
+void Restaurant::setDrawOrder(Order* O)
+{
+	DrawOrders.add(O);
 }
 
 

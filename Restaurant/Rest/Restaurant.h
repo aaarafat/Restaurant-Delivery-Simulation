@@ -33,6 +33,7 @@ private:
 	// TODO: Add More Data Members As Needed
 	Region* Reg[REG_CNT];
 	int AutoPromo;
+	LinkedList<Order*> DrawOrders;
 
 public:
 	
@@ -61,6 +62,8 @@ public:
 	void Silent_Simulation();     //Doesn't generate a GUI 
 	void Test_Simulation(); //Testing for phase 1
 	void Test_Draw_All(); //testing drawing from the queues
+	void setDrawOrder(Order *O);
+	Order* getDrawOrder();
 };
 
 #endif

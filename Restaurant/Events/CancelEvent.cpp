@@ -10,9 +10,9 @@ void CancelEvent::ReadEvent(ifstream& fin)
 	fin>>EventTime>>OrderID;
 }
 void CancelEvent::Execute()
-{
+{  
 	if(pRest->CancelOrder(OrderID))
-	cout<<"lol"<<endl;
+		cout<<"Canceled"<<endl;
 }
 
 CancelEvent::~CancelEvent(void)
