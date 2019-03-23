@@ -150,11 +150,7 @@ void Restaurant::Just_A_Demo()
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
 
-		while(DEMO_Queue.dequeue(pOrd))
-		{
-			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
-		}
+		Test_Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 	}

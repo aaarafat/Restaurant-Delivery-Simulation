@@ -84,8 +84,9 @@ private:
 
 	void ClearStatusBar() const;    // clears the status bar
 	void ClearDrawingArea() const;	// clears the Drawing area from all drawings
-	void CountNumbersOfRegions();   // Counts the Number of Orders in each region
-	void DrawNumbersForRegion();    // Draws the number of orders of all Regions
+	void CountNumbersOfRegions() ;    // Counts the Number of Orders in each region
+	void DrawNumbersForRegions() const;    // Draws the number of orders of all Regions
+	void ResetDrawNumbers(); // Resets the Region Order Number to zero
 
 public:
 	GUI();
