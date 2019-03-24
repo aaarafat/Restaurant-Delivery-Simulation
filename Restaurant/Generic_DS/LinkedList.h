@@ -134,6 +134,7 @@ ItemType LinkedList<ItemType>::removeBegin()
 	Node<ItemType>* nod = headPtr;
 	headPtr = headPtr->getNext();
 	nod->setNext(nullptr);
+	itemCount--;
 	return (nod->getItem());
 }
 template <class ItemType>
@@ -152,6 +153,7 @@ bool LinkedList<ItemType>::removeID(int id)
 				nod->setNext(nullptr);
 				//delet nod;
 				//nod = nullptr
+				itemCount--;
 				return true;
 			}
 		}
