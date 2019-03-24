@@ -1,71 +1,62 @@
 #include "Region.h"
-
+#include <string>
 
 Region::Region()
 {
-	NormOrd = FrozOrd =	VIPOrd = NormMoto = VIPMoto = FrozMoto = 0;
 	
 }
 
 Motorcycle* Region::getVIPMotor() 
 {
 	Motorcycle*M=VIPMotor.peek();
-	if(VIPMotor.remove()) VIPMoto--;
 	return M;
 }
 Motorcycle* Region::getFrozenMotor() 
 {
 	Motorcycle*M=FrozenMotor.peek();
-	if(FrozenMotor.remove()) FrozMoto--;
 	return M;
 }
 Motorcycle* Region::getNormalMotor() 
 {
 	Motorcycle*M=NormalMotor.peek();
-	if(NormalMotor.remove()) NormMoto--;
 	return M;
 }
 Order* Region::getVIPOrder() 
 {
 	Order*O=VIPOrder.peek();
-	if(VIPOrder.remove()) VIPOrd--;
 	return O;
 }
 Order* Region::getFrozenOrder() 
 {
-	Order* ptr = FrozenOrder.removeBegin();
-	if(ptr) FrozOrd--;
-	return ptr;
+	return FrozenOrder.removeBegin();
 }
 Order* Region::getNormalOrder() 
 {
-	Order* ptr = NormalOrder.removeBegin();
-	if(ptr) NormOrd--;
-	return ptr;
+	return NormalOrder.removeBegin();
 }
 void Region::setVIPMotor(Motorcycle* V)
 {
-	if(VIPMotor.add(V)) VIPMoto++;
+	VIPMotor.add(V);
 }
 void Region::setFrozenMotor(Motorcycle* F)
 {
-	if(FrozenMotor.add(F)) FrozMoto++;
+	FrozenMotor.add(F);
 }
 void Region::setNormalMotor(Motorcycle* N)
 {
-	if(NormalMotor.add(N)) NormMoto++;
+	NormalMotor.add(N);
 }
 void Region::setVIPOrder( Order* O)
 {
-	if(VIPOrder.add(O)) VIPOrd++;
+	VIPOrder.add(O);
 }
 void Region::setFrozenOrder(Order* O)
 {
-	if(FrozenOrder.add(O)) FrozOrd++;
+	FrozenOrder.add(O);
 }
 void Region::setNormalOrder(Order* O)
 {
-	if(NormalOrder.add(O)) NormOrd++;
+	NormalOrder.add(O);
 }
 bool Region::VIPOrderIsEmpty()
 {
@@ -125,6 +116,12 @@ bool Region::FrozenDrawIsEmpty()
 {
 	return FrozenDraw.isEmpty();
 }
+string Region::Print()
+{
+	return "Motors -->  VIP: " + to_string(VIPMotor.Size()) + "    Frozen: " + to_string(FrozenMotor.Size()) + "    Normal: " + to_string(NormalMotor.Size())
+			+ "                                                                          Orders -->  VIP: " + to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
+}
+
 ////////////////////////////////////////////////////
 Region::~Region()
 {

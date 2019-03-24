@@ -14,12 +14,6 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	LinkedList<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
-	int NormOrd;
-	int FrozOrd;
-	int VIPOrd;
-	int NormMoto;
-	int VIPMoto;
-	int FrozMoto;
 	Queue<Order*> VIPDraw;
 	Queue<Order*> FrozenDraw;
 	Queue<Order*> NormalDraw;
@@ -54,6 +48,8 @@ public:
 	bool NormalDrawIsEmpty();
 	bool FrozenDrawIsEmpty();
 	///////////////////////////////
+	string Print();
+
 	Region();
 	~Region();
 };

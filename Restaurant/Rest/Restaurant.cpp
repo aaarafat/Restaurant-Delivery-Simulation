@@ -345,15 +345,17 @@ void Restaurant :: Test_Simulation()
 	pGUI->UpdateInterface();
 		
 	int CurrentTimeStep = 1;
-
+	string mn, secs;
 	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty())
 	{
 		//print current timestep
-		char timestep[10];
-		itoa(CurrentTimeStep,timestep,10);	
-		pGUI->PrintMessage(timestep, "Region A:", "Region B:", "Region C:", "Region D:");
-		ExecuteEvents(CurrentTimeStep);	//execute all events at current time step
+		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
+		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
+		ExecuteEvents(CurrentTimeStep);
+		pGUI->PrintMessage(mn + ":" + secs, "Region A:    " + Reg[A_REG]->Print(), "Region B:    " + Reg[B_REG]->Print(), "Region C:    "+ Reg[C_REG]->Print(),
+			"Region D:    " + Reg[D_REG]->Print());
+		//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
@@ -368,7 +370,8 @@ void Restaurant :: Test_Simulation()
 		}*/
 	}
 	
-	pGUI->PrintMessage("click to END program");
+	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", "Region A:    " + Reg[A_REG]->Print(), "Region B:    " + Reg[B_REG]->Print(), "Region C:    "+ Reg[C_REG]->Print(),
+			"Region D:    " + Reg[D_REG]->Print());
 	pGUI->waitForClick();
 
 
