@@ -352,8 +352,7 @@ void Restaurant :: Test_Simulation()
 		//print current timestep
 		char timestep[10];
 		itoa(CurrentTimeStep,timestep,10);	
-		pGUI->PrintMessage(timestep);
-
+		pGUI->PrintMessage((string)timestep + "\nRegion A: \nRegion B:\nRegion C:\nRegion D:");
 		ExecuteEvents(CurrentTimeStep);	//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 

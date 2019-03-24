@@ -67,11 +67,25 @@ void GUI::PrintMessage(string msg) const	//Prints a message on status bar
 	
 	pWind->SetPen(DARKRED);
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.1), msg); // You may need to change these coordinates later 
+	float lines[] = {1.05, 1.28, 1.65, 2.4, 4};
+
+	int f, i = 0;
+	do
+	{
+		f = msg.find('\n');
+		string s; s.assign(msg, 0, f);
+		msg = (f == -1) ? msg : msg.substr(f + 1);
+		pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/lines[i]), s); 
+		i++;
+	}while(f != -1 && i < 5);
+	
+
+	/*pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.05), msg); // You may need to change these coordinates later 
 	                                                                      // to be able to write multi-line
-	/*pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.35), msg); //second line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.75), msg); //third line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.5), msg); //fourth line */
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.28), msg); //second line
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.65), msg); //third line
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.4), msg); //fourth line 
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/4), msg);*/
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::DrawString(const int iX, const int iY, const string Text)
