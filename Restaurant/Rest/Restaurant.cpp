@@ -46,11 +46,13 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 }
 bool Restaurant::CancelOrder(int id)
 {
-	if(DrawOrders.removeID(id)) return true; //was testing Cancel and draw list
+	//if(DrawOrders.removeID(id)) return true; //was testing Cancel and draw list
 
 		for(int i = A_REG; i < REG_CNT; i++)
 	{
-		if(Reg[i]->CancelOrder(id)) return true;
+		if(Reg[i]->CancelOrder(id)) {
+			cout<<"aaaaaah"<<endl;
+			return true;}
 	}
 		return false;
 }
@@ -381,32 +383,32 @@ void Restaurant :: Test_Draw_All()
 	bool Empty;
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Empty=Reg[i]->VIPOrderIsEmpty();
+		Empty=Reg[i]->VIPDrawIsEmpty();
 		while(!Empty)
 		{
-			pOrd=Reg[i]->getVIPOrder();
+			pOrd=Reg[i]->getVIPDraw(pOrd);
 			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->VIPOrderIsEmpty();
+			Empty=Reg[i]->VIPDrawIsEmpty();
 		}
 	}
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Empty=Reg[i]->NormalOrderIsEmpty();
+		Empty=Reg[i]->NormalDrawIsEmpty();
 		while(!Empty)
 		{
-			pOrd=Reg[i]->getNormalOrder();
+			pOrd=Reg[i]->getNormalDraw(pOrd);
 			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->NormalOrderIsEmpty();
+			Empty=Reg[i]->NormalDrawIsEmpty();
 		}
 	}
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Empty=Reg[i]->FrozenOrderIsEmpty();
+		Empty=Reg[i]->FrozenDrawIsEmpty();
 		while(!Empty)
 		{
-			pOrd=Reg[i]->getFrozenOrder();
+			pOrd=Reg[i]->getFrozenDraw(pOrd);
 			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->FrozenOrderIsEmpty();
+			Empty=Reg[i]->FrozenDrawIsEmpty();
 		}
 	}
 	pGUI->UpdateInterface();

@@ -140,17 +140,20 @@ template <class ItemType>
 bool LinkedList<ItemType>::removeID(int id)
 {
 	Node<ItemType>* trav = headPtr;
-	if(*(trav->getItem())==id) return removeBegin();
-	while(trav)
+	if(trav)
 	{
-		if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
+		if(*(trav->getItem())==id) return removeBegin();
+		while(trav)
 		{
-			Node<ItemType>* nod = trav->getNext();
-			trav->setNext(nod->getNext());
-			nod->setNext(nullptr);
-			//delet nod;
-			//nod = nullptr
-			return true;
+			if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
+			{
+				Node<ItemType>* nod = trav->getNext();
+				trav->setNext(nod->getNext());
+				nod->setNext(nullptr);
+				//delet nod;
+				//nod = nullptr
+				return true;
+			}
 		}
 	}
 	return false;
