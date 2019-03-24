@@ -122,6 +122,17 @@ string Region::Print()
 	return "Region " + name + ":    Motors -->  VIP: " + to_string(VIPMotor.Size()) + "    Frozen: " + to_string(FrozenMotor.Size()) + "    Normal: " + to_string(NormalMotor.Size())
 			+ "                                                                          Orders -->  VIP: " + to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
 }
+void Region::CopyNormaltoDraw()
+{
+	for(int i=1;i<=NormalOrder.Size();i++)
+	{
+
+		NormalDraw.enqueue(NormalOrder.getEntry(i));
+
+	}
+
+
+}
 
 ////////////////////////////////////////////////////
 Region::~Region()

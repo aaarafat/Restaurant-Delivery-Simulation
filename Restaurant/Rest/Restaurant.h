@@ -62,6 +62,7 @@ public:
 	void Silent_Simulation();     //Doesn't generate a GUI 
 	void Test_Simulation(); //Testing for phase 1
 	void Test_Draw_All(); //testing drawing from the queues
+	void CopyOrdersToDraw(); //Copy Orders to be Drawn
 	void setDrawOrder(Order *O);
 	Order* getDrawOrder();
 };
