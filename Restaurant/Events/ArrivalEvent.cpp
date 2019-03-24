@@ -26,17 +26,19 @@ void ArrivalEvent::Execute()
 			{
 				Region* R=pRest->GetRegion(A_REG);
 				R->setNormalOrder(pOrd);
-				
+				R->setNormalDraw(pOrd);
 			}
 			if (OrdType == TYPE_VIP)
 			{
 				Region* R=pRest->GetRegion(A_REG);
 				R->setVIPOrder(pOrd);
+				R->setVIPDraw(pOrd);
 			}
 			if (OrdType == TYPE_FROZ)
 			{
 				Region* R=pRest->GetRegion(A_REG);
 				R->setFrozenOrder(pOrd);
+				R->setFrozenDraw(pOrd);
 			}
 
 		}
@@ -47,16 +49,19 @@ void ArrivalEvent::Execute()
 			{
 				Region* R=pRest->GetRegion(B_REG);
 				R->setNormalOrder(pOrd);
+				R->setNormalDraw(pOrd);
 			}
 			if (OrdType == TYPE_VIP)
 			{
 				Region* R=pRest->GetRegion(B_REG);
 				R->setVIPOrder(pOrd);
+				R->setVIPDraw(pOrd);
 			}
 			if (OrdType == TYPE_FROZ)
 			{
 				Region* R=pRest->GetRegion(B_REG);
 				R->setFrozenOrder(pOrd);
+				R->setFrozenDraw(pOrd);
 			}
 
 		}
@@ -67,16 +72,19 @@ void ArrivalEvent::Execute()
 			{
 				Region* R=pRest->GetRegion(C_REG);
 				R->setNormalOrder(pOrd);
+				R->setNormalDraw(pOrd);
 			}
 			if (OrdType == TYPE_VIP)
 			{
 				Region* R=pRest->GetRegion(C_REG);
 				R->setVIPOrder(pOrd);
+				R->setVIPDraw(pOrd);
 			}
 			if (OrdType == TYPE_FROZ)
 			{
 				Region* R=pRest->GetRegion(C_REG);
 				R->setFrozenOrder(pOrd);
+				R->setFrozenDraw(pOrd);
 			}
 
 		}
@@ -87,16 +95,19 @@ void ArrivalEvent::Execute()
 			{
 				Region* R=pRest->GetRegion(D_REG);
 				R->setNormalOrder(pOrd);
+				R->setNormalDraw(pOrd);
 			}
 			if (OrdType == TYPE_VIP)
 			{
 				Region* R=pRest->GetRegion(D_REG);
 				R->setVIPOrder(pOrd);
+				R->setVIPDraw(pOrd);
 			}
 			if (OrdType == TYPE_FROZ)
 			{
 				Region* R=pRest->GetRegion(D_REG);
 				R->setFrozenOrder(pOrd);
+				R->setFrozenDraw(pOrd);
 			}
 
 		}

@@ -1,6 +1,7 @@
 #pragma once
 #include "Generic_DS\LinkedList.h"
 #include "Generic_DS\Heap_PriorityQueue.h"
+#include "Generic_DS\Queue.h"
 #include "Rest\Motorcycle.h"
 #include "Rest\Order.h"
 #include <iostream>
@@ -19,7 +20,9 @@ class Region
 	int NormMoto;
 	int VIPMoto;
 	int FrozMoto;
-
+	Queue<Order*> VIPDraw;
+	Queue<Order*> FrozenDraw;
+	Queue<Order*> NormalDraw;
 	
 public:
 	Motorcycle* getVIPMotor() ;
@@ -40,6 +43,17 @@ public:
 	bool NormalOrderIsEmpty();
 	bool FrozenOrderIsEmpty();
 	bool CancelOrder(int id);
+	//DrawFunctions
+	Order* getVIPDraw(Order* O) ;
+	void setVIPDraw(Order* O);
+	Order* getFrozenDraw(Order* O);
+	void setFrozenDraw(Order* O);
+	Order* getNormalDraw(Order* O);
+	void setNormalDraw(Order* O);
+	bool VIPDrawIsEmpty();
+	bool NormalDrawIsEmpty();
+	bool FrozenDrawIsEmpty();
+	///////////////////////////////
 	Region();
 	~Region();
 };

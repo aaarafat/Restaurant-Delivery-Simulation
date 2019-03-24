@@ -46,7 +46,7 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 }
 bool Restaurant::CancelOrder(int id)
 {
-	//if(DrawOrders.removeID(id)) return true; //was testing Cancel and draw list
+	if(DrawOrders.removeID(id)) return true; //was testing Cancel and draw list
 
 		for(int i = A_REG; i < REG_CNT; i++)
 	{

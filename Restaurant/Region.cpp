@@ -84,6 +84,48 @@ bool Region::CancelOrder(int id)
 	
 	return NormalOrder.removeID(id);
 }
+
+//Draw functions
+Order* Region::getVIPDraw(Order* O) 
+{
+	 VIPDraw.dequeue(O);
+	 return O;
+}
+Order* Region::getFrozenDraw(Order* O) 
+{
+	FrozenDraw.dequeue(O);
+	 return O;
+}
+Order* Region::getNormalDraw(Order* O) 
+{
+	NormalDraw.dequeue(O);
+	 return O;
+}
+void Region::setVIPDraw( Order* O)
+{
+	VIPDraw.enqueue(O);
+}
+void Region::setFrozenDraw(Order* O)
+{
+	FrozenDraw.enqueue(O);
+}
+void Region::setNormalDraw(Order* O)
+{
+	NormalDraw.enqueue(O);
+}
+bool Region::VIPDrawIsEmpty()
+{
+	return VIPDraw.isEmpty();
+}
+bool Region::NormalDrawIsEmpty()
+{
+	return NormalDraw.isEmpty();
+}
+bool Region::FrozenDrawIsEmpty()
+{
+	return FrozenDraw.isEmpty();
+}
+////////////////////////////////////////////////////
 Region::~Region()
 {
 }
