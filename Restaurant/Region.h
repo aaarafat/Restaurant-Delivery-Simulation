@@ -8,6 +8,8 @@
 using namespace std;
 class Region
 {
+	static int cnt;
+	string name;
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;

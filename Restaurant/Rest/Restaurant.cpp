@@ -350,8 +350,7 @@ void Restaurant :: Test_Simulation()
 		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
 		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
 		ExecuteEvents(CurrentTimeStep);
-		pGUI->PrintMessage(mn + ":" + secs, "Region A:    " + Reg[A_REG]->Print(), "Region B:    " + Reg[B_REG]->Print(), "Region C:    "+ Reg[C_REG]->Print(),
-			"Region D:    " + Reg[D_REG]->Print());
+		pGUI->PrintMessage(mn + ":" + secs, Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 		//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 
@@ -367,8 +366,7 @@ void Restaurant :: Test_Simulation()
 		}*/
 	}
 	
-	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", "Region A:    " + Reg[A_REG]->Print(), "Region B:    " + Reg[B_REG]->Print(), "Region C:    "+ Reg[C_REG]->Print(),
-			"Region D:    " + Reg[D_REG]->Print());
+	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	pGUI->waitForClick();
 
 
