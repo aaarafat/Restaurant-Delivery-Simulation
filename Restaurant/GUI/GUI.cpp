@@ -61,31 +61,18 @@ string GUI::GetString() const
 // ================================== OUTPUT FUNCTIONS ===================================
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::PrintMessage(string msg) const	//Prints a message on status bar
+void GUI::PrintMessage(string msg, string line1, string line2, string line3, string line4) const	//Prints a message on status bar
 {
 	ClearStatusBar();	//First clear the status bar
 	
 	pWind->SetPen(DARKRED);
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
-	float lines[] = {1.05, 1.28, 1.65, 2.4, 4};
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.05), msg); // You may need to change these coordinates later 
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.28), line1); //second line
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.65), line2); //third line
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.4), line3); //fourth line 
+	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/4), line4);
 
-	int f, i = 0;
-	do
-	{
-		f = msg.find('\n');
-		string s; s.assign(msg, 0, f);
-		msg = (f == -1) ? msg : msg.substr(f + 1);
-		pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/lines[i]), s); 
-		i++;
-	}while(f != -1 && i < 5);
-	
-
-	/*pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.05), msg); // You may need to change these coordinates later 
-	                                                                      // to be able to write multi-line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.28), msg); //second line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.65), msg); //third line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.4), msg); //fourth line 
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/4), msg);*/
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::DrawString(const int iX, const int iY, const string Text)
