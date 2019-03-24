@@ -356,6 +356,8 @@ void Restaurant :: Test_Simulation()
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
 		//function to draw 
+		pGUI->ResetDrawingList();
+		CopyOrdersToDraw();
 		Test_Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
@@ -410,4 +412,15 @@ void Restaurant :: Test_Draw_All()
 	}
 	pGUI->UpdateInterface();
 
+}
+
+void Restaurant::CopyOrdersToDraw()
+{
+	for (int i=A_REG;i<REG_CNT;i++)
+		{
+			//create function to copy from Normal to Draw
+			Reg[i]->CopyNormaltoDraw();
+
+
+		}	
 }

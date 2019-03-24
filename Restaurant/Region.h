@@ -49,6 +49,7 @@ public:
 	bool VIPDrawIsEmpty();
 	bool NormalDrawIsEmpty();
 	bool FrozenDrawIsEmpty();
+	void CopyNormaltoDraw();
 	///////////////////////////////
 	string Print();
 
