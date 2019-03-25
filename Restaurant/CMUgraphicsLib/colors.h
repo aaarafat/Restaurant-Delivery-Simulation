@@ -181,6 +181,10 @@ const color DARKCYAN = color(0, 139, 139);
 const color DARKMAGENTA = color(139, 0, 139);
 const color DARKRED = color(139, 0, 0);
 const color LIGHTGREEN = color(144, 238, 144);
-
+const color DARKGUID = color(22,22,22);
+const color DARKGUIL = color(33,32,32);
+const color NRED = color(214,9,9);
+const color NDARKBLUE = color(11,144,211);
+const color NVIOLET = color(255,146,232);
 
 #endif //COLOR_H

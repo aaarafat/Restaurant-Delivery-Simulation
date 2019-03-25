@@ -350,7 +350,8 @@ void Restaurant :: Test_Simulation()
 		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
 		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
 		ExecuteEvents(CurrentTimeStep);
-		pGUI->PrintMessage(mn + ":" + secs, Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+		
+		pGUI->PrintMessage( Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 		//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 
@@ -359,6 +360,7 @@ void Restaurant :: Test_Simulation()
 		pGUI->ResetDrawingList();
 		CopyOrdersToDraw();
 		Draw_All();
+		pGUI->PrintTime(mn + ":" + secs);
 		pGUI->waitForClick();
 		CurrentTimeStep++;	//advance timestep
 
