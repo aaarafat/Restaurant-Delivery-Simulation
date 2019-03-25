@@ -61,7 +61,7 @@ public:
 	void StepByStep_Simulation(); //Steps every Second
 	void Silent_Simulation();     //Doesn't generate a GUI 
 	void Test_Simulation(); //Testing for phase 1
-	void Test_Draw_All(); //testing drawing from the queues
+	void Draw_All(); //drawing from the Draw Queue
 	void CopyOrdersToDraw(); //Copy Orders to be Drawn
 	void setDrawOrder(Order *O);
 	Order* getDrawOrder();

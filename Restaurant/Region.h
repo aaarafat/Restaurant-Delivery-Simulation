@@ -16,8 +16,6 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	LinkedList<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
-	Queue<Order*> VIPDraw;
-	Queue<Order*> FrozenDraw;
 	Queue<Order*> NormalDraw;
 	
 public:
@@ -49,7 +47,7 @@ public:
 	bool VIPDrawIsEmpty();
 	bool NormalDrawIsEmpty();
 	bool FrozenDrawIsEmpty();
-	void CopyNormaltoDraw();
+	void CopyOrderstoDraw();
 	///////////////////////////////
 	string Print();
 

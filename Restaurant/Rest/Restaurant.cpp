@@ -158,7 +158,7 @@ void Restaurant::Just_A_Demo()
 
 		//Let's draw all arrived orders by passing them to the GUI to draw
 
-		Test_Draw_All();
+		Draw_All();
 		Sleep(1000);
 		CurrentTimeStep++;	//advance timestep
 	}
@@ -358,8 +358,8 @@ void Restaurant :: Test_Simulation()
 		//function to draw 
 		pGUI->ResetDrawingList();
 		CopyOrdersToDraw();
-		Test_Draw_All();
-		Sleep(1000);
+		Draw_All();
+		pGUI->waitForClick();
 		CurrentTimeStep++;	//advance timestep
 
 		/*if(CurrentTimeStep==4)
@@ -376,20 +376,10 @@ void Restaurant :: Test_Simulation()
 
 /////////////////////////////////////////////////////
 
-void Restaurant :: Test_Draw_All()
+void Restaurant :: Draw_All()
 {
 	Order* pOrd=nullptr;
 	bool Empty;
-	for(int i = A_REG; i < REG_CNT; i++)
-	{
-		Empty=Reg[i]->VIPDrawIsEmpty();
-		while(!Empty)
-		{
-			pOrd=Reg[i]->getVIPDraw(pOrd);
-			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->VIPDrawIsEmpty();
-		}
-	}
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		Empty=Reg[i]->NormalDrawIsEmpty();
@@ -400,16 +390,7 @@ void Restaurant :: Test_Draw_All()
 			Empty=Reg[i]->NormalDrawIsEmpty();
 		}
 	}
-	for(int i = A_REG; i < REG_CNT; i++)
-	{
-		Empty=Reg[i]->FrozenDrawIsEmpty();
-		while(!Empty)
-		{
-			pOrd=Reg[i]->getFrozenDraw(pOrd);
-			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->FrozenDrawIsEmpty();
-		}
-	}
+
 	pGUI->UpdateInterface();
 
 }
@@ -419,7 +400,7 @@ void Restaurant::CopyOrdersToDraw()
 	for (int i=A_REG;i<REG_CNT;i++)
 		{
 			//create function to copy from Normal to Draw
-			Reg[i]->CopyNormaltoDraw();
+			Reg[i]->CopyOrderstoDraw();
 
 
 		}	

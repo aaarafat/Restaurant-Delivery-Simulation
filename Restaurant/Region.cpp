@@ -78,60 +78,50 @@ bool Region::CancelOrder(int id)
 }
 
 //Draw functions
-Order* Region::getVIPDraw(Order* O) 
-{
-	 VIPDraw.dequeue(O);
-	 return O;
-}
-Order* Region::getFrozenDraw(Order* O) 
-{
-	FrozenDraw.dequeue(O);
-	 return O;
-}
+
 Order* Region::getNormalDraw(Order* O) 
 {
 	NormalDraw.dequeue(O);
 	 return O;
 }
-void Region::setVIPDraw( Order* O)
-{
-	VIPDraw.enqueue(O);
-}
-void Region::setFrozenDraw(Order* O)
-{
-	FrozenDraw.enqueue(O);
-}
 void Region::setNormalDraw(Order* O)
 {
 	NormalDraw.enqueue(O);
 }
-bool Region::VIPDrawIsEmpty()
-{
-	return VIPDraw.isEmpty();
-}
 bool Region::NormalDrawIsEmpty()
 {
 	return NormalDraw.isEmpty();
-}
-bool Region::FrozenDrawIsEmpty()
-{
-	return FrozenDraw.isEmpty();
 }
 string Region::Print()
 {
 	return "Region " + name + ":    Motors -->  VIP: " + to_string(VIPMotor.Size()) + "    Frozen: " + to_string(FrozenMotor.Size()) + "    Normal: " + to_string(NormalMotor.Size())
 			+ "                                                                          Orders -->  VIP: " + to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
 }
-void Region::CopyNormaltoDraw()
+void Region::CopyOrderstoDraw()
 {
-	for(int i=1;i<=NormalOrder.Size();i++)
+	Queue<Order*> Q;Order* O;
+	while(!VIPOrderIsEmpty())
 	{
-
-		NormalDraw.enqueue(NormalOrder.getEntry(i));
+		O=VIPOrder.peek();
+		VIPOrder.remove();
+		NormalDraw.enqueue(O);
+		Q.enqueue(O);
 
 	}
+	while(Q.dequeue(O))
+	{
+		VIPOrder.add(O);
 
-
+	}
+	for(int i=1;i<=FrozenOrder.Size();i++)
+	{
+		NormalDraw.enqueue(FrozenOrder.getEntry(i));
+	}
+	for(int i=1;i<=NormalOrder.Size();i++)
+	{
+		NormalDraw.enqueue(NormalOrder.getEntry(i));
+	}
+	
 }
 
 ////////////////////////////////////////////////////
