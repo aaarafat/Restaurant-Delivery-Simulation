@@ -63,6 +63,7 @@ public:
 	void Test_Simulation(); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue
 	void CopyOrdersToDraw(); //Copy Orders to be Drawn
+	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
 	void setDrawOrder(Order *O);
 	Order* getDrawOrder();
 };

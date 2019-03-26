@@ -25,6 +25,7 @@ Motorcycle* Region::getNormalMotor()
 Order* Region::getVIPOrder() 
 {
 	Order*O=VIPOrder.peek();
+	VIPOrder.remove();
 	return O;
 }
 Order* Region::getFrozenOrder() 
