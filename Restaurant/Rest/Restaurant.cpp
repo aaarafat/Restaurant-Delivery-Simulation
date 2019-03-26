@@ -32,6 +32,7 @@ void Restaurant::RunSimulation()
 		break;
 	case MODE_TEST:
 		Test_Simulation();
+		break;
 	};
 
 }
@@ -369,6 +370,28 @@ void Restaurant :: Test_Simulation()
 			pGUI->ResetDrawingList();
 		}*/
 	}
+	for(int i=0;i<4;i++)
+	{
+		DeleteFirstDrawn(i);
+		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
+		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
+		ExecuteEvents(CurrentTimeStep);
+		
+		pGUI->PrintMessage( Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+		//execute all events at current time step
+		//The above line may add new orders to the DEMO_Queue
+
+		//Let's draw all arrived orders by passing them to the GUI to draw
+		//function to draw 
+		pGUI->ResetDrawingList();
+		CopyOrdersToDraw();
+		Draw_All();
+		pGUI->PrintTime(mn + ":" + secs);
+		pGUI->waitForClick();
+		CurrentTimeStep++;
+
+
+	}
 	pGUI->PrintTime(mn + ":" + secs, RED);
 	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	pGUI->waitForClick();
@@ -384,12 +407,12 @@ void Restaurant :: Draw_All()
 	bool Empty;
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Empty=Reg[i]->NormalDrawIsEmpty();
+		Empty=Reg[i]->DrawOrdersIsEmpty();
 		while(!Empty)
 		{
-			pOrd=Reg[i]->getNormalDraw(pOrd);
+			pOrd=Reg[i]->getDrawOrders(pOrd);
 			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->NormalDrawIsEmpty();
+			Empty=Reg[i]->DrawOrdersIsEmpty();
 		}
 	}
 
@@ -406,4 +429,41 @@ void Restaurant::CopyOrdersToDraw()
 
 
 		}	
+}/////////////////////////////////
+void Restaurant::DeleteFirstDrawn(int region)
+{
+	switch(region)
+		{case A_REG:
+			if(!Reg[A_REG]->VIPOrderIsEmpty())
+				Reg[A_REG]->getVIPOrder();
+			else if(!Reg[A_REG]->FrozenOrderIsEmpty())
+				Reg[A_REG]->getFrozenOrder();
+			else if(!Reg[A_REG]->NormalOrderIsEmpty())
+				Reg[A_REG]->getNormalOrder();
+			break;
+		case B_REG:
+			if(!Reg[B_REG]->VIPOrderIsEmpty())
+				Reg[B_REG]->getVIPOrder();
+			else if(!Reg[B_REG]->FrozenOrderIsEmpty())
+				Reg[B_REG]->getFrozenOrder();
+			else if(!Reg[B_REG]->NormalOrderIsEmpty())
+				Reg[B_REG]->getNormalOrder();
+			break;
+		case C_REG:
+			if(!Reg[C_REG]->VIPOrderIsEmpty())
+				Reg[C_REG]->getVIPOrder();
+			else if(!Reg[C_REG]->FrozenOrderIsEmpty())
+				Reg[C_REG]->getFrozenOrder();
+			else if(!Reg[C_REG]->NormalOrderIsEmpty())
+				Reg[C_REG]->getNormalOrder();
+			break;
+		case D_REG:
+			if(!Reg[D_REG]->VIPOrderIsEmpty())
+				Reg[D_REG]->getVIPOrder();
+			else if(!Reg[D_REG]->FrozenOrderIsEmpty())
+				Reg[D_REG]->getFrozenOrder();
+			else if(!Reg[D_REG]->NormalOrderIsEmpty())
+				Reg[D_REG]->getNormalOrder();
+			break;
+		}
 }

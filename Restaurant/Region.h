@@ -16,7 +16,7 @@ class Region
 	Heap_PriorityQueue<Order> VIPOrder;
 	LinkedList<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
-	Queue<Order*> NormalDraw;
+	Queue<Order*> DrawOrders;
 	
 public:
 	Motorcycle* getVIPMotor() ;
@@ -42,10 +42,10 @@ public:
 	void setVIPDraw(Order* O);
 	Order* getFrozenDraw(Order* O);
 	void setFrozenDraw(Order* O);
-	Order* getNormalDraw(Order* O);
-	void setNormalDraw(Order* O);
+	Order* getDrawOrders(Order* O);
+	void setDrawOrders(Order* O);
 	bool VIPDrawIsEmpty();
-	bool NormalDrawIsEmpty();
+	bool DrawOrdersIsEmpty();
 	bool FrozenDrawIsEmpty();
 	void CopyOrderstoDraw();
 	///////////////////////////////
