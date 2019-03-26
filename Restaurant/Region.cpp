@@ -80,18 +80,18 @@ bool Region::CancelOrder(int id)
 
 //Draw functions
 
-Order* Region::getNormalDraw(Order* O) 
+Order* Region::getDrawOrders(Order* O) 
 {
-	NormalDraw.dequeue(O);
+	DrawOrders.dequeue(O);
 	 return O;
 }
-void Region::setNormalDraw(Order* O)
+void Region::setDrawOrders(Order* O)
 {
-	NormalDraw.enqueue(O);
+	DrawOrders.enqueue(O);
 }
-bool Region::NormalDrawIsEmpty()
+bool Region::DrawOrdersIsEmpty()
 {
-	return NormalDraw.isEmpty();
+	return DrawOrders.isEmpty();
 }
 string Region::Print()
 {
@@ -106,7 +106,7 @@ void Region::CopyOrderstoDraw()
 	{
 		O=VIPOrder.peek();
 		VIPOrder.remove();
-		NormalDraw.enqueue(O);
+		DrawOrders.enqueue(O);
 		Q.enqueue(O);
 
 	}
@@ -117,11 +117,11 @@ void Region::CopyOrderstoDraw()
 	}
 	for(int i=1;i<=FrozenOrder.Size();i++)
 	{
-		NormalDraw.enqueue(FrozenOrder.getEntry(i));
+		DrawOrders.enqueue(FrozenOrder.getEntry(i));
 	}
 	for(int i=1;i<=NormalOrder.Size();i++)
 	{
-		NormalDraw.enqueue(NormalOrder.getEntry(i));
+		DrawOrders.enqueue(NormalOrder.getEntry(i));
 	}
 	
 }

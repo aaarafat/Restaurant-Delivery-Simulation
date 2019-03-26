@@ -407,12 +407,12 @@ void Restaurant :: Draw_All()
 	bool Empty;
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Empty=Reg[i]->NormalDrawIsEmpty();
+		Empty=Reg[i]->DrawOrdersIsEmpty();
 		while(!Empty)
 		{
-			pOrd=Reg[i]->getNormalDraw(pOrd);
+			pOrd=Reg[i]->getDrawOrders(pOrd);
 			pGUI->AddOrderForDrawing(pOrd);
-			Empty=Reg[i]->NormalDrawIsEmpty();
+			Empty=Reg[i]->DrawOrdersIsEmpty();
 		}
 	}
 
@@ -438,7 +438,7 @@ void Restaurant::DeleteFirstDrawn(int region)
 				Reg[A_REG]->getVIPOrder();
 			else if(!Reg[A_REG]->FrozenOrderIsEmpty())
 				Reg[A_REG]->getFrozenOrder();
-			else if(!Reg[A_REG]->NormalDrawIsEmpty())
+			else if(!Reg[A_REG]->NormalOrderIsEmpty())
 				Reg[A_REG]->getNormalOrder();
 			break;
 		case B_REG:
