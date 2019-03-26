@@ -19,6 +19,7 @@ GUI::GUI()
 	ClearStatusBar();
 	ClearDrawingArea(); 
 	DrawRestArea();  
+	CreateMenuBar();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()
@@ -98,10 +99,21 @@ void GUI::ClearMenuBar() const
 	pWind->SetBrush(DARKGUID);
 	pWind->DrawRectangle(0, 0, WindWidth, MenuBarHeight);	
 
-	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);	
+		
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
+void GUI::CreateMenuBar()
+{
+	string MenuItemImages[MENU_COUNT];
+	MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
+	MenuItemImages[STEPBYSTEP] = "images\\steps.jpg";
+	MenuItemImages[SILENT] = "images\\silent.jpg";
+	MenuItemImages[TEST] = "images\\test.jpg";
+	for(int i=0; i<MENU_COUNT; i++)
+		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
+	pWind->SetPen(BLACK, 3);
+	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusBar() const
 {
@@ -273,14 +285,19 @@ void GUI::ResetDrawingList()
 PROG_MODE	GUI::getGUIMode() const
 {
 	PROG_MODE Mode;
-	do
-	{
-		PrintMessage("Please select GUI mode: (1)Interactive, (2)StepByStep, (3)Silent, (4)Test ");
-		string S = GetString();
-		Mode = (PROG_MODE) (atoi(S.c_str())-1);
-	}
-	while(Mode< 0 || Mode >= MODE_CNT);
+	int x,y,S;
+	PrintMessage("Please select GUI mode From Menu");
+	S=-1;
 	
+	while(S<0||S>MODE_CNT)
+	{
+		pWind->WaitMouseClick(x, y);
+		if (y >= 0 && y <= 50)
+		S = x /MenuItemWidth;
+		
+	}
+	//while(Mode> 0 || Mode >= MODE_CNT);
+	Mode = (PROG_MODE) (S);
 	return Mode;
 }
 

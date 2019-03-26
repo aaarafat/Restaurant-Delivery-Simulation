@@ -87,7 +87,7 @@ private:
 	void CountNumbersOfRegions() ;    // Counts the Number of Orders in each region
 	void DrawNumbersForRegions() const;    // Draws the number of orders of all Regions
 	void ResetDrawNumbers(); // Resets the Region Order Number to zero
-
+	void CreateMenuBar();
 public:
 	GUI();
 	~GUI();

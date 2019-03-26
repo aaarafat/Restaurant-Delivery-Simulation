@@ -36,6 +36,14 @@ enum PROG_MODE	//mode of the program interface
 	MODE_CNT	//number of possible modes
 };
 
+enum DrawMenuItem
+{
+	INTERACTIVE,
+	STEPBYSTEP,
+	SILENT,
+	TEST,
+	MENU_COUNT
+};
 
 #define MaxPossibleOrdCnt 999	//arbitrary value
 
