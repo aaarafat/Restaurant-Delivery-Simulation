@@ -76,11 +76,11 @@ void GUI::PrintMessage(string msg, string line1, string line2, string line3, str
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::PrintTime(string t) const	//Prints a message on status bar
+void GUI::PrintTime(string t, color clr) const	//Prints a message on status bar
 {
 	
 	
-	pWind->SetPen(WHITE);
+	pWind->SetPen(clr);
 	pWind->SetFont(32, BOLD , BY_NAME, "Arial");   
 	pWind->DrawString(565, 260, t); // You may need to change these coordinates later 
 	

@@ -369,7 +369,7 @@ void Restaurant :: Test_Simulation()
 			pGUI->ResetDrawingList();
 		}*/
 	}
-	
+	pGUI->PrintTime(mn + ":" + secs, RED);
 	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	pGUI->waitForClick();
 

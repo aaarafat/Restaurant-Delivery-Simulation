@@ -98,7 +98,7 @@ public:
 
 	// Output Functions  ---------------------------
 	void PrintMessage(string msg, string line1 = "", string line2 = "", string line3 = "", string line4 = "") const; // prints a message in the status bar
-	void PrintTime(string t) const;
+	void PrintTime(string t, color clr = WHITE) const;
 
 	void UpdateInterface();
 	void AddOrderForDrawing(Order* pOrd);	//Adds a new order to the drawing list
