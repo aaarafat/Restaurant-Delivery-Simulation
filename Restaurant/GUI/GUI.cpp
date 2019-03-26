@@ -67,8 +67,8 @@ void GUI::PrintMessage(string msg, string line1, string line2, string line3, str
 	
 	pWind->SetPen(WHITE);
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.06), msg); // You may need to change these coordinates later 
-	pWind->DrawString(12, WindHeight - (int) (StatusBarHeight/1.28), line1); //second line
+	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.06), msg); // You may need to change these coordinates later 
+	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.28), line1); //second line
 	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.65), line2); //third line
 	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.4), line3); //fourth line 
 	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/4), line4);
@@ -261,6 +261,7 @@ void GUI::UpdateInterface()
 	ClearDrawingArea();
 	DrawRestArea();
 	DrawOrders();
+	 ClearMenuBar() ;
 }
 
 /*

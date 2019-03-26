@@ -18,8 +18,7 @@ Restaurant::Restaurant()
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
-	PROG_MODE	mode = pGUI->getGUIMode();
-		
+	PROG_MODE	mode = pGUI->getGUIMode();	
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
@@ -343,6 +342,7 @@ void Restaurant :: Test_Simulation()
 		
 	int CurrentTimeStep = 1;
 	string mn, secs;
+	int x,y;
 	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty())
 	{
