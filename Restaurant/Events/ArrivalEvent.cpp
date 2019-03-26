@@ -17,7 +17,7 @@ void ArrivalEvent::Execute()
 	// Then adds it to normal, frozen, or VIP order lists that you will create in phase1
 	///For the sake of demo, this function will just create an order and add it to DemoQueue
 	///Remove the next code lines in phase 1&2
-	Order* pOrd = new Order(OrderID,OrdType,OrdRegion);
+	Order* pOrd = new Order(OrderID,OrdType,OrdRegion,OrdDistance,OrdMoney,EventTime);
 	//pRest->AddtoDemoQueue(pOrd);
 	pRest->setDrawOrder(pOrd);
 	if (OrdRegion == A_REG)

@@ -1,10 +1,13 @@
 #include "Order.h"
 
-Order::Order(int id, ORD_TYPE r_Type, REGION r_region)
+Order::Order(int id, ORD_TYPE r_Type, REGION r_region,int Dist,int TotalMon,int ArrTim)
 {
 	ID = (id>0&&id<1000)?id:0;	//1<ID<999
 	type = r_Type;
 	Region = r_region;	
+	Distance=Dist;
+	totalMoney=TotalMon;
+	ArrTime=ArrTim;
 }
 
 
