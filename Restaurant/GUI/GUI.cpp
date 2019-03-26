@@ -110,7 +110,7 @@ void GUI::CreateMenuBar()
 	MenuItemImages[SILENT] = "images\\silent.jpg";
 	MenuItemImages[TEST] = "images\\test.jpg";
 	for(int i=0; i<MENU_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
+		pWind->DrawImage(MenuItemImages[i], i*155, 0, 155, 50);
 	pWind->SetPen(BLACK, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 }
@@ -295,7 +295,7 @@ PROG_MODE	GUI::getGUIMode() const
 	{
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
-		S = x /MenuItemWidth;
+		S = x /155;
 		
 	}
 	//while(Mode> 0 || Mode >= MODE_CNT);
