@@ -81,13 +81,14 @@ private:
 
 	void DrawString(const int iX, const int iY, const string Text); // prints a message in the passed coordinates
 	void DrawRestArea() const;	    // draws the restaurant area
-	void ClearMenuBar() const;
+	
 	void ClearStatusBar() const;    // clears the status bar
 	void ClearDrawingArea() const;	// clears the Drawing area from all drawings
 	void CountNumbersOfRegions() ;    // Counts the Number of Orders in each region
 	void DrawNumbersForRegions() const;    // Draws the number of orders of all Regions
 	void ResetDrawNumbers(); // Resets the Region Order Number to zero
 	void CreateMenuBar();
+	void ClearMenuBar() const;
 public:
 	GUI();
 	~GUI();
