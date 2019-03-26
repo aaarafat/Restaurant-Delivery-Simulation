@@ -193,6 +193,7 @@ void GUI::DrawSingleOrder(Order* pO, int RegionCount) const       // It is a pri
 	REGION Region = pO->GetRegion();
 
 	int x, y, refX, refY;
+	int shift = 27;
 	//First calculate x,y position of the order on the output screen
 	//It depends on the region and the order distance
 	switch (Region)
@@ -206,13 +207,13 @@ void GUI::DrawSingleOrder(Order* pO, int RegionCount) const       // It is a pri
 	case B_REG:
 		refX = (WindWidth/2 + RestWidth/2);
 		refY = YHalfDrawingArea - OrderHeight; //
-		x = refX + (DrawDistance-1)*OrderWidth + DrawDistance; //(Distance)
+		x = refX + (DrawDistance-1)*OrderWidth + DrawDistance + shift; //(Distance)
 		y = refY - YPos*OrderHeight - YPos; // YPos
 		break;
 	case C_REG:
 		refX = (WindWidth/2 + RestWidth/2);
 		refY = YHalfDrawingArea + OrderHeight; //
-		x = refX + (DrawDistance-1)*OrderWidth + DrawDistance; //(Distance)
+		x = refX + (DrawDistance-1)*OrderWidth + DrawDistance + shift; //(Distance)
 		y = refY + (YPos-1)*OrderHeight + YPos; // YPos
 		break;
 	case D_REG:
