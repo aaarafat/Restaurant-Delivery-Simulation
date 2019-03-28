@@ -93,6 +93,7 @@ private:
 	void ResetDrawNumbers(); // Resets the Region Order Number to zero
 	void CreateMenuBar();
 	void ClearMenuBar() const;
+	void ChangeMode();
 public:
 	GUI();
 	~GUI();
@@ -109,7 +110,7 @@ public:
 	void AddOrderForDrawing(Order* pOrd);	//Adds a new order to the drawing list
 	void ResetDrawingList();		//resets drawing list (should be called every timestep after drawing)
 
-	PROG_MODE getGUIMode() const;			//returns the mode of the program
+	PROG_MODE getGUIMode() ;			//returns the mode of the program
 
 };
 

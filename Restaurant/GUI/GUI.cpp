@@ -23,6 +23,28 @@ GUI::GUI()
 	ClearDrawingArea(); 
 	DrawRestArea();  
 	CreateMenuBar();
+	
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+void GUI::ChangeMode()
+{
+	if(GMode == MODE_LIGHT)
+	{
+		GMode = MODE_DARK;
+		GUIL = DARKGUIL;
+		GUID = DARKGUID;
+		GUIS = BLACK;
+		GUIF = WHITE;
+	}
+	else
+	{
+		GMode = MODE_LIGHT;
+		GUIL = LIGHTGUIL;
+		GUID = LIGHTGUID;
+		GUIS = WHITE;
+		GUIF = BLACK;
+
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()
@@ -111,12 +133,26 @@ void GUI::ClearMenuBar() const
 void GUI::CreateMenuBar()
 {
 	string MenuItemImages[MENU_COUNT];
-	MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
-	MenuItemImages[STEPBYSTEP] = "images\\steps.jpg";
-	MenuItemImages[SILENT] = "images\\silent.jpg";
-	MenuItemImages[TEST] = "images\\test.jpg";
+	string SwitchGUI;
+	if(GMode == MODE_DARK)
+	{
+		MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
+		MenuItemImages[STEPBYSTEP] = "images\\steps.jpg";
+		MenuItemImages[SILENT] = "images\\silent.jpg";
+		MenuItemImages[TEST] = "images\\test.jpg";
+		SwitchGUI = "images\\switch.jpg";
+	}
+	else
+	{
+		MenuItemImages[INTERACTIVE] = "images\\interactivel.jpg";
+		MenuItemImages[STEPBYSTEP] = "images\\stepsl.jpg";
+		MenuItemImages[SILENT] = "images\\silentl.jpg";
+		MenuItemImages[TEST] = "images\\testl.jpg";
+		SwitchGUI = "images\\switchl.jpg";
+	}
 	for(int i=0; i<MENU_COUNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i*155, 0, 155, 50);
+	pWind->DrawImage(SwitchGUI,WindWidth-155, 0, 155, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 }
@@ -290,10 +326,10 @@ void GUI::ResetDrawingList()
 }
 
 
-PROG_MODE	GUI::getGUIMode() const
+PROG_MODE	GUI::getGUIMode() 
 {
 	PROG_MODE Mode;
-	int x,y,S;
+	int x,y,S,s;
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
@@ -302,6 +338,15 @@ PROG_MODE	GUI::getGUIMode() const
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
 		S = x /155;
+		s = (WindWidth-x)/155;
+		if(s==0)
+		{
+			ChangeMode();
+			UpdateInterface();
+			CreateMenuBar();
+			PrintMessage("Please select GUI mode From Menu");
+			S = -1;
+		}
 		
 	}
 	//while(Mode> 0 || Mode >= MODE_CNT);
