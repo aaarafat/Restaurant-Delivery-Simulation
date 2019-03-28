@@ -300,7 +300,6 @@ void GUI::DrawOrders() const
 
 void GUI::UpdateInterface() 
 {
-	CountNumbersOfRegions();
 	ClearDrawingArea();
 	DrawRestArea();
 	DrawOrders();
@@ -354,79 +353,6 @@ PROG_MODE	GUI::getGUIMode()
 	return Mode;
 }
 
-void GUI::CountNumbersOfRegions() 
-{
-	Order*O;
-	for (int i=0;i<OrderCount;i++)
-		{
-			O=OrdListForDrawing[i];
-			if (O->GetRegion() == A_REG)
-				{
-					if(O->GetType() == TYPE_VIP )
-						{
-							NumberOfVIPOrders[A_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_NRM )
-						{
-							NumberOfNormalOrders[A_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_FROZ )
-						{
-							NumberOfFrozenOrders[A_REG]++;continue;
-						}
-				}
-
-			if (O->GetRegion() == B_REG)
-				{
-					if(O->GetType() == TYPE_VIP )
-						{
-							NumberOfVIPOrders[B_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_NRM )
-						{
-							NumberOfNormalOrders[B_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_FROZ )
-						{
-							NumberOfFrozenOrders[B_REG]++;continue;
-						}
-				}
-
-			if (O->GetRegion() == C_REG)
-				{
-					if(O->GetType() == TYPE_VIP )
-						{
-							NumberOfVIPOrders[C_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_NRM )
-						{
-							NumberOfNormalOrders[C_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_FROZ )
-						{
-							NumberOfFrozenOrders[C_REG]++;continue;
-						}
-				}
-
-			if (O->GetRegion() == D_REG)
-				{
-					if(O->GetType() == TYPE_VIP )
-						{
-							NumberOfVIPOrders[D_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_NRM )
-						{
-							NumberOfNormalOrders[D_REG]++;continue;
-						}
-					if(O->GetType() == TYPE_FROZ )
-						{
-							NumberOfFrozenOrders[D_REG]++;continue;
-						}
-				}
-
-		}	
-
-}
 
 void GUI::ResetDrawNumbers()
 {
