@@ -15,7 +15,11 @@ class GUI
 private:
 	window *pWind;
 	color OrdersClrs[TYPE_CNT];
-
+	GUI_MODE GMode;
+	color GUIL;
+	color GUID;
+	color GUIS;
+	color GUIF;
 
 	// Some Static Constant Data Members: ---------------------
 

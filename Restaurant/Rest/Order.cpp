@@ -42,7 +42,7 @@ int Order::GetDistance() const
 }
 double Order::Priorty() const
 {
-	return (float(Distance)/ArrTime)+(float(totalMoney)/Distance);
+	return (double(Distance)/ArrTime)+(double(totalMoney)/Distance);
 }
 bool Order::operator< (const Order& o)
 {

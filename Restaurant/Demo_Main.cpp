@@ -7,7 +7,6 @@
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
 int main()
 {
-	
 	Restaurant* pRest = new Restaurant;
 	pRest->RunSimulation();
 	

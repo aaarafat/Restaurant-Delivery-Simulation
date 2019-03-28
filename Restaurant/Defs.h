@@ -35,6 +35,11 @@ enum PROG_MODE	//mode of the program interface
 	MODE_TEST,	//Phase 1 Test
 	MODE_CNT	//number of possible modes
 };
+enum GUI_MODE
+{
+	MODE_DARK,
+	MODE_LIGHT,
+};
 
 enum DrawMenuItem
 {
