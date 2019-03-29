@@ -350,6 +350,7 @@ PROG_MODE	GUI::getGUIMode()
 	}
 	//while(Mode> 0 || Mode >= MODE_CNT);
 	Mode = (PROG_MODE) (S);
+	UpdateInterface();
 	return Mode;
 }
 
