@@ -20,10 +20,6 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	PROG_MODE	mode = pGUI->getGUIMode();	
-	/*if (Music != "MUTE")
-	{
-		PlaySound((LPCSTR)wstring(Music.begin(),Music.end()).c_str(), NULL, SND_ASYNC | SND_LOOP);
-	}*/
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:

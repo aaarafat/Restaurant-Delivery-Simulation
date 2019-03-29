@@ -1,4 +1,5 @@
 #include "GUI.h"
+#include <algorithm>
 #pragma comment( lib, "Winmm.lib" )
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI()
@@ -338,28 +339,8 @@ PROG_MODE	GUI::getGUIMode()
 	PROG_MODE Mode;
 	int x,y,S,s;
 	CreateMenuBar();
-	PrintMessage("Please select Music mode From Menu");
 	string Music;
-	while(true)
-	{
-		pWind->WaitMouseClick(x, y);
-		s = (WindWidth-x)/120;
-		if(s==1)
-		{
-			Music = "MUTE";
-			break;
-		}
-		if(s == 2)
-		{
-			Music = GetFileName("WAV");
-			break;
-		}
-		
-	}
-	if (Music != "MUTE")
-	{
-		PlaySound((LPCSTR)wstring(Music.begin(),Music.end()).c_str(), NULL, SND_ASYNC | SND_LOOP);
-	}
+	
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
@@ -376,6 +357,16 @@ PROG_MODE	GUI::getGUIMode()
 			CreateMenuBar();
 			PrintMessage("Please select GUI mode From Menu");
 			S = -1;
+		}
+		else if(s==1)
+		{
+			PlaySound(NULL, NULL, 0); 
+		}
+		else if(s == 2)
+		{
+			Music = GetFileName("WAV");
+			replace(Music.begin(), Music.end(), '\\', '/');
+			PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP);
 		}
 		
 	}
