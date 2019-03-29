@@ -152,8 +152,8 @@ void GUI::CreateMenuBar()
 		SwitchGUI = "images\\switchl.jpg";
 	}
 	for(int i=0; i<MENU_COUNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i*155, 0, 155, 50);
-	pWind->DrawImage(SwitchGUI,WindWidth-155, 0, 155, 50);
+		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
+	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 }
@@ -339,7 +339,7 @@ PROG_MODE	GUI::getGUIMode()
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
 		S = x /155;
-		s = (WindWidth-x)/155;
+		s = (WindWidth-x)/120;
 		if(s==0)
 		{
 			ChangeMode();
