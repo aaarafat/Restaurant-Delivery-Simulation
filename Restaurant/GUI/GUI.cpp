@@ -46,6 +46,7 @@ void GUI::ChangeMode()
 
 	}
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()
 {
@@ -329,6 +330,7 @@ PROG_MODE	GUI::getGUIMode()
 {
 	PROG_MODE Mode;
 	int x,y,S,s;
+	CreateMenuBar();
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
@@ -367,4 +369,9 @@ void GUI::ResetDrawNumbers()
 
 	}
 
+}
+
+string GUI::GetFileName()
+{
+	return pWind->open_file();
 }

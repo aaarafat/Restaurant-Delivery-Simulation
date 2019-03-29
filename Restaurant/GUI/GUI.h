@@ -7,6 +7,9 @@
 #include "..\Rest\Order.h"
 
 #include <string>
+#include <Windows.h>
+#include <shobjidl.h> 
+#include<iostream>
 using namespace std;
 
 class GUI
@@ -100,11 +103,10 @@ public:
 	// Input Functions  ---------------------------
 	void waitForClick() const;	// waits a user click from the user
 	string GetString() const ; // reads a string (keyboard input) from the user
-
+	string GetFileName();
 	// Output Functions  ---------------------------
 	void PrintMessage(string msg, string line1 = "", string line2 = "", string line3 = "", string line4 = "") const; // prints a message in the status bar
 	void PrintTime(string t, color clr = WHITE) const;
-
 	void UpdateInterface();
 	void AddOrderForDrawing(Order* pOrd);	//Adds a new order to the drawing list
 	void ResetDrawingList();		//resets drawing list (should be called every timestep after drawing)

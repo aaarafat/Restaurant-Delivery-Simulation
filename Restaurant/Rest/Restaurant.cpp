@@ -332,11 +332,11 @@ void Restaurant :: Test_Simulation()
 	//Event* pEv;
 	//srand(time(NULL));
 
-	pGUI->PrintMessage("Enter I/P Filename: ");
-	while(!ReadFile(pGUI->GetString().c_str()))
+	pGUI->PrintMessage("Select The input file.");
+	while(!ReadFile(pGUI->GetFileName()))
 	{
 		pGUI->UpdateInterface();
-		pGUI->PrintMessage("Please Enter a valid I/P Filename: ");
+		pGUI->PrintMessage("Please Select the input file.");
 	}
 
 	pGUI->UpdateInterface();
