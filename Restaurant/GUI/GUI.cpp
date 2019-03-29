@@ -1,5 +1,5 @@
 #include "GUI.h"
-
+#pragma comment( lib, "Winmm.lib" )
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI()
 {
@@ -135,6 +135,7 @@ void GUI::CreateMenuBar()
 {
 	string MenuItemImages[MENU_COUNT];
 	string SwitchGUI;
+	string MusicOn, MusicOff;
 	if(GMode == MODE_DARK)
 	{
 		MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
@@ -142,6 +143,8 @@ void GUI::CreateMenuBar()
 		MenuItemImages[SILENT] = "images\\silent.jpg";
 		MenuItemImages[TEST] = "images\\test.jpg";
 		SwitchGUI = "images\\switch.jpg";
+		MusicOn = "images\\ond.jpg";
+		MusicOff = "images\\offd.jpg";
 	}
 	else
 	{
@@ -150,10 +153,14 @@ void GUI::CreateMenuBar()
 		MenuItemImages[SILENT] = "images\\silentl.jpg";
 		MenuItemImages[TEST] = "images\\testl.jpg";
 		SwitchGUI = "images\\switchl.jpg";
+		MusicOn = "images\\onl.jpg";
+		MusicOff = "images\\offl.jpg";
 	}
 	for(int i=0; i<MENU_COUNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
 	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
+	pWind->DrawImage(MusicOff,WindWidth-120 * 2, 0, 120, 50);
+	pWind->DrawImage(MusicOn,WindWidth-120 * 3, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 }
@@ -331,6 +338,28 @@ PROG_MODE	GUI::getGUIMode()
 	PROG_MODE Mode;
 	int x,y,S,s;
 	CreateMenuBar();
+	PrintMessage("Please select Music mode From Menu");
+	string Music;
+	while(true)
+	{
+		pWind->WaitMouseClick(x, y);
+		s = (WindWidth-x)/120;
+		if(s==1)
+		{
+			Music = "MUTE";
+			break;
+		}
+		if(s == 2)
+		{
+			Music = GetFileName("WAV");
+			break;
+		}
+		
+	}
+	if (Music != "MUTE")
+	{
+		PlaySound((LPCSTR)wstring(Music.begin(),Music.end()).c_str(), NULL, SND_ASYNC | SND_LOOP);
+	}
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
@@ -371,7 +400,7 @@ void GUI::ResetDrawNumbers()
 
 }
 
-string GUI::GetFileName()
+string GUI::GetFileName(string mode)
 {
-	return pWind->open_file();
+	return pWind->open_file(mode);
 }

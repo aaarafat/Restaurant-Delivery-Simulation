@@ -251,7 +251,7 @@ hInstance(GetModuleHandle(0)), iWindowWidth(iWindWidth), iWindowHeight(iWindHeig
 	    wipInput->AddWindow(hwndWindow, this);	
 	}
 }
-string window::open_file()
+string window::open_file(string mode)
 {
     OPENFILENAME ofn;
 	char filename[500];
@@ -261,7 +261,15 @@ string window::open_file()
 	ofn.lpstrFile = filename;
 	ofn.lpstrFile[0] = '\0';
 	ofn.nMaxFile = 100;
-	ofn.lpstrFilter = "Text Files\0*.TXT\0";
+	if (mode == "TXT")
+	{
+		ofn.lpstrFilter = "Text Files\0*.TXT\0";
+	}
+	else if (mode == "WAV")
+	{
+		ofn.lpstrFilter = "Music Files\0*.WAV\0";
+	}
+	
 	ofn.nFilterIndex = 1;
 	GetOpenFileName(&ofn);
 	return string(ofn.lpstrFile);

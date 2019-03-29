@@ -103,7 +103,7 @@ public:
 	// Input Functions  ---------------------------
 	void waitForClick() const;	// waits a user click from the user
 	string GetString() const ; // reads a string (keyboard input) from the user
-	string GetFileName();
+	string GetFileName(string mode = "TXT");
 	// Output Functions  ---------------------------
 	void PrintMessage(string msg, string line1 = "", string line2 = "", string line3 = "", string line4 = "") const; // prints a message in the status bar
 	void PrintTime(string t, color clr = WHITE) const;
