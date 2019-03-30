@@ -342,7 +342,7 @@ PROG_MODE	GUI::getGUIMode()
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
-	while(S<0||S>MODE_CNT)
+	while(S < 0 || S >= MODE_CNT)
 	{
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
@@ -362,6 +362,7 @@ PROG_MODE	GUI::getGUIMode()
 			MusicOn = false;
 			UpdateInterface();
 			CreateMenuBar();
+			S = -1;
 		}
 		else if(s == 1 && !MusicOn)
 		{
@@ -371,6 +372,7 @@ PROG_MODE	GUI::getGUIMode()
 			MusicOn = true;
 			UpdateInterface();
 			CreateMenuBar();
+			S = - 1;
 		}
 		
 	}
