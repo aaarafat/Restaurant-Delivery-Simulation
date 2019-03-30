@@ -344,7 +344,7 @@ PROG_MODE	GUI::getGUIMode()
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
 	
-	while(S<0||S>MODE_CNT)
+	while(S < 0 || S >= MODE_CNT)
 	{
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
@@ -361,12 +361,14 @@ PROG_MODE	GUI::getGUIMode()
 		else if(s==1)
 		{
 			PlaySound(NULL, NULL, 0); 
+			S = -1;
 		}
 		else if(s == 2)
 		{
 			Music = GetFileName("WAV");
 			replace(Music.begin(), Music.end(), '\\', '/');
 			PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP);
+			S = - 1;
 		}
 		
 	}
