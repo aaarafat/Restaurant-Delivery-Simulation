@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI()
 {
+	MusicOn = false;
 	GMode = MODE_DARK;
 	GUIL = DARKGUIL;
 	GUID = DARKGUID;
@@ -136,7 +137,7 @@ void GUI::CreateMenuBar()
 {
 	string MenuItemImages[MENU_COUNT];
 	string SwitchGUI;
-	string MusicOn, MusicOff;
+	string Music;
 	if(GMode == MODE_DARK)
 	{
 		MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
@@ -144,8 +145,7 @@ void GUI::CreateMenuBar()
 		MenuItemImages[SILENT] = "images\\silent.jpg";
 		MenuItemImages[TEST] = "images\\test.jpg";
 		SwitchGUI = "images\\switch.jpg";
-		MusicOn = "images\\ond.jpg";
-		MusicOff = "images\\offd.jpg";
+		Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
 	}
 	else
 	{
@@ -154,14 +154,12 @@ void GUI::CreateMenuBar()
 		MenuItemImages[SILENT] = "images\\silentl.jpg";
 		MenuItemImages[TEST] = "images\\testl.jpg";
 		SwitchGUI = "images\\switchl.jpg";
-		MusicOn = "images\\onl.jpg";
-		MusicOff = "images\\offl.jpg";
+		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
 	}
 	for(int i=0; i<MENU_COUNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
 	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
-	pWind->DrawImage(MusicOff,WindWidth-120 * 2, 0, 120, 50);
-	pWind->DrawImage(MusicOn,WindWidth-120 * 3, 0, 120, 50);
+	pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 }
@@ -358,15 +356,21 @@ PROG_MODE	GUI::getGUIMode()
 			PrintMessage("Please select GUI mode From Menu");
 			S = -1;
 		}
-		else if(s==1)
+		else if(s==1 && MusicOn)
 		{
 			PlaySound(NULL, NULL, 0); 
+			MusicOn = false;
+			UpdateInterface();
+			CreateMenuBar();
 		}
-		else if(s == 2)
+		else if(s == 1 && !MusicOn)
 		{
 			Music = GetFileName("WAV");
 			replace(Music.begin(), Music.end(), '\\', '/');
 			PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP);
+			MusicOn = true;
+			UpdateInterface();
+			CreateMenuBar();
 		}
 		
 	}
