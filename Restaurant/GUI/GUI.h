@@ -23,6 +23,7 @@ private:
 	color GUID;
 	color GUIS;
 	color GUIF;
+	color GUIR;
 	bool MusicOn;
 
 	// Some Static Constant Data Members: ---------------------
