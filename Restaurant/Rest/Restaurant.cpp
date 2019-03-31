@@ -24,6 +24,7 @@ void Restaurant::RunSimulation()
 	while(!ReadFile(pGUI->GetFileName()))
 	{
 		mode = pGUI->getGUIMode();
+		pGUI->PrintMessage("Select The input file.");
 	}
 	
 
@@ -334,12 +335,6 @@ void Restaurant :: Silent_Simulation()
 
 void Restaurant :: Test_Simulation()
 {
-
-	//int EventCnt;	
-	//Order* pOrd;
-	//Event* pEv;
-	//srand(time(NULL));
-
 	pGUI->UpdateInterface();
 		
 	int CurrentTimeStep = 1;
@@ -353,7 +348,7 @@ void Restaurant :: Test_Simulation()
 		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
 		ExecuteEvents(CurrentTimeStep);
 		
-		pGUI->PrintMessage( Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 		//execute all events at current time step
 		//The above line may add new orders to the DEMO_Queue
 
@@ -365,13 +360,8 @@ void Restaurant :: Test_Simulation()
 		pGUI->PrintTime(mn + ":" + secs);
 		pGUI->waitForClick();
 		CurrentTimeStep++;	//advance timestep
-
-		/*if(CurrentTimeStep==4)
-		{
-			pGUI->ResetDrawingList();
-		}*/
 	}
-	for(int i=0;i<4;i++)
+	for(int i = 0; i < 4; i++)
 	{
 		DeleteFirstDrawn(i);
 		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
