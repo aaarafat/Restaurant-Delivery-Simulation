@@ -2,8 +2,11 @@
 #include <algorithm>
 #pragma comment( lib, "Winmm.lib" )
 //////////////////////////////////////////////////////////////////////////////////////////
-GUI::GUI()
+GUI::GUI() : bufferSize(MAX_PATH)
 {
+	GetCurrentDirectory(bufferSize, oldDir);
+	
+	cout<<endl;
 	MusicOn = false;
 	GMode = MODE_DARK;
 	GUIL = DARKGUIL;
@@ -135,6 +138,7 @@ void GUI::ClearMenuBar() const
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::CreateMenuBar()
 {
+	SetCurrentDirectory(oldDir);
 	string MenuItemImages[MENU_COUNT];
 	string SwitchGUI;
 	string Music;
@@ -156,6 +160,7 @@ void GUI::CreateMenuBar()
 		SwitchGUI = "images\\switchl.jpg";
 		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
 	}
+	
 	for(int i=0; i<MENU_COUNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
 	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);

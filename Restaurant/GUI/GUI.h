@@ -77,6 +77,9 @@ private:
 	int NumberOfVIPOrders[REG_CNT];        
 	int NumberOfNormalOrders[REG_CNT];
 	int NumberOfFrozenOrders[REG_CNT];
+	int bufferSize ;
+	char oldDir[MAX_PATH]; 
+
 
 	// 
 	// TODO: Add more members if needed
