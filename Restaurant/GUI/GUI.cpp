@@ -98,11 +98,11 @@ void GUI::PrintMessage(string line0, string line1, string line2, string line3, s
 	
 	pWind->SetPen(GUIF);
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.06), line0); //First line 
-	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.28), line1); //Second line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/1.65), line2); //Third line
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/2.4), line3); //Fourth line 
-	pWind->DrawString(10, WindHeight - (int) (StatusBarHeight/4), line4); //Fifth Line
+	pWind->DrawString(13, WindHeight - (StatusBarHeight - 11), line0); //First line 
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 33), line1); //Second line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 55), line2); //Third line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 77), line3); //Fourth line 
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 99), line4); //Fifth Line
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
