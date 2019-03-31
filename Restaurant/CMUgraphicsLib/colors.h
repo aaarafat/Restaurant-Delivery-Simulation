@@ -181,6 +181,7 @@ const color DARKCYAN = color(0, 139, 139);
 const color DARKMAGENTA = color(139, 0, 139);
 const color DARKRED = color(139, 0, 0);
 const color LIGHTGREEN = color(144, 238, 144);
+
 /////////////////////////////////////////////
 // Custom Colors
 ////////////////////////////////////////////
@@ -193,5 +194,8 @@ const color DARKGUIL = color(33,32,32);
 ///// Light GUI ////////////////////////////
 const color LIGHTGUID = color(222,224,223);
 const color LIGHTGUIL = color(233,233,233);
+///// Font ////////////////////////////////
+const color REDR = color(157,0,42);
+const color BLUER = color(21,150,230);
 
 #endif //COLOR_H

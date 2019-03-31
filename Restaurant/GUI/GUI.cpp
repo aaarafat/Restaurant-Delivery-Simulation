@@ -13,6 +13,7 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	GUID = DARKGUID;
 	GUIS = BLACK;
 	GUIF = WHITE;
+	GUIR = REDR;
 	pWind = new window(WindWidth+10,WindHeight,0,0); 
 	pWind->ChangeTitle("The Restautant");
 	OrderCount = 0;
@@ -40,6 +41,7 @@ void GUI::ChangeMode()
 		GUID = DARKGUID;
 		GUIS = BLACK;
 		GUIF = WHITE;
+		GUIR = REDR;
 	}
 	else
 	{
@@ -48,7 +50,7 @@ void GUI::ChangeMode()
 		GUID = LIGHTGUID;
 		GUIS = WHITE;
 		GUIF = BLACK;
-
+		GUIR = BLUER;
 	}
 }
 
@@ -96,7 +98,7 @@ void GUI::PrintMessage(string line0, string line1, string line2, string line3, s
 {
 	ClearStatusBar();	//First clear the status bar
 	
-	pWind->SetPen(GUIF);
+	pWind->SetPen(GUIR);
 	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
 	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.06), line0); //First line 
 	pWind->DrawString(11, WindHeight - (int) (StatusBarHeight/1.28), line1); //Second line
@@ -138,7 +140,6 @@ void GUI::ClearMenuBar() const
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::CreateMenuBar()
 {
-	SetCurrentDirectory(oldDir);
 	string MenuItemImages[MENU_COUNT];
 	string SwitchGUI;
 	string Music;
@@ -210,17 +211,9 @@ void GUI::DrawRestArea() const
 	pWind->SetPen(GUIL, 3);
 	pWind->SetBrush(GUIL);
 	pWind->DrawCircle(600,275,50);
-	/*
-	// 4- Drawing the 4 white squares inside the Rest (one for each tower)
-	pWind->SetPen(WHITE);
-	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(RestStartX + L/3, RestStartY + L/3, RestStartX + 2*L/3, RestStartY + 2*L/3);
-	pWind->DrawRectangle(RestStartX + L/3, RestEndY - L/3, RestStartX + 2*L/3, RestEndY - 2*L/3);
-	pWind->DrawRectangle(RestEndX - 2*L/3, RestStartY + L/3, RestEndX - L/3, RestStartY + 2*L/3);
-	pWind->DrawRectangle(RestEndX - 2*L/3, RestEndY - L/3, RestEndX - L/3, RestEndY - 2*L/3);
-	*/
+
 	// 5- Writing the letter of each region (A, B, C, D)
-	pWind->SetPen(GUIF);
+	pWind->SetPen(GUIR);
 	pWind->SetFont(25, BOLD , BY_NAME, "Arial");
 	pWind->DrawString(RestStartX + (int)(0.44*L), RestStartY + 5*L/12, "A");
 	pWind->DrawString(RestStartX + (int)(0.44*L), YHalfDrawingArea + 5*L/12, "D");
@@ -404,5 +397,7 @@ void GUI::ResetDrawNumbers()
 
 string GUI::GetFileName(string mode)
 {
-	return pWind->open_file(mode);
+	string s = pWind->open_file(mode);
+	SetCurrentDirectory(oldDir);
+	return s;
 }

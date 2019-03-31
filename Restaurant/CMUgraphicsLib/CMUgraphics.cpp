@@ -272,6 +272,7 @@ string window::open_file(string mode)
 	
 	ofn.nFilterIndex = 1;
 	GetOpenFileName(&ofn);
+
 	return string(ofn.lpstrFile);
 }
 window::~window() {
