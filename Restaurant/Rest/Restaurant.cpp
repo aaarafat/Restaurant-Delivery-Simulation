@@ -20,7 +20,6 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	PROG_MODE	mode = pGUI->getGUIMode();
-
 	pGUI->PrintMessage("Select The input file.");
 	while(true)
 	{
