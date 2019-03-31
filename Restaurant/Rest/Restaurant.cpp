@@ -19,7 +19,19 @@ Restaurant::Restaurant()
 void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
-	PROG_MODE	mode = pGUI->getGUIMode();	
+	PROG_MODE	mode = pGUI->getGUIMode();
+
+	pGUI->PrintMessage("Select The input file.");
+	while(true)
+	{
+		if(!ReadFile(pGUI->GetFileName()))
+		{
+			mode = pGUI->getGUIMode();
+		}
+		else break;
+	}
+	
+
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
@@ -332,12 +344,6 @@ void Restaurant :: Test_Simulation()
 	//Order* pOrd;
 	//Event* pEv;
 	//srand(time(NULL));
-	pGUI->PrintMessage("Select The input file.");
-	while(!ReadFile(pGUI->GetFileName()))
-	{
-		pGUI->UpdateInterface();
-		pGUI->PrintMessage("Please Select the input file.");
-	}
 
 	pGUI->UpdateInterface();
 		
