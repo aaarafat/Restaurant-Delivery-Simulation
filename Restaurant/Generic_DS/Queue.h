@@ -168,5 +168,16 @@ bool Queue<T>:: peekFront(T& frntEntry) const
 template <typename T>
 Queue<T>::~Queue()
 {
+	while(!isEmpty())
+	{
+	Node<T>* nodeToDeletePtr = frontPtr;
+	frontPtr = frontPtr->getNext();
+	// Queue is not empty; remove front
+	if (nodeToDeletePtr == backPtr)	 // Special case: one node in queue
+		backPtr = nullptr ;	
+		
+	// Free memory reserved by the dequeued node
+	delete nodeToDeletePtr;
+	}
 }
 #endif
