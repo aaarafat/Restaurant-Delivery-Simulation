@@ -4,6 +4,7 @@
 #include "Generic_DS\Heap_PriorityQueue.h"
 #include "Rest\Motorcycle.h"
 #include <iostream>
+#include <vld.h>
 #define watch(x) std::cout<<(#x)<< " = " <<x<<'\n'
 int main()
 {
