@@ -28,11 +28,11 @@ Order* Region::getVIPOrder()
 	VIPOrder.remove();
 	return O;
 }
-Order* Region::getFrozenOrder() 
+bool Region::getFrozenOrder() 
 {
 	return FrozenOrder.removeBegin();
 }
-Order* Region::getNormalOrder() 
+bool Region::getNormalOrder() 
 {
 	return NormalOrder.removeBegin();
 }

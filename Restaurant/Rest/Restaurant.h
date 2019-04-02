@@ -65,7 +65,7 @@ public:
 	void CopyOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
 	void setDrawOrder(Order *O);
-	Order* getDrawOrder();
+	bool getDrawOrder();
 };
 
 #endif

@@ -21,7 +21,7 @@ public :
 	bool removeID( int id); //done
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
-	ItemType removeBegin();
+	bool removeBegin();
 	
 };
 template < class ItemType>
@@ -129,13 +129,20 @@ int LinkedList<ItemType>::Size() const
 	return itemCount;
 }
 template <class ItemType>
-ItemType LinkedList<ItemType>::removeBegin()
+bool LinkedList<ItemType>::removeBegin()
 {
-	Node<ItemType>* nod = headPtr;
-	headPtr = headPtr->getNext();
-	nod->setNext(nullptr);
-	itemCount--;
-	return (nod->getItem());
+	if(headPtr)
+	{
+		Node<ItemType>* nod = headPtr;
+		headPtr = headPtr->getNext();
+		nod->setNext(nullptr);
+		itemCount--;
+		//return (nod->getItem());
+		nod->setNext(nullptr);
+		delete nod;
+		return true;
+	}
+	return false;
 }
 template <class ItemType>
 bool LinkedList<ItemType>::removeID(int id)
