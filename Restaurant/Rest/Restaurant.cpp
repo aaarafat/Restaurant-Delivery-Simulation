@@ -77,14 +77,6 @@ void Restaurant::ExecuteEvents(int CurrentTimeStep)
 	}
 
 }
-bool Restaurant::getDrawOrder()
-{
-	return DrawOrders.removeBegin();
-}
-void Restaurant::setDrawOrder(Order* O)
-{
-	DrawOrders.add(O);
-}
 
 
 Restaurant::~Restaurant()
