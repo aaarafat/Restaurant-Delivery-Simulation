@@ -100,8 +100,8 @@ bool LinkedList<ItemType>::remove( int position)
 		} // end if
 		// Return node to system
 		curPtr->setNext(nullptr);
-		//delete curPtr;
-		//curPtr = nullptr ;
+		delete curPtr;
+		curPtr = nullptr ;
 		itemCount--; // Decrease count of entries
 	} // end if
 	return ableToRemove;
@@ -151,8 +151,8 @@ bool LinkedList<ItemType>::removeID(int id)
 				Node<ItemType>* nod = trav->getNext();
 				trav->setNext(nod->getNext());
 				nod->setNext(nullptr);
-				//delet nod;
-				//nod = nullptr
+				delete nod;
+				nod = nullptr;
 				itemCount--;
 				return true;
 			}
