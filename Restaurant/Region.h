@@ -27,9 +27,9 @@ public:
 	void setFrozenMotor(Motorcycle* M);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
-	bool getFrozenOrder();
+	Order* getFrozenOrder();
 	void setFrozenOrder(Order* O);
-	bool getNormalOrder();
+	Order* getNormalOrder();
 	void setNormalOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 

@@ -398,35 +398,71 @@ void Restaurant::DeleteFirstDrawn(int region)
 	switch(region)
 		{case A_REG:
 			if(!Reg[A_REG]->VIPOrderIsEmpty())
-				Reg[A_REG]->getVIPOrder();
+			{
+				Order* O = Reg[A_REG]->getVIPOrder();
+				delete O;
+			}
 			else if(!Reg[A_REG]->FrozenOrderIsEmpty())
-				Reg[A_REG]->getFrozenOrder();
+			{
+				Order* O = Reg[A_REG]->getFrozenOrder();
+				delete O;
+			}
 			else if(!Reg[A_REG]->NormalOrderIsEmpty())
-				Reg[A_REG]->getNormalOrder();
+			{
+				Order* O = Reg[A_REG]->getNormalOrder();
+				delete O;
+			}
 			break;
 		case B_REG:
 			if(!Reg[B_REG]->VIPOrderIsEmpty())
-				Reg[B_REG]->getVIPOrder();
+			{
+				Order* O = Reg[B_REG]->getVIPOrder();
+				delete O;
+			}
 			else if(!Reg[B_REG]->FrozenOrderIsEmpty())
-				Reg[B_REG]->getFrozenOrder();
+			{
+				Order* O = Reg[B_REG]->getFrozenOrder();
+				delete O;
+			}
 			else if(!Reg[B_REG]->NormalOrderIsEmpty())
-				Reg[B_REG]->getNormalOrder();
+			{
+				Order* O = Reg[B_REG]->getNormalOrder();
+				delete O;
+			}
 			break;
 		case C_REG:
 			if(!Reg[C_REG]->VIPOrderIsEmpty())
-				Reg[C_REG]->getVIPOrder();
+			{
+				Order* O = Reg[C_REG]->getVIPOrder();
+				delete O;
+			}
 			else if(!Reg[C_REG]->FrozenOrderIsEmpty())
-				Reg[C_REG]->getFrozenOrder();
+			{
+				Order* O = Reg[C_REG]->getFrozenOrder();
+				delete O;
+			}
 			else if(!Reg[C_REG]->NormalOrderIsEmpty())
-				Reg[C_REG]->getNormalOrder();
+			{
+				Order* O = Reg[C_REG]->getNormalOrder();
+				delete O;
+			}
 			break;
 		case D_REG:
 			if(!Reg[D_REG]->VIPOrderIsEmpty())
-				Reg[D_REG]->getVIPOrder();
+			{
+				Order* O = Reg[D_REG]->getVIPOrder();
+				delete O;
+			}
 			else if(!Reg[D_REG]->FrozenOrderIsEmpty())
-				Reg[D_REG]->getFrozenOrder();
+			{
+				Order* O = Reg[D_REG]->getFrozenOrder();
+				delete O;
+			}
 			else if(!Reg[D_REG]->NormalOrderIsEmpty())
-				Reg[D_REG]->getNormalOrder();
+			{
+				Order* O = Reg[D_REG]->getNormalOrder();
+				delete O;
+			}
 			break;
 		}
 }
