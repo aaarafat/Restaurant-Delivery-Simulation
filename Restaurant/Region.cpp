@@ -119,13 +119,25 @@ void Region::CopyOrderstoDraw()
 		VIPOrder.add(O);
 
 	}
-	for(int i=1;i<=FrozenOrder.Size();i++)
+
+	int size=FrozenOrder.Size();
+	Order*temp=nullptr;
+
+	for(int i=1;i<=size;i++)
 	{
-		DrawOrders.enqueue(FrozenOrder.getEntry(i));
+		FrozenOrder.removeBegin(temp);
+		DrawOrders.enqueue(temp);
+		FrozenOrder.add(temp);
 	}
-	for(int i=1;i<=NormalOrder.Size();i++)
+
+	size=NormalOrder.Size();
+	temp=nullptr;
+
+	for(int i=1;i<=size;i++)
 	{
-		DrawOrders.enqueue(NormalOrder.getEntry(i));
+		NormalOrder.removeBegin(temp);
+		DrawOrders.enqueue(temp);
+		NormalOrder.add(temp);
 	}
 	
 }
