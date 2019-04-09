@@ -3,6 +3,9 @@
 
 
 #include "..\Defs.h"
+#include <exception>
+#include <cstdlib>
+#include <iostream>
 
 #pragma once
 class Motorcycle	
@@ -13,12 +16,15 @@ class Motorcycle
 	int speed;		//meters it can move in one clock tick (in one timestep)
 	REGION	region;	//region of the motorcycle
 	STATUS	status;	//idle or in-service
+	int ArriveTime; //arrive time of the motorcycle
 
 public:
 	Motorcycle();
 	Motorcycle(ORD_TYPE type, int spd, REGION reg, STATUS);
 	int GetID() const;
 	void SetType(ORD_TYPE type);
+	void SetArriveTime(int ArriveTime);
+	int GetArriveTime() const;
 	ORD_TYPE GetType() const;
 	void SetSpeed(int spd);
 	int GetSpeed() const;

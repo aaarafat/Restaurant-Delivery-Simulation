@@ -6,16 +6,27 @@ Motorcycle::Motorcycle()
 {
 	count++;
 	ID = count;
+	ArriveTime = -1;
 }
 
 Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg, STATUS st) :
-	ID(++count), type(type), speed(spd), region(reg), status(st)
+	ID(++count), type(type), speed(spd), region(reg), status(st), ArriveTime(-1)
 {
 }
 
 int Motorcycle::GetID() const
 {
 	return ID;
+}
+
+void Motorcycle::SetArriveTime(int ArriveTime)
+{
+	this->ArriveTime = ArriveTime;
+}
+
+int Motorcycle::GetArriveTime() const
+{
+	return ArriveTime;
 }
 
 void Motorcycle::SetType(ORD_TYPE type)
@@ -63,12 +74,49 @@ STATUS Motorcycle::GetStatus() const
 
 bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 {
-	return moto.speed > moto2.speed;
+	try
+	{
+		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
+		{
+			return moto.speed > moto2.speed;
+		}
+		else if (moto.ArriveTime != -1 && moto2.ArriveTime != -1)
+		{
+			return moto.ArriveTime < moto2.ArriveTime;
+		}
+		else
+		{
+			throw std::exception("Cannot Compare Ready Motorcycle with Unready Motorcycle");
+		}
+	}catch(std::exception& e)
+	{
+		std::cout << e.what() << '\n';
+		std::exit(0);
+	}
+	
 }
 
 bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
 {
-	return moto.speed < moto2.speed;
+	try
+	{
+		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
+		{
+			return moto.speed < moto2.speed;
+		}
+		else if (moto.ArriveTime != -1 && moto2.ArriveTime != -1)
+		{
+			return moto.ArriveTime > moto2.ArriveTime;
+		}
+		else
+		{
+			throw std::exception("Cannot Compare Ready Motorcycle with Unready Motorcycle");
+		}
+	}catch(std::exception& e)
+	{
+		std::cout << e.what() << '\n';
+		std::exit(0);
+	}
 }
 
 Motorcycle::~Motorcycle()
