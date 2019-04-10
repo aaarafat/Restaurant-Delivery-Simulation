@@ -109,15 +109,17 @@ void GUI::PrintMessage(string line0, string line1, string line2, string line3, s
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::PrintTime(string t, color clr) const	//Prints time on the Center
+void GUI::PrintTime(int time, color clr) const	//Prints time on the Center
 {
-	
+	string mn, secs;
+	int mins = time / 60, seconds = time % 60;
+	mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
 	if(clr!=RED)
 		pWind->SetPen(GUIF);
 	else
 		pWind->SetPen(clr);
 	pWind->SetFont(32, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(565, 260, t); 
+	pWind->DrawString(565, 260, mn + ":" + secs); 
 	
 }
 //////////////////////////////////////////////////////////////////////////////////////////

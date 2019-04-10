@@ -343,14 +343,12 @@ void Restaurant :: Test_Simulation()
 	pGUI->UpdateInterface();
 		
 	int CurrentTimeStep = 1;
-	string mn, secs;
+	//string mn, secs;
 	int x,y;
 	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty()||ActiveOrdersExist())
 	{
 		//print current timestep
-		int mins = CurrentTimeStep / 60, seconds = CurrentTimeStep % 60;
-		mn = (mins < 10) ? "0" + to_string(mins) : to_string(mins); secs = (seconds < 10) ? "0" + to_string(seconds) : to_string(seconds);
 		//Delete the highest priority from each region
 		for(int i=0;i<4;i++)
 			DeleteFirstDrawn(i);
@@ -362,14 +360,32 @@ void Restaurant :: Test_Simulation()
 		pGUI->ResetDrawingList();
 		CopyOrdersToDraw();
 		Draw_All();
-		//Print the timestep
-		pGUI->PrintTime(mn + ":" + secs);
+		pGUI->PrintTime(CurrentTimeStep);
 		pGUI->waitForClick();
 		CurrentTimeStep++;	//advance timestep
 	}
-	
-	pGUI->PrintTime(mn + ":" + secs, RED);
-	pGUI->PrintMessage("Test Done in " + mn + ":" + secs + ". Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+	for(int i = 0; i < 4; i++)
+	{
+		DeleteFirstDrawn(i);
+		ExecuteEvents(CurrentTimeStep);
+		
+		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+		//execute all events at current time step
+		//The above line may add new orders to the DEMO_Queue
+
+		//Let's draw all arrived orders by passing them to the GUI to draw
+		//function to draw 
+		pGUI->ResetDrawingList();
+		CopyOrdersToDraw();
+		Draw_All();
+		pGUI->PrintTime(CurrentTimeStep);
+		pGUI->waitForClick();
+		CurrentTimeStep++;
+
+
+	}
+	pGUI->PrintTime(CurrentTimeStep - 1, RED);
+	pGUI->PrintMessage("Test Done. Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	pGUI->waitForClick();
 
 
