@@ -33,6 +33,7 @@ public:
 
 	void SetDistance(int d);
 	int GetDistance() const;
+	void toVIP(int money);
 	double Priorty() const;
 	//
 	// TODO: Add More Member Functions As Needed

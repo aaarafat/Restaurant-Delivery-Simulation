@@ -22,6 +22,7 @@ public :
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
 	bool removeBegin(ItemType& I);
+	bool getID(int id,ItemType& I);
 	
 };
 template < class ItemType>
@@ -37,6 +38,7 @@ LinkedList<ItemType>::LinkedList( const LinkedList<ItemType>& sList)
 	}
 
 }
+
 template < class ItemType>
 LinkedList<ItemType>::LinkedList() : headPtr(nullptr), itemCount(0), tailPtr(nullptr)
 {
@@ -48,6 +50,7 @@ ItemType LinkedList<ItemType>::getEntry( int position) const
 	Node<ItemType>* nodePtr = getNodeAt(position);
 	return nodePtr->getItem();
 }
+
 template < class ItemType>
 Node<ItemType>* LinkedList<ItemType>::getNodeAt( int position) const
 {
@@ -56,6 +59,7 @@ Node<ItemType>* LinkedList<ItemType>::getNodeAt( int position) const
 	curPtr = curPtr->getNext();
 	return curPtr ;
 }
+
 template < class ItemType>
 bool LinkedList<ItemType>::add(const ItemType& newEntry)
 {
@@ -75,6 +79,7 @@ bool LinkedList<ItemType>::add(const ItemType& newEntry)
 	itemCount++;
 	return true;
 }
+
 template < class ItemType>
 bool LinkedList<ItemType>::remove( int position)
 {
@@ -113,21 +118,25 @@ void LinkedList<ItemType>::clear()
 	while (!isEmpty())
 	remove(1);
 }
+
 template < class ItemType>
 LinkedList<ItemType>::~LinkedList()
 {
 	clear();
 }
+
 template <class ItemType>
 bool LinkedList<ItemType>::isEmpty() const
 {
 	return !headPtr;
 }
+
 template <class ItemType>
 int LinkedList<ItemType>::Size() const
 {
 	return itemCount;
 }
+
 template <class ItemType>
 bool LinkedList<ItemType>::removeBegin(ItemType& I)
 {
@@ -145,14 +154,23 @@ bool LinkedList<ItemType>::removeBegin(ItemType& I)
 	}
 	return false;
 }
+
 template <class ItemType>
 bool LinkedList<ItemType>::removeID(int id)
 {
-	ItemType I;
 	Node<ItemType>* trav = headPtr;
 	if(trav)
 	{
-		if(*(trav->getItem())==id) return removeBegin(I);
+		if(*(headPtr->getItem())==id) 
+		{
+			Node<ItemType> *nod = headPtr;
+			headPtr = headPtr->getNext();
+			nod->setNext(nullptr);
+			delete nod;
+			nod = nullptr;
+			itemCount--;
+			return true;
+		}
 		while(trav)
 		{
 			if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
@@ -165,9 +183,46 @@ bool LinkedList<ItemType>::removeID(int id)
 				itemCount--;
 				return true;
 			}
+			else
+				trav=trav->getNext();
 		}
 	}
 	return false;
 }
 
+template <class ItemType>
+bool LinkedList<ItemType>::getID(int id,ItemType &I)
+{
+	Node<ItemType>* trav = headPtr;
+	if(trav)
+	{
+		if(*(headPtr->getItem())==id) 
+		{
+			Node<ItemType> *nod = headPtr;
+			headPtr = headPtr->getNext();
+			nod->setNext(nullptr);
+			I = nod->getItem();
+			delete nod;
+			nod = nullptr;
+			itemCount--;
+			return true;
+		}
+		while(trav)
+		{
+			if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
+			{
+				Node<ItemType>* nod = trav->getNext();
+				trav->setNext(nod->getNext());
+				nod->setNext(nullptr);
+				I = nod->getItem();
+				delete nod;
+				nod = nullptr;
+				itemCount--;
+				return true;
+			}
+			else trav=trav->getNext();
+		}
+	}
+	return false;
+}
 #endif

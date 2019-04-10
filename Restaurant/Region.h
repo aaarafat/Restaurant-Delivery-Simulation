@@ -37,6 +37,7 @@ public:
 	bool NormalOrderIsEmpty();
 	bool FrozenOrderIsEmpty();
 	bool CancelOrder(int id);
+	bool PromoteOrder(int id,int money);
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);

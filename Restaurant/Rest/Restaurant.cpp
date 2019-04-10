@@ -57,8 +57,21 @@ bool Restaurant::CancelOrder(int id)
 {
 		for(int i = A_REG; i < REG_CNT; i++)
 	{
-		if(Reg[i]->CancelOrder(id)) {
-			return true;}
+		if(Reg[i]->CancelOrder(id)) 
+		{
+			return true;
+		}
+	}
+		return false;
+}
+bool Restaurant::PromoteOrder(int id,int money)
+{
+		for(int i = A_REG; i < REG_CNT; i++)
+	{
+		if(Reg[i]->PromoteOrder(id,money)) 
+		{
+			return true;
+		}
 	}
 		return false;
 }

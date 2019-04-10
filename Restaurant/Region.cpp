@@ -81,6 +81,18 @@ bool Region::CancelOrder(int id)
 	
 	return NormalOrder.removeID(id);
 }
+bool Region::PromoteOrder(int id,int money)
+{
+	Order* O;
+	 if(NormalOrder.getID(id,O))
+	 {
+		 O->toVIP(money);
+		 VIPOrder.add(O);
+		 return true;
+	 }
+	 else
+		 return false;
+}
 
 //Draw functions
 
