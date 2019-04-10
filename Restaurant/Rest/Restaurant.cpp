@@ -66,14 +66,21 @@ bool Restaurant::CancelOrder(int id)
 }
 bool Restaurant::PromoteOrder(int id,int money)
 {
-		for(int i = A_REG; i < REG_CNT; i++)
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		if(Reg[i]->PromoteOrder(id,money)) 
 		{
 			return true;
 		}
 	}
-		return false;
+	return false;
+}
+void Restaurant::AutoPromote(int cTime)
+{
+		for(int i = A_REG; i < REG_CNT; i++)
+	{
+		Reg[i]->AutoPromote(cTime,AutoPromo);
+	}
 }
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
@@ -350,8 +357,10 @@ void Restaurant :: Test_Simulation()
 	{
 		//print current timestep
 		//Delete the highest priority from each region
+
 		for(int i=0;i<4;i++)
 			DeleteFirstDrawn(i);
+
 		//Execute the event and turn them into orders
 		ExecuteEvents(CurrentTimeStep);
 		//Print the number of the Orders in each region 
@@ -362,11 +371,14 @@ void Restaurant :: Test_Simulation()
 		Draw_All();
 		pGUI->PrintTime(CurrentTimeStep);
 		pGUI->waitForClick();
+		if(CurrentTimeStep>=AutoPromo)
+			AutoPromote(CurrentTimeStep);
 		CurrentTimeStep++;	//advance timestep
 	}
 	for(int i = 0; i < 4; i++)
 	{
 		DeleteFirstDrawn(i);
+
 		ExecuteEvents(CurrentTimeStep);
 		
 		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
@@ -379,9 +391,10 @@ void Restaurant :: Test_Simulation()
 		CopyOrdersToDraw();
 		Draw_All();
 		pGUI->PrintTime(CurrentTimeStep);
+
 		pGUI->waitForClick();
 		CurrentTimeStep++;
-
+		
 
 	}
 	pGUI->PrintTime(CurrentTimeStep - 1, RED);

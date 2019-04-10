@@ -12,17 +12,16 @@ private :
 	Node<ItemType>* getNodeAt( int position) const ; //done
 public :
 	LinkedList(); //done
-	LinkedList( const LinkedList<ItemType>& aList);
+	LinkedList(const LinkedList<ItemType>& aList);
 	virtual ~LinkedList(); //done
 	bool isEmpty() const ; //done
 	int Size() const ; //done
 	bool add(const ItemType& newEntry); //done
 	bool remove( int position); //done
-	bool removeID( int id); //done
 	void clear(); //done
 	ItemType getEntry( int position) const; //done
-	bool removeBegin(ItemType& I);
-	bool getID(int id,ItemType& I);
+	bool removeBegin(ItemType& I); //done
+	bool getID(int id,ItemType& I); //done
 	
 };
 template < class ItemType>
@@ -151,41 +150,6 @@ bool LinkedList<ItemType>::removeBegin(ItemType& I)
 		nod->setNext(nullptr);
 		delete nod;
 		return true;
-	}
-	return false;
-}
-
-template <class ItemType>
-bool LinkedList<ItemType>::removeID(int id)
-{
-	Node<ItemType>* trav = headPtr;
-	if(trav)
-	{
-		if(*(headPtr->getItem())==id) 
-		{
-			Node<ItemType> *nod = headPtr;
-			headPtr = headPtr->getNext();
-			nod->setNext(nullptr);
-			delete nod;
-			nod = nullptr;
-			itemCount--;
-			return true;
-		}
-		while(trav)
-		{
-			if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
-			{
-				Node<ItemType>* nod = trav->getNext();
-				trav->setNext(nod->getNext());
-				nod->setNext(nullptr);
-				delete nod;
-				nod = nullptr;
-				itemCount--;
-				return true;
-			}
-			else
-				trav=trav->getNext();
-		}
 	}
 	return false;
 }

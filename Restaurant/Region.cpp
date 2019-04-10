@@ -78,8 +78,9 @@ bool Region::FrozenOrderIsEmpty()
 }
 bool Region::CancelOrder(int id)
 {
-	
-	return NormalOrder.removeID(id);
+	Order* O;
+	return NormalOrder.getID(id,O);
+	delete O;
 }
 bool Region::PromoteOrder(int id,int money)
 {
@@ -93,7 +94,23 @@ bool Region::PromoteOrder(int id,int money)
 	 else
 		 return false;
 }
-
+void Region::AutoPromote(int cTime,int pTime)
+{
+	bool found = true;
+	while(!NormalOrder.isEmpty()&&found)
+	{
+		Order* O = NormalOrder.getEntry(1);
+		int ArrTime = O->getArrTime();
+		if(pTime <= cTime-ArrTime)
+		{
+			NormalOrder.removeBegin(O);
+			O->toVIP();
+			VIPOrder.add(O);
+		}
+		else
+			found = false;
+	}
+}
 //Draw functions
 
 Order* Region::getDrawOrders(Order* O) 

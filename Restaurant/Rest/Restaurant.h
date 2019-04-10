@@ -54,6 +54,7 @@ public:
 	Region* GetRegion(REGION x);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money);
+	void AutoPromote(int cTime);
 	//
 	// TODO: Add More Member Functions As Needed
 	//

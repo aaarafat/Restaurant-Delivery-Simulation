@@ -26,6 +26,10 @@ int Order::GetType() const
 	return type;
 }
 
+int Order::getArrTime() const
+{
+	return ArrTime;
+}
 void Order::toVIP(int money)
 {
 	type = TYPE_VIP;

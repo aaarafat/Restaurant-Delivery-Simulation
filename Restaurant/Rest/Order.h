@@ -33,8 +33,9 @@ public:
 
 	void SetDistance(int d);
 	int GetDistance() const;
-	void toVIP(int money);
+	void toVIP(int money=0);
 	double Priorty() const;
+	int getArrTime() const;
 	//
 	// TODO: Add More Member Functions As Needed
 	//
