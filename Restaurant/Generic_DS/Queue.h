@@ -51,12 +51,14 @@ private :
 	
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
+	int size;
 public :
 	Queue();	
 	bool isEmpty() const ;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;	
+	int Size();
 	~Queue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +72,7 @@ The constructor of the Queue class.
 template <typename T>
 Queue<T>::Queue()
 {
+	size=0;
 	backPtr=nullptr;
 	frontPtr=nullptr;
 
@@ -108,6 +111,7 @@ bool Queue<T>::enqueue( const T& newEntry)
 	else
 		backPtr->setNext(newNodePtr); // The queue was not empty
 	backPtr = newNodePtr; // New node is at back
+	size++;
 	return true ;
 } // end enqueue
 
@@ -138,7 +142,7 @@ bool Queue<T>:: dequeue(T& frntEntry)
 	// Free memory reserved by the dequeued node
 	delete nodeToDeletePtr;
 
-
+	size--;
 	return true;
 
 }
@@ -179,5 +183,10 @@ Queue<T>::~Queue()
 	// Free memory reserved by the dequeued node
 	delete nodeToDeletePtr;
 	}
+}
+template <typename T>
+int  Queue<T>::Size()
+{
+	return size;
 }
 #endif

@@ -14,7 +14,7 @@ class Region
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;
 	Heap_PriorityQueue<Order> VIPOrder;
-	LinkedList<Order*> FrozenOrder;
+	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	Queue<Order*> DrawOrders;
@@ -38,7 +38,7 @@ public:
 	bool NormalOrderIsEmpty();
 	bool FrozenOrderIsEmpty();
 	bool CancelOrder(int id);
-	bool PromoteOrder(int id,int money);
+	bool PromoteOrder(int id,int money=0);
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);

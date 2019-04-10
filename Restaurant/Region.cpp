@@ -31,7 +31,7 @@ Order* Region::getVIPOrder()
 Order* Region::getFrozenOrder() 
 {
 	Order* O;
-	FrozenOrder.removeBegin(O);
+	FrozenOrder.dequeue(O);
 	return O;
 }
 Order* Region::getNormalOrder() 
@@ -58,7 +58,7 @@ void Region::setVIPOrder( Order* O)
 }
 void Region::setFrozenOrder(Order* O)
 {
-	FrozenOrder.add(O);
+	FrozenOrder.enqueue(O);
 }
 void Region::setNormalOrder(Order* O)
 {
@@ -137,9 +137,9 @@ void Region::CopyOrderstoDraw()
 
 	for(int i=1;i<=size;i++)
 	{
-		FrozenOrder.removeBegin(temp);
+		FrozenOrder.dequeue(temp);
 		DrawOrders.enqueue(temp);
-		FrozenOrder.add(temp);
+		FrozenOrder.enqueue(temp);
 	}
 
 	size=NormalOrder.Size();
