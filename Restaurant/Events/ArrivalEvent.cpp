@@ -19,7 +19,7 @@ void ArrivalEvent::Execute()
 	///Remove the next code lines in phase 1&2
 	Order* pOrd = new Order(OrderID,OrdType,OrdRegion,OrdDistance,OrdMoney,EventTime);
 	//pRest->AddtoDemoQueue(pOrd);
-	pRest->setDrawOrder(pOrd);
+	/*pRest->setDrawOrder(pOrd);*/
 	if (OrdRegion == A_REG)
 		{
 			if (OrdType == TYPE_NRM)

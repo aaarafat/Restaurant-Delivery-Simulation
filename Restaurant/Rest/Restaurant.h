@@ -33,7 +33,7 @@ private:
 	// TODO: Add More Data Members As Needed
 	Region* Reg[REG_CNT];
 	int AutoPromo;
-	LinkedList<Order*> DrawOrders;
+	
 
 public:
 	
@@ -53,6 +53,7 @@ public:
 	bool ReadFile(string filename);
 	Region* GetRegion(REGION x);
 	bool CancelOrder(int id);
+	bool PromoteOrder(int id,int money);
 	//
 	// TODO: Add More Member Functions As Needed
 	//
@@ -64,8 +65,7 @@ public:
 	void Draw_All(); //drawing from the Draw Queue
 	void CopyOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
-	void setDrawOrder(Order *O);
-	Order* getDrawOrder();
+	bool ActiveOrdersExist(); // returns true if active orders exist 
 };
 
 #endif

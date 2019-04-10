@@ -26,6 +26,12 @@ int Order::GetType() const
 	return type;
 }
 
+void Order::toVIP(int money)
+{
+	type = TYPE_VIP;
+	totalMoney += money;
+}
+
 REGION Order::GetRegion() const
 {
 	return Region;

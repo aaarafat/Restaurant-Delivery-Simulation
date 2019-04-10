@@ -30,11 +30,15 @@ Order* Region::getVIPOrder()
 }
 Order* Region::getFrozenOrder() 
 {
-	return FrozenOrder.removeBegin();
+	Order* O;
+	FrozenOrder.removeBegin(O);
+	return O;
 }
 Order* Region::getNormalOrder() 
 {
-	return NormalOrder.removeBegin();
+	Order* O;
+	NormalOrder.removeBegin(O);
+	return O;
 }
 void Region::setVIPMotor(Motorcycle* V)
 {
@@ -77,6 +81,18 @@ bool Region::CancelOrder(int id)
 	
 	return NormalOrder.removeID(id);
 }
+bool Region::PromoteOrder(int id,int money)
+{
+	Order* O;
+	 if(NormalOrder.getID(id,O))
+	 {
+		 O->toVIP(money);
+		 VIPOrder.add(O);
+		 return true;
+	 }
+	 else
+		 return false;
+}
 
 //Draw functions
 
@@ -115,13 +131,25 @@ void Region::CopyOrderstoDraw()
 		VIPOrder.add(O);
 
 	}
-	for(int i=1;i<=FrozenOrder.Size();i++)
+
+	int size=FrozenOrder.Size();
+	Order*temp=nullptr;
+
+	for(int i=1;i<=size;i++)
 	{
-		DrawOrders.enqueue(FrozenOrder.getEntry(i));
+		FrozenOrder.removeBegin(temp);
+		DrawOrders.enqueue(temp);
+		FrozenOrder.add(temp);
 	}
-	for(int i=1;i<=NormalOrder.Size();i++)
+
+	size=NormalOrder.Size();
+	temp=nullptr;
+
+	for(int i=1;i<=size;i++)
 	{
-		DrawOrders.enqueue(NormalOrder.getEntry(i));
+		NormalOrder.removeBegin(temp);
+		DrawOrders.enqueue(temp);
+		NormalOrder.add(temp);
 	}
 	
 }
