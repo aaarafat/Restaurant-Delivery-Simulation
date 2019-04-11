@@ -173,7 +173,7 @@ bool LinkedList<ItemType>::getID(int id,ItemType &I)
 		}
 		while(trav)
 		{
-			if ((*(trav->getNext()->getItem())==id)&&trav->getNext())
+			if (trav->getNext()&&(*(trav->getNext()->getItem())==id))
 			{
 				Node<ItemType>* nod = trav->getNext();
 				trav->setNext(nod->getNext());
