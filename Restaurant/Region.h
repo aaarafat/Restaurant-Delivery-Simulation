@@ -29,29 +29,30 @@ public:
 	void setFrozenMotor(Motorcycle* M);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
-	Order* getFrozenOrder();
+	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
-	Order* getNormalOrder();
+	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
-	bool VIPOrderIsEmpty();
-	bool NormalOrderIsEmpty();
-	bool FrozenOrderIsEmpty();
+	bool VIPOrderIsEmpty() const;
+	bool NormalOrderIsEmpty() const;
+	bool FrozenOrderIsEmpty() const;
+	bool AssignedMotorsEmpty() const;
+	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);
-	Order* getFrozenDraw(Order* O);
+	Order* getFrozenDraw(Order* O) ;
 	void setFrozenDraw(Order* O);
-	Order* getDrawOrders(Order* O);
+	Order* getDrawOrders(Order* O) ;
 	void setDrawOrders(Order* O);
-	bool VIPDrawIsEmpty();
-	bool DrawOrdersIsEmpty();
-	bool FrozenDrawIsEmpty();
-	bool AssignedMotorsEmpty();
+	bool VIPDrawIsEmpty() const;
+	bool DrawOrdersIsEmpty() const;
+	bool FrozenDrawIsEmpty() const;
 	void CopyOrderstoDraw();
 	///////////////////////////////
 	string Print();

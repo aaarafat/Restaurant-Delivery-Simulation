@@ -265,8 +265,11 @@ void Restaurant :: Test_Simulation()
 		//print current timestep
 		//Delete the highest priority order from each type in each region
 
-		for(int i=0;i<4;i++)
+		for(int i=A_REG;i<REG_CNT;i++)
+		{	
 			DeleteFirstDrawn(i);
+			ArrivedMotors(i,CurrentTimeStep);
+		}	
 
 		//Execute the event and turn them into orders
 		ExecuteEvents(CurrentTimeStep);
@@ -314,13 +317,12 @@ void Restaurant :: Draw_All()
 void Restaurant::CopyOrdersToDraw()
 {
 	for (int i=A_REG;i<REG_CNT;i++)
-		{
-			//create function to copy from Normal to Draw
-			Reg[i]->CopyOrderstoDraw();
-
-
-		}	
-}/////////////////////////////////
+	{
+		//create function to copy from Normal to Draw
+		Reg[i]->CopyOrderstoDraw();
+	}	
+}
+/////////////////////////////////
 void Restaurant::DeleteFirstDrawn(int region)
 {
 	switch(region)
@@ -420,4 +422,10 @@ bool Restaurant::AssignedMotorsExist()
 	for (int i=A_REG;i<REG_CNT;i++)
 		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
 	return Exist;
+}
+
+/////////////////////////////////////
+bool Restaurant::ArrivedMotors(int region, int CurrentTimeStep)
+{
+	return Reg[region]->ArrivedMotors(CurrentTimeStep);
 }

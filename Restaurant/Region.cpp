@@ -7,12 +7,12 @@ Region::Region()
 	cnt++;
 }
 
-Motorcycle* Region::getVIPMotor() 
+Motorcycle* Region::getVIPMotor()
 {
 	Motorcycle*M=VIPMotor.peek();
 	return M;
 }
-Motorcycle* Region::getFrozenMotor() 
+Motorcycle* Region::getFrozenMotor()  
 {
 	Motorcycle*M=FrozenMotor.peek();
 	return M;
@@ -64,21 +64,50 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
-bool Region::VIPOrderIsEmpty()
+bool Region::VIPOrderIsEmpty() const
 {
 	return VIPOrder.isEmpty();
 }
-bool Region::NormalOrderIsEmpty()
+bool Region::NormalOrderIsEmpty() const
 {
 	return NormalOrder.isEmpty();
 }
-bool Region::FrozenOrderIsEmpty()
+bool Region::FrozenOrderIsEmpty() const
 {
 	return FrozenOrder.isEmpty();
 }
-bool Region::AssignedMotorsEmpty()
+bool Region::AssignedMotorsEmpty() const
 {
 	return AssignedMotors.isEmpty();
+}
+bool Region::ArrivedMotors(int TimeStep) 
+{
+	bool Arrived = true;
+	while (!AssignedMotorsEmpty() && Arrived)
+	{
+		Arrived = false;
+		Motorcycle* AssignedMotor = AssignedMotors.peek();
+		if (AssignedMotor->GetArriveTime() >= TimeStep)
+		{
+			Arrived = true;
+			AssignedMotors.remove();
+			switch (AssignedMotor->GetType())
+			{
+			case TYPE_NRM:
+				setNormalMotor(AssignedMotor);
+				break;
+				
+			case TYPE_FROZ:
+				setFrozenMotor(AssignedMotor);
+				break;
+				
+			case TYPE_VIP:
+				setVIPMotor(AssignedMotor);
+				break;
+			}
+		}
+	}
+	return Arrived;
 }
 bool Region::CancelOrder(int id)
 {
@@ -126,7 +155,7 @@ void Region::setDrawOrders(Order* O)
 {
 	DrawOrders.enqueue(O);
 }
-bool Region::DrawOrdersIsEmpty()
+bool Region::DrawOrdersIsEmpty() const
 {
 	return DrawOrders.isEmpty();
 }
