@@ -375,28 +375,7 @@ void Restaurant :: Test_Simulation()
 			AutoPromote(CurrentTimeStep);*/
 		CurrentTimeStep++;	//advance timestep
 	}
-	for(int i = 0; i < 4; i++)
-	{
-		DeleteFirstDrawn(i);
-
-		ExecuteEvents(CurrentTimeStep);
-		
-		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
-		//execute all events at current time step
-		//The above line may add new orders to the DEMO_Queue
-
-		//Let's draw all arrived orders by passing them to the GUI to draw
-		//function to draw 
-		pGUI->ResetDrawingList();
-		CopyOrdersToDraw();
-		Draw_All();
-		pGUI->PrintTime(CurrentTimeStep);
-
-		pGUI->waitForClick();
-		CurrentTimeStep++;
-		
-
-	}
+	
 	pGUI->PrintTime(CurrentTimeStep - 1, RED);
 	pGUI->PrintMessage("Test Done. Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	pGUI->waitForClick();
