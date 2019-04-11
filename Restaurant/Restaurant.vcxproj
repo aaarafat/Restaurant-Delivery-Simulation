@@ -151,12 +151,12 @@
     <ClCompile Include="CMUgraphicsLib\keyqueue.cpp" />
     <ClCompile Include="CMUgraphicsLib\mousequeue.cpp" />
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp" />
-    <ClCompile Include="Demo_Main.cpp" />
     <ClCompile Include="Events\CancelEvent.cpp" />
     <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="Events\ArrivalEvent.cpp" />
     <ClCompile Include="Events\PromoEvent.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Region.cpp" />
     <ClCompile Include="Rest\Motorcycle.cpp" />
     <ClCompile Include="Rest\Order.cpp" />
