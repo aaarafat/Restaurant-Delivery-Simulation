@@ -51,6 +51,7 @@ public:
 	bool VIPDrawIsEmpty();
 	bool DrawOrdersIsEmpty();
 	bool FrozenDrawIsEmpty();
+	bool AssignedMotorsEmpty();
 	void CopyOrderstoDraw();
 	///////////////////////////////
 	string Print();

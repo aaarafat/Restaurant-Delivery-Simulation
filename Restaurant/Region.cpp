@@ -76,6 +76,10 @@ bool Region::FrozenOrderIsEmpty()
 {
 	return FrozenOrder.isEmpty();
 }
+bool Region::AssignedMotorsEmpty()
+{
+	return AssignedMotors.isEmpty();
+}
 bool Region::CancelOrder(int id)
 {
 	Order* O;

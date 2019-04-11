@@ -260,7 +260,7 @@ void Restaurant :: Test_Simulation()
 	//string mn, secs;
 	int x,y;
 	// Save the drawings in a Linked List 
-	while(!EventsQueue.isEmpty()||ActiveOrdersExist())
+	while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
 	{
 		//print current timestep
 		//Delete the highest priority order from each type in each region
@@ -407,4 +407,17 @@ bool Restaurant::ActiveOrdersExist()
 		Exist=Reg[i]->FrozenOrderIsEmpty()?Exist:true;
 	return Exist;
 
+}
+
+/////////////////////////////////////
+bool Restaurant::AssignedMotorsExist()
+{
+	bool Exist=false;
+	for (int i=A_REG;i<REG_CNT;i++)
+		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
+	for (int i=A_REG;i<REG_CNT;i++)
+		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
+	for (int i=A_REG;i<REG_CNT;i++)
+		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
+	return Exist;
 }
