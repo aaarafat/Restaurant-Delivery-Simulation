@@ -17,6 +17,7 @@ class Region
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
+	Heap_PriorityQueue<Order> FinishedOrders;
 	Queue<Order*> DrawOrders;
 	
 public:

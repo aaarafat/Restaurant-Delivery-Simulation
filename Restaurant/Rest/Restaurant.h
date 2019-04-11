@@ -43,13 +43,6 @@ public:
 	void ExecuteEvents(int TimeStep);	//executes all events at current timestep
 	void RunSimulation();
 
-	/// ==> 
-	///  DEMO-related functions. Should be removed in phases 1&2
-	void Just_A_Demo();	//just to show a demo and should be removed in phase1 1 & 2
-	void AddtoDemoQueue(Order* po);	//adds an order to the demo queue
-	Order* getDemoOrder();			//return the front order from demo queue
-	/// ==> 
-
 	bool ReadFile(string filename);
 	Region* GetRegion(REGION x);
 	bool CancelOrder(int id);
