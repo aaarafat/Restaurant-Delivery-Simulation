@@ -371,8 +371,8 @@ void Restaurant :: Test_Simulation()
 		Draw_All();
 		pGUI->PrintTime(CurrentTimeStep);
 		pGUI->waitForClick();
-		if(CurrentTimeStep>=AutoPromo)
-			AutoPromote(CurrentTimeStep);
+		/*if(CurrentTimeStep>=AutoPromo)
+			AutoPromote(CurrentTimeStep);*/
 		CurrentTimeStep++;	//advance timestep
 	}
 	for(int i = 0; i < 4; i++)
@@ -444,12 +444,12 @@ void Restaurant::DeleteFirstDrawn(int region)
 				Order* O = Reg[A_REG]->getVIPOrder();
 				delete O;
 			}
-			else if(!Reg[A_REG]->FrozenOrderIsEmpty())
+			if(!Reg[A_REG]->FrozenOrderIsEmpty())
 			{
 				Order* O = Reg[A_REG]->getFrozenOrder();
 				delete O;
 			}
-			else if(!Reg[A_REG]->NormalOrderIsEmpty())
+			 if(!Reg[A_REG]->NormalOrderIsEmpty())
 			{
 				Order* O = Reg[A_REG]->getNormalOrder();
 				delete O;
@@ -461,12 +461,12 @@ void Restaurant::DeleteFirstDrawn(int region)
 				Order* O = Reg[B_REG]->getVIPOrder();
 				delete O;
 			}
-			else if(!Reg[B_REG]->FrozenOrderIsEmpty())
+			if(!Reg[B_REG]->FrozenOrderIsEmpty())
 			{
 				Order* O = Reg[B_REG]->getFrozenOrder();
 				delete O;
 			}
-			else if(!Reg[B_REG]->NormalOrderIsEmpty())
+			if(!Reg[B_REG]->NormalOrderIsEmpty())
 			{
 				Order* O = Reg[B_REG]->getNormalOrder();
 				delete O;
@@ -478,12 +478,12 @@ void Restaurant::DeleteFirstDrawn(int region)
 				Order* O = Reg[C_REG]->getVIPOrder();
 				delete O;
 			}
-			else if(!Reg[C_REG]->FrozenOrderIsEmpty())
+			if(!Reg[C_REG]->FrozenOrderIsEmpty())
 			{
 				Order* O = Reg[C_REG]->getFrozenOrder();
 				delete O;
 			}
-			else if(!Reg[C_REG]->NormalOrderIsEmpty())
+			if(!Reg[C_REG]->NormalOrderIsEmpty())
 			{
 				Order* O = Reg[C_REG]->getNormalOrder();
 				delete O;
@@ -495,12 +495,12 @@ void Restaurant::DeleteFirstDrawn(int region)
 				Order* O = Reg[D_REG]->getVIPOrder();
 				delete O;
 			}
-			else if(!Reg[D_REG]->FrozenOrderIsEmpty())
+			if(!Reg[D_REG]->FrozenOrderIsEmpty())
 			{
 				Order* O = Reg[D_REG]->getFrozenOrder();
 				delete O;
 			}
-			else if(!Reg[D_REG]->NormalOrderIsEmpty())
+			if(!Reg[D_REG]->NormalOrderIsEmpty())
 			{
 				Order* O = Reg[D_REG]->getNormalOrder();
 				delete O;
