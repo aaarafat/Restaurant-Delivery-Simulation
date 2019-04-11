@@ -83,13 +83,15 @@ bool Region::AssignedMotorsEmpty() const
 bool Region::ArrivedMotors(int TimeStep) 
 {
 	bool Arrived = true;
-	while (!AssignedMotorsEmpty() && Arrived)
+	bool Arrived_Flag = true;
+	while (!AssignedMotorsEmpty() && Arrived_Flag)
 	{
-		Arrived = false;
+		Arrived_Flag = false;
 		Motorcycle* AssignedMotor = AssignedMotors.peek();
 		if (AssignedMotor->GetArriveTime() >= TimeStep)
 		{
 			Arrived = true;
+			Arrived_Flag = true;
 			AssignedMotors.remove();
 			switch (AssignedMotor->GetType())
 			{
