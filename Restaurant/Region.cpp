@@ -114,7 +114,7 @@ bool Region::ArrivedMotors(int TimeStep)
 	{
 		Arrived_Flag = false;
 		Motorcycle* AssignedMotor = AssignedMotors.peek();
-		if (AssignedMotor->GetArriveTime() >= TimeStep)
+		if (AssignedMotor->GetArriveTime() <= TimeStep)
 		{
 			Arrived = true;
 			Arrived_Flag = true;
