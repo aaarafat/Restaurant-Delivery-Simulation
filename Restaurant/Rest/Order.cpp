@@ -30,6 +30,11 @@ int Order::getArrTime() const
 {
 	return ArrTime;
 }
+void Order::SetWaitTime(int CurrTime)
+{
+	WaitTime = CurrTime - ArrTime;
+}
+
 void Order::toVIP(int money)
 {
 	type = TYPE_VIP;
