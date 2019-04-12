@@ -448,12 +448,12 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			}
 			else if(!Reg[i]->FrozenMotorIsEmpty())
 			{
-				Ord = Reg[i]->getFrozenOrder();
+				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getFrozenMotor();
 			}
 			else if(!Reg[i]->NormalMotorIsEmpty())
 			{
-				Ord = Reg[i]->getNormalOrder();
+				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getNormalMotor();
 			}
 			if(Ord && Moto)
