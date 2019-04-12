@@ -174,6 +174,8 @@ bool LinkedList<ItemType>::getID(int id,ItemType &I)
 			if (trav->getNext()&&(*(trav->getNext()->getItem())==id))
 			{
 				Node<ItemType>* nod = trav->getNext();
+				if(nod==tailPtr)
+				{tailPtr=trav;}
 				trav->setNext(nod->getNext());
 				nod->setNext(nullptr);
 				I = nod->getItem();
