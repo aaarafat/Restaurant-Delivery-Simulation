@@ -14,7 +14,7 @@ protected:
 	                
 	double totalMoney;	//Total order money
 
-	int ArrTime, ServTime, FinishTime;	//arrival, service start, and finish times
+	int ArrTime, ServTime, FinishTime, WaitTime;	//arrival, service start, and finish times
 	
 	
 	//
@@ -36,6 +36,8 @@ public:
 	void toVIP(int money=0);
 	double Priorty() const;
 	int getArrTime() const;
+	void SetWaitTime(int CurrTime);
+	int GetWaitTime();
 	//
 	// TODO: Add More Member Functions As Needed
 	//

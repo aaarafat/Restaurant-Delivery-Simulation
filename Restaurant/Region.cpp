@@ -136,8 +136,8 @@ void Region::AutoPromote(int cTime,int pTime)
 	while(!NormalOrder.isEmpty()&&found)
 	{
 		Order* O = NormalOrder.getEntry(1);
-		int ArrTime = O->getArrTime();
-		if(pTime <= cTime-ArrTime)
+		O->SetWaitTime(cTime);
+		if(pTime <= O->GetWaitTime())
 		{
 			NormalOrder.removeBegin(O);
 			O->toVIP();
