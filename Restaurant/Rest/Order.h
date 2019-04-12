@@ -2,7 +2,7 @@
 #define __ORDER_H_
 
 #include "..\Defs.h"
-
+#include <cmath>
 class Order
 {
 
@@ -38,6 +38,8 @@ public:
 	int getArrTime() const;
 	void SetWaitTime(int CurrTime);
 	int GetWaitTime();
+	void FinishOrder(int Speed);
+	int GetFinishTime();
 	//
 	// TODO: Add More Member Functions As Needed
 	//

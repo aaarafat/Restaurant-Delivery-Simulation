@@ -265,15 +265,16 @@ void Restaurant :: Test_Simulation()
 		//print current timestep
 		//Delete the highest priority order from each type in each region
 
-		for(int i=A_REG;i<REG_CNT;i++)
+		/*for(int i=A_REG;i<REG_CNT;i++)
 		{	
 			DeleteFirstDrawn(i);
-			ArrivedMotors(i,CurrentTimeStep);
-		}	
+		}*/
+		ArrivedMotors(CurrentTimeStep);
 
 		//Execute the event and turn them into orders
 		ExecuteEvents(CurrentTimeStep);
 		//Print the number of the Orders in each region 
+		AssignOrder(CurrentTimeStep);
 		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 		//Drawing the Orders
 		pGUI->ResetDrawingList();
@@ -414,18 +415,101 @@ bool Restaurant::ActiveOrdersExist()
 /////////////////////////////////////
 bool Restaurant::AssignedMotorsExist()
 {
-	bool Exist=false;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->AssignedMotorsEmpty()?Exist:true;
+	bool Exist = false;
+	for (int i = A_REG; i < REG_CNT; i++)
+		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist : true;
+	for (int i = A_REG; i < REG_CNT; i++)
+		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist:true;
+	for (int i = A_REG;i < REG_CNT; i++)
+		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist : true;
 	return Exist;
 }
 
 /////////////////////////////////////
-bool Restaurant::ArrivedMotors(int region, int CurrentTimeStep)
+void Restaurant::ArrivedMotors(int CurrentTimeStep)
 {
-	return Reg[region]->ArrivedMotors(CurrentTimeStep);
+	for(int i = A_REG; i < REG_CNT; i++)
+		Reg[i]->ArrivedMotors(CurrentTimeStep);
+}
+
+void Restaurant::AssignOrder(int CurrentTimeStep)
+{
+	for(int i = A_REG; i < REG_CNT; i++)
+	{
+		while(!Reg[i]->VIPOrderIsEmpty())
+		{
+			Order* Ord = NULL;
+			Motorcycle* Moto = NULL;
+			//vip motor or frozen motor or normal motor
+			if(!Reg[i]->VIPMotorIsEmpty())
+			{
+				Ord = Reg[i]->getVIPOrder();
+				Moto = Reg[i]->getVIPMotor();
+			}
+			else if(!Reg[i]->FrozenMotorIsEmpty())
+			{
+				Ord = Reg[i]->getFrozenOrder();
+				Moto = Reg[i]->getFrozenMotor();
+			}
+			else if(!Reg[i]->NormalMotorIsEmpty())
+			{
+				Ord = Reg[i]->getNormalOrder();
+				Moto = Reg[i]->getNormalMotor();
+			}
+			if(Ord && Moto)
+			{
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
+				Moto->SetArriveTime(ArriveTime);
+				Reg[i]->setFinishedOrder(Ord);
+				Reg[i]->setAssignedMotor(Moto);
+			}
+			else break;
+
+		}
+		while(!Reg[i]->FrozenOrderIsEmpty())
+		{
+			//frozen motor only
+			if(!Reg[i]->FrozenMotorIsEmpty())
+			{
+				Order* Ord = Reg[i]->getFrozenOrder();
+				Motorcycle* Moto = Reg[i]->getFrozenMotor();
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
+				Moto->SetArriveTime(ArriveTime);
+				Reg[i]->setFinishedOrder(Ord);
+				Reg[i]->setAssignedMotor(Moto);
+			}
+			else break;
+		}
+		while(!Reg[i]->NormalOrderIsEmpty())
+		{
+			//Normal motor if possible then vip motors
+			Order* Ord = NULL;
+			Motorcycle* Moto = NULL;
+			if(!Reg[i]->NormalMotorIsEmpty())
+			{
+				Ord = Reg[i]->getNormalOrder();
+				Moto = Reg[i]->getNormalMotor();
+			}
+			else if(!Reg[i]->VIPMotorIsEmpty())
+			{
+				Ord = Reg[i]->getNormalOrder();
+				Moto = Reg[i]->getVIPMotor();
+			}
+			if(Ord && Moto)
+			{
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
+				Moto->SetArriveTime(ArriveTime);
+				Reg[i]->setFinishedOrder(Ord);
+				Reg[i]->setAssignedMotor(Moto);
+			}
+			else break;
+		}
+	}
+
 }

@@ -52,9 +52,10 @@ public:
 	void Draw_All(); //drawing from the Draw Queue
 	void CopyOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
-	bool ArrivedMotors(int region, int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
+	void ArrivedMotors(int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
 	bool ActiveOrdersExist(); // returns true if active orders exist 
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
+	void AssignOrder(int TimeStep);
 };
 
 #endif

@@ -33,11 +33,16 @@ public:
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
+	void setAssignedMotor(Motorcycle* M);
+	void setFinishedOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;
+	bool VIPMotorIsEmpty() const;
+	bool FrozenMotorIsEmpty() const;
+	bool NormalMotorIsEmpty() const;
 	bool AssignedMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);

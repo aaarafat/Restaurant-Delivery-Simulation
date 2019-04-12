@@ -76,3 +76,12 @@ bool Order::operator== (int id)
 {
 	return GetID() == id;
 }
+
+void Order::FinishOrder(int Speed)
+{
+	FinishTime = ArrTime + WaitTime + ceil(Distance * 1.0 / Speed);
+}
+int Order::GetFinishTime()
+{
+	return FinishTime;
+}

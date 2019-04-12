@@ -64,6 +64,16 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
+void Region::setAssignedMotor(Motorcycle* M)
+{
+	AssignedMotors.add(M);
+}
+void Region::setFinishedOrder(Order* O)
+{
+	FinishedOrders.add(O);
+}
+
+
 bool Region::VIPOrderIsEmpty() const
 {
 	return VIPOrder.isEmpty();
@@ -80,6 +90,19 @@ bool Region::AssignedMotorsEmpty() const
 {
 	return AssignedMotors.isEmpty();
 }
+bool Region::VIPMotorIsEmpty() const
+{
+	return VIPMotor.isEmpty();
+}
+bool Region::FrozenMotorIsEmpty() const
+{
+	return FrozenMotor.isEmpty();
+}
+bool Region::NormalMotorIsEmpty() const
+{
+	return NormalMotor.isEmpty();
+}
+
 bool Region::ArrivedMotors(int TimeStep) 
 {
 	bool Arrived = true;
@@ -93,6 +116,7 @@ bool Region::ArrivedMotors(int TimeStep)
 			Arrived = true;
 			Arrived_Flag = true;
 			AssignedMotors.remove();
+			AssignedMotor->SetArriveTime(-1);
 			switch (AssignedMotor->GetType())
 			{
 			case TYPE_NRM:
