@@ -8,6 +8,9 @@ Order::Order(int id, ORD_TYPE r_Type, REGION r_region,int Dist,int TotalMon,int 
 	Distance=Dist;
 	totalMoney=TotalMon;
 	ArrTime=ArrTim;
+	FinishTime=-1;
+	ServTime=-1;
+	WaitTime=-1;
 }
 
 
@@ -65,12 +68,40 @@ double Order::Priorty() const
 }
 bool Order::operator< (const Order& o)
 {
-	return Priorty()<o.Priorty();
+	if(FinishTime==-1)
+		return Priorty()<o.Priorty();
+
+	else if(FinishTime!=o.FinishTime)
+		{
+			if(FinishTime>o.FinishTime)
+				return true;
+
+			return false;
+		}
+
+	else if (ServTime>o.ServTime)
+		return true;
+
+	return false;
 }
 
 bool Order::operator> (const Order& o)
 {
+	if(FinishTime==-1)
 	return Priorty()>o.Priorty();
+
+	else if(FinishTime!=o.FinishTime)
+		{
+			if(FinishTime<o.FinishTime)
+				return true;
+
+			return false;
+		}
+
+	else if (ServTime<o.ServTime)
+		return true;
+
+	return false;
 }
 bool Order::operator== (int id)
 {
