@@ -440,21 +440,21 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		{
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
-			//vip motor or frozen motor or normal motor
+			//vip motor or normal motor or frozen motor
 			if(!Reg[i]->VIPMotorIsEmpty())
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getVIPMotor();
 			}
-			else if(!Reg[i]->FrozenMotorIsEmpty())
-			{
-				Ord = Reg[i]->getVIPOrder();
-				Moto = Reg[i]->getFrozenMotor();
-			}
 			else if(!Reg[i]->NormalMotorIsEmpty())
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getNormalMotor();
+			}
+			else if(!Reg[i]->FrozenMotorIsEmpty())
+			{
+				Ord = Reg[i]->getVIPOrder();
+				Moto = Reg[i]->getFrozenMotor();
 			}
 			if(Ord && Moto)
 			{
