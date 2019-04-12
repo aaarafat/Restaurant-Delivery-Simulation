@@ -93,6 +93,7 @@ bool Region::ArrivedMotors(int TimeStep)
 			Arrived = true;
 			Arrived_Flag = true;
 			AssignedMotors.remove();
+			AssignedMotor->SetArriveTime(-1);
 			switch (AssignedMotor->GetType())
 			{
 			case TYPE_NRM:
