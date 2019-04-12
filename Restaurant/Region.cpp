@@ -10,16 +10,19 @@ Region::Region()
 Motorcycle* Region::getVIPMotor()
 {
 	Motorcycle*M=VIPMotor.peek();
+	VIPMotor.remove();
 	return M;
 }
 Motorcycle* Region::getFrozenMotor()  
 {
 	Motorcycle*M=FrozenMotor.peek();
+	FrozenMotor.remove();
 	return M;
 }
 Motorcycle* Region::getNormalMotor() 
 {
 	Motorcycle*M=NormalMotor.peek();
+	NormalMotor.remove();
 	return M;
 }
 Order* Region::getVIPOrder() 
