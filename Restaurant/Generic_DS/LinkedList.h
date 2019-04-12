@@ -146,8 +146,6 @@ bool LinkedList<ItemType>::removeBegin(ItemType& I)
 		headPtr = headPtr->getNext();
 		nod->setNext(nullptr);
 		itemCount--;
-		//return (nod->getItem());
-		nod->setNext(nullptr);
 		delete nod;
 		return true;
 	}
