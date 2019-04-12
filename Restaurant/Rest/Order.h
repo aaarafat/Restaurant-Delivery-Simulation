@@ -37,6 +37,7 @@ public:
 	double Priorty() const;
 	int getArrTime() const;
 	void SetWaitTime(int CurrTime);
+	int GetWaitTime();
 	//
 	// TODO: Add More Member Functions As Needed
 	//
