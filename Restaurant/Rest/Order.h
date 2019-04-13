@@ -38,6 +38,7 @@ public:
 	int getArrTime() const;
 	void SetWaitTime(int CurrTime);
 	int GetWaitTime();
+	int getServeTime();
 	void FinishOrder(int Speed);
 	int GetFinishTime();
 	//

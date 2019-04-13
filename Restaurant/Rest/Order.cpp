@@ -41,7 +41,10 @@ int Order::GetWaitTime()
 {
 	return WaitTime;
 }
-
+int Order::getServeTime()
+{
+	return ServTime;
+}
 void Order::toVIP(int money)
 {
 	type = TYPE_VIP;
@@ -111,6 +114,7 @@ bool Order::operator== (int id)
 void Order::FinishOrder(int Speed)
 {
 	FinishTime = ArrTime + WaitTime + ceil(Distance * 1.0 / Speed);
+	ServTime=FinishTime-ArrTime-WaitTime;   //which equals the last term above 
 }
 int Order::GetFinishTime()
 {

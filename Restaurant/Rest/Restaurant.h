@@ -21,7 +21,7 @@ class Restaurant
 private:
 	GUI *pGUI;
 	Queue<Event*> EventsQueue;	//Queue of all events that will be loaded from file
-
+	Heap_PriorityQueue<Order> FinishedOrders;
 	
 	
 	Region* Reg[REG_CNT];
@@ -56,6 +56,7 @@ public:
 	bool ActiveOrdersExist(); // returns true if active orders exist 
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);
+	void PrintOutputFile();
 };
 
 #endif

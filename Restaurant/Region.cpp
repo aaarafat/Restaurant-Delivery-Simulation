@@ -43,6 +43,18 @@ Order* Region::getNormalOrder()
 	NormalOrder.removeBegin(O);
 	return O;
 }
+int Region::getVIPMotornum()
+{
+	return VIPMotor.Size();
+}
+int Region::getNormalMotornum()
+{
+	return NormalMotor.Size();
+}
+int Region::getFrozenMotornum()
+{
+	return FrozenMotor.Size();
+}
 void Region::setVIPMotor(Motorcycle* V)
 {
 	VIPMotor.add(V);
@@ -71,11 +83,6 @@ void Region::setAssignedMotor(Motorcycle* M)
 {
 	AssignedMotors.add(M);
 }
-void Region::setFinishedOrder(Order* O)
-{
-	FinishedOrders.add(O);
-}
-
 
 bool Region::VIPOrderIsEmpty() const
 {

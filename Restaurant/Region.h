@@ -17,16 +17,18 @@ class Region
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
-	Heap_PriorityQueue<Order> FinishedOrders;
 	Queue<Order*> DrawOrders;
 	
 public:
 	Motorcycle* getVIPMotor() ;
 	void setVIPMotor(Motorcycle* M);
+	int getVIPMotornum();
 	Motorcycle* getNormalMotor() ;
 	void setNormalMotor(Motorcycle* M);
+	int getNormalMotornum();
 	Motorcycle* getFrozenMotor() ;
 	void setFrozenMotor(Motorcycle* M);
+	int getFrozenMotornum();
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
 	Order* getFrozenOrder() ;
@@ -34,7 +36,6 @@ public:
 	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
 	void setAssignedMotor(Motorcycle* M);
-	void setFinishedOrder(Order* O);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 	bool VIPOrderIsEmpty() const;
