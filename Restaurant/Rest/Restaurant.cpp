@@ -31,13 +31,13 @@ void Restaurant::RunSimulation()
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
-		Simulation(false);
+		Simulation(false,false);
 		break;
 	case MODE_STEP:
-		Simulation(true);
+		Simulation(true,false);
 		break;
 	case MODE_SLNT:
-		Silent_Simulation();
+		Simulation(true,true);
 		break;
 	};
 
@@ -186,59 +186,59 @@ Region* Restaurant::GetRegion(REGION x)
 //// Functions of Simulation
 //////////////////////////////////////////////////////////////
 
-//only outputs the final file and doesnt open a GUI
-void Restaurant :: Silent_Simulation()   
+void Restaurant :: Simulation(bool StepByStep,bool Silent)
 {
-
-
-	//Generate the Output File
-
-
-
-}
-/////////////////////////////////////////////////////
-
-void Restaurant :: Simulation(bool StepByStep)
-{
-	pGUI->UpdateInterface();
-	int CurrentTimeStep = 1;
-	int x,y;
-	// Save the drawings in a Linked List 
-	while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
-	{
-		ArrivedMotors(CurrentTimeStep);
-
-		//Execute the event and turn them into orders
-		ExecuteEvents(CurrentTimeStep);
-
-		//Print the number of the Orders in each region 
-		AssignOrder(CurrentTimeStep);
-		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
-
-		//Drawing the Orders
-		pGUI->ResetDrawingList();
-		SharingOrdersToDraw();
-		Draw_All();
-		pGUI->PrintTime(CurrentTimeStep);
-		
-		//Check for Auto Promotion
-		if(CurrentTimeStep>=AutoPromo)
-			AutoPromote(CurrentTimeStep);
-
-		//Advance timestep
-		if(StepByStep)
-			Sleep(1000);
-		else
-			pGUI->waitForClick();
-			
-		CurrentTimeStep++;	
-	}
 	
-	pGUI->PrintTime(CurrentTimeStep - 1, RED);
-	pGUI->PrintMessage("Test Done. Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
-	pGUI->waitForClick();
-	PrintOutputFile();
 
+		pGUI->UpdateInterface();
+		int CurrentTimeStep = 1;
+		int x,y;
+		// Save the drawings in a Linked List 
+		while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
+		{
+			ArrivedMotors(CurrentTimeStep);
+
+			//Execute the event and turn them into orders
+			ExecuteEvents(CurrentTimeStep);
+
+			//Print the number of the Orders in each region 
+			AssignOrder(CurrentTimeStep);
+			if(!Silent)
+			{
+				pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+
+				//Drawing the Orders
+				pGUI->ResetDrawingList();
+				SharingOrdersToDraw();
+				Draw_All();
+				pGUI->PrintTime(CurrentTimeStep);
+			}
+			//Check for Auto Promotion
+			if(CurrentTimeStep>=AutoPromo)
+				AutoPromote(CurrentTimeStep);
+
+			//Advance timestep
+			if(!Silent)
+			{
+			if(StepByStep)
+				Sleep(1000);
+			else
+				pGUI->waitForClick();
+			}
+			CurrentTimeStep++;	
+		}
+	if(!Silent)
+	{
+		pGUI->PrintTime(CurrentTimeStep - 1, RED);
+
+		pGUI->PrintMessage("Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+	}
+	else
+		pGUI->PrintMessage("Click Anywhere to terminate");
+	pGUI->PrintMenuMessage("Simulation Done Check Output file");
+	
+	PrintOutputFile();
+	pGUI->waitForClick();
 
 }
 
@@ -420,7 +420,7 @@ void Restaurant :: PrintOutputFile()
 	int Cvip=0,Cnorm=0,Cfroz=0,Ctotwait=0,Ctotserve=0;
 	int Dvip=0,Dnorm=0,Dfroz=0,Dtotwait=0,Dtotserve=0;
 
-	Outfile<<"FT  ID  AT  WT  ST"<<endl;
+	Outfile<<" FT\tID\tAT\tWT\tST"<<endl;
 	while(!FinishedOrders.isEmpty())
 	{
 		ord=FinishedOrders.peek();
@@ -543,7 +543,7 @@ void Restaurant :: PrintOutputFile()
 				}
 		}
 
-		Outfile<<setw(2)<<ord->GetFinishTime()<<setw(6)<<ord->GetID()<<setw(6)<<ord->getArrTime()<<setw(8)<<ord->GetWaitTime()<<setw(6)<<ord->getServeTime()<<endl;
+		Outfile<<setw(3)<<ord->GetFinishTime()<<"\t"<<ord->GetID()<<"\t"<<ord->getArrTime()<<"\t"<<ord->GetWaitTime()<<"\t"<<ord->getServeTime()<<endl;
 	}
 	//Region A
 	Outfile<<endl<<"Region A: "<<endl;

@@ -109,6 +109,13 @@ void GUI::PrintMessage(string line0, string line1, string line2, string line3, s
 	pWind->DrawString(10, WindHeight - (StatusBarHeight - 99), line4); //Fifth Line
 
 }
+void GUI::PrintMenuMessage(string msg) const
+{
+	ClearMenuBar();
+	pWind->SetPen(GUIR);
+	pWind->SetFont(24, BOLD , BY_NAME, "Arial"); 
+	pWind->DrawString(10,10,msg);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GUI::PrintTime(int time, color clr) const	//Prints time on the Center

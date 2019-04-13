@@ -43,10 +43,7 @@ public:
 	void AutoPromote(int cTime);
 
 	//Simulation Functions
-	void Interactive_Simulation(); //Steps on mouse clicks
-	void StepByStep_Simulation(); //Steps every Second
-	void Silent_Simulation();     //Doesn't generate a GUI 
-	void Simulation(bool SBS); //Testing for phase 1
+	void Simulation(bool SBS,bool S); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue
 	void SharingOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
