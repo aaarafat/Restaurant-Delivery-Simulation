@@ -10,6 +10,8 @@
 #include <Windows.h>
 #include <shobjidl.h> 
 #include<iostream>
+#include <fstream>
+
 using namespace std;
 
 class GUI
@@ -104,7 +106,6 @@ private:
 public:
 	GUI();
 	~GUI();
-
 	// Input Functions  ---------------------------
 	void waitForClick() const;	// waits a user click from the user
 	string GetString() const ; // reads a string (keyboard input) from the user

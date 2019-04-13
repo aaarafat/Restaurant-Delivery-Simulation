@@ -456,4 +456,5 @@ void Restaurant :: PrintOutputFile(string file)
 	Outfile<<setw(5)<<"MotorC: "<<Motors;
 	Outfile<<" [Norm:"<<MNormal<<", Froz:"<<MFrozen<<",VIP:"<<MVIP<<"]"<<endl;
 	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)(W)/(Orders)<<",  Avg Serv = "<<(float)(S)/(Orders)<<endl;
+	Outfile.close();
 }

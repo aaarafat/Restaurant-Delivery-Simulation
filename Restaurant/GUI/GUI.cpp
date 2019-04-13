@@ -1,5 +1,6 @@
 #include "GUI.h"
 #include <algorithm>
+#include <stdio.h>
 #pragma comment( lib, "Winmm.lib" )
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI() : bufferSize(MAX_PATH)
@@ -353,8 +354,8 @@ PROG_MODE	GUI::getGUIMode()
 	{
 		pWind->WaitMouseClick(x, y);
 		if (y >= 0 && y <= 50)
-		S = x /MenuItemWidth;
-		s = (WindWidth-x)/120;
+		S = x / MenuItemWidth;
+		s = (WindWidth - x) / 120;
 		if(s==0)
 		{
 			ChangeMode();
@@ -375,12 +376,19 @@ PROG_MODE	GUI::getGUIMode()
 		{
 			Music = GetFileName("WAV");
 			replace(Music.begin(), Music.end(), '\\', '/');
-			PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP);
-			MusicOn = true;
-			UpdateInterface();
-			CreateMenuBar();
-			S = - 1;
+			fstream fin;
+			fin.open(Music);
+			if(fin.is_open())
+			{
+				PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
+				MusicOn = true;
+				UpdateInterface();
+				CreateMenuBar();
+				S = - 1;
+			}
+			fin.close();
 		}
+
 		
 	}
 	//while(Mode> 0 || Mode >= MODE_CNT);
@@ -388,7 +396,6 @@ PROG_MODE	GUI::getGUIMode()
 	UpdateInterface();
 	return Mode;
 }
-
 
 void GUI::ResetDrawNumbers()
 {

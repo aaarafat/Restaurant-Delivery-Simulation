@@ -278,12 +278,11 @@ string window::open_file(string mode)
 string window::save_file()
 {
     OPENFILENAME ofn;
-	char filename[500];
+	char filename[500] = "Output\0";
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 	ofn.lStructSize = sizeof(OPENFILENAME);
 	ofn.hwndOwner = hwndWindow;
 	ofn.lpstrFile = filename;
-	ofn.lpstrFile[0] = '\0';
 	ofn.nMaxFile = 100;
 	ofn.lpstrFilter = "Text Files\0*.TXT\0";
 	ofn.nFilterIndex = 1;
