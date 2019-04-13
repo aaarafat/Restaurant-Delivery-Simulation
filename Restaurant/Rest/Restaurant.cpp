@@ -27,21 +27,17 @@ void Restaurant::RunSimulation()
 		mode = pGUI->getGUIMode();
 		pGUI->PrintMessage("Select The input file.");
 	}
-	
 
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
-		Interactive_Simulation();
+		Simulation(false);
 		break;
 	case MODE_STEP:
-		StepByStep_Simulation();
+		Simulation(true);
 		break;
 	case MODE_SLNT:
 		Silent_Simulation();
-		break;
-	case MODE_TEST:
-		Test_Simulation();
 		break;
 	};
 
@@ -56,7 +52,7 @@ void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 }
 bool Restaurant::CancelOrder(int id)
 {
-		for(int i = A_REG; i < REG_CNT; i++)
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		if(Reg[i]->CancelOrder(id)) 
 		{
@@ -78,18 +74,18 @@ bool Restaurant::PromoteOrder(int id,int money)
 }
 void Restaurant::AutoPromote(int cTime)
 {
-		for(int i = A_REG; i < REG_CNT; i++)
+	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Reg[i]->AutoPromote(cTime,AutoPromo);
+		Reg[i]->AutoPromote(cTime, AutoPromo);
 	}
 }
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
 	Event *pE;
-	while( EventsQueue.peekFront(pE) )	//as long as there are more events
+	while(EventsQueue.peekFront(pE))	//as long as there are more events
 	{
-		if(pE->getEventTime() > CurrentTimeStep )	//no more events at current time
+		if(pE->getEventTime() > CurrentTimeStep)	//no more events at current time
 			return;
 
 		pE->Execute();
@@ -132,17 +128,17 @@ bool Restaurant::ReadFile(string filename)
 		fin>>N>>F>>V;
 		for(int i = 0; i < N; i++)
 		{
-			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k), IDLE); 
+			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k)); 
 			Reg[k]->setNormalMotor(tmp);
 		}
 		for(int i = 0; i < F; i++)
 		{
-			Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k), IDLE); 
+			Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k)); 
 			Reg[k]->setFrozenMotor(tmp);
 		}
 		for(int i = 0; i < V; i++)
 		{
-			Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k), IDLE); 
+			Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k)); 
 			Reg[k]->setVIPMotor(tmp);
 		}
 	}
@@ -190,51 +186,6 @@ Region* Restaurant::GetRegion(REGION x)
 //// Functions of Simulation
 //////////////////////////////////////////////////////////////
 
-
-//Steps Only when mouse is clicked and outputs the final file
-void Restaurant :: Interactive_Simulation()
-{
-
-	pGUI->PrintMessage("Interactive Simulation.Left Mouse Click to Step ");
-
-	//Call The ReadFile Function And Assign the Events to the Events Queue
-
-	//Loop on the Events Queue to execute the active Events
-
-	//Delete Finished Orders
-
-	//Generate the Output File
-
-	pGUI->PrintMessage("Simulation Finished. Please Click to Exit");
-	pGUI->waitForClick();
-
-}
-
-////////////
-
-
-//steps every one second and outputs the final file
-void Restaurant :: StepByStep_Simulation()
-{
-
-	pGUI->PrintMessage("Step By Step Simulation. Steps Every One second. Click to start Simulation.");
-
-	//Call The ReadFile Function And Assign the Events to the Events Queue
-
-	//Loop on the Events Queue to execute the active Events
-
-	//Delete Finished Orders
-
-	//Generate the Output File
-
-	pGUI->PrintMessage("Simulation Finished. Please Click to Exit");
-	pGUI->waitForClick();
-
-}
-
-////////////
-
-
 //only outputs the final file and doesnt open a GUI
 void Restaurant :: Silent_Simulation()   
 {
@@ -245,47 +196,42 @@ void Restaurant :: Silent_Simulation()
 
 
 }
-
 /////////////////////////////////////////////////////
 
-
-/////////////////////////////
-////Testing Functions 
-////////////////////////////
-
-void Restaurant :: Test_Simulation()
+void Restaurant :: Simulation(bool StepByStep)
 {
 	pGUI->UpdateInterface();
-		
 	int CurrentTimeStep = 1;
-	//string mn, secs;
 	int x,y;
 	// Save the drawings in a Linked List 
 	while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
 	{
-		//print current timestep
-		//Delete the highest priority order from each type in each region
-
-		/*for(int i=A_REG;i<REG_CNT;i++)
-		{	
-			DeleteFirstDrawn(i);
-		}*/
 		ArrivedMotors(CurrentTimeStep);
 
 		//Execute the event and turn them into orders
 		ExecuteEvents(CurrentTimeStep);
+
 		//Print the number of the Orders in each region 
 		AssignOrder(CurrentTimeStep);
 		pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+
 		//Drawing the Orders
 		pGUI->ResetDrawingList();
-		CopyOrdersToDraw();
+		SharingOrdersToDraw();
 		Draw_All();
 		pGUI->PrintTime(CurrentTimeStep);
-		pGUI->waitForClick();
-		/*if(CurrentTimeStep>=AutoPromo)
-			AutoPromote(CurrentTimeStep);*/
-		CurrentTimeStep++;	//advance timestep
+		
+		//Check for Auto Promotion
+		if(CurrentTimeStep>=AutoPromo)
+			AutoPromote(CurrentTimeStep);
+
+		//Advance timestep
+		if(StepByStep)
+			Sleep(1000);
+		else
+			pGUI->waitForClick();
+			
+		CurrentTimeStep++;	
 	}
 	
 	pGUI->PrintTime(CurrentTimeStep - 1, RED);
@@ -296,6 +242,8 @@ void Restaurant :: Test_Simulation()
 
 }
 
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 
 void Restaurant :: Draw_All()
@@ -317,99 +265,44 @@ void Restaurant :: Draw_All()
 
 }
 
-void Restaurant::CopyOrdersToDraw()
+void Restaurant::SharingOrdersToDraw()
 {
 	for (int i=A_REG;i<REG_CNT;i++)
 	{
-		//create function to copy from Normal to Draw
-		Reg[i]->CopyOrderstoDraw();
+		//create function to Share from Normal to Draw
+		Reg[i]->SharingOrderstoDraw();
 	}	
 }
 /////////////////////////////////
 void Restaurant::DeleteFirstDrawn(int region)
 {
-	switch(region)
-		{case A_REG:
-			if(!Reg[A_REG]->VIPOrderIsEmpty())
-			{
-				Order* O = Reg[A_REG]->getVIPOrder();
-				delete O;
-			}
-			if(!Reg[A_REG]->FrozenOrderIsEmpty())
-			{
-				Order* O = Reg[A_REG]->getFrozenOrder();
-				delete O;
-			}
-			 if(!Reg[A_REG]->NormalOrderIsEmpty())
-			{
-				Order* O = Reg[A_REG]->getNormalOrder();
-				delete O;
-			}
-			break;
-		case B_REG:
-			if(!Reg[B_REG]->VIPOrderIsEmpty())
-			{
-				Order* O = Reg[B_REG]->getVIPOrder();
-				delete O;
-			}
-			if(!Reg[B_REG]->FrozenOrderIsEmpty())
-			{
-				Order* O = Reg[B_REG]->getFrozenOrder();
-				delete O;
-			}
-			if(!Reg[B_REG]->NormalOrderIsEmpty())
-			{
-				Order* O = Reg[B_REG]->getNormalOrder();
-				delete O;
-			}
-			break;
-		case C_REG:
-			if(!Reg[C_REG]->VIPOrderIsEmpty())
-			{
-				Order* O = Reg[C_REG]->getVIPOrder();
-				delete O;
-			}
-			if(!Reg[C_REG]->FrozenOrderIsEmpty())
-			{
-				Order* O = Reg[C_REG]->getFrozenOrder();
-				delete O;
-			}
-			if(!Reg[C_REG]->NormalOrderIsEmpty())
-			{
-				Order* O = Reg[C_REG]->getNormalOrder();
-				delete O;
-			}
-			break;
-		case D_REG:
-			if(!Reg[D_REG]->VIPOrderIsEmpty())
-			{
-				Order* O = Reg[D_REG]->getVIPOrder();
-				delete O;
-			}
-			if(!Reg[D_REG]->FrozenOrderIsEmpty())
-			{
-				Order* O = Reg[D_REG]->getFrozenOrder();
-				delete O;
-			}
-			if(!Reg[D_REG]->NormalOrderIsEmpty())
-			{
-				Order* O = Reg[D_REG]->getNormalOrder();
-				delete O;
-			}
-			break;
-		}
+	if(!Reg[region]->VIPOrderIsEmpty())
+	{
+		Order* O = Reg[region]->getVIPOrder();
+		delete O;
+	}
+	if(!Reg[region]->FrozenOrderIsEmpty())
+	{
+		Order* O = Reg[region]->getFrozenOrder();
+		delete O;
+	}
+		if(!Reg[region]->NormalOrderIsEmpty())
+	{
+		Order* O = Reg[region]->getNormalOrder();
+		delete O;
+	}
 }
 
 //////////////////////////////////////
 bool Restaurant::ActiveOrdersExist()
 {
-	bool Exist=false;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->NormalOrderIsEmpty()?Exist:true;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->VIPOrderIsEmpty()?Exist:true;
-	for (int i=A_REG;i<REG_CNT;i++)
-		Exist=Reg[i]->FrozenOrderIsEmpty()?Exist:true;
+	bool Exist = false;
+	for (int i = A_REG; i < REG_CNT; i++)
+		Exist = Reg[i]->NormalOrderIsEmpty() ? Exist : true;
+	for (int i = A_REG; i < REG_CNT; i++)
+		Exist = Reg[i]->VIPOrderIsEmpty() ? Exist : true;
+	for (int i = A_REG; i < REG_CNT; i++)
+		Exist = Reg[i]->FrozenOrderIsEmpty() ? Exist :true;
 	return Exist;
 
 }
@@ -442,7 +335,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		{
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
-			//vip motor or normal motor or frozen motor
+			//vip motor then normal motor then frozen motor
 			if(!Reg[i]->VIPMotorIsEmpty())
 			{
 				Ord = Reg[i]->getVIPOrder();

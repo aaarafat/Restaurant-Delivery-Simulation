@@ -20,19 +20,12 @@ enum ORD_TYPE	//types of orders
 	TYPE_CNT	//Number of types
 };
 
-enum STATUS	//status of motorcycles
-{
-	IDLE,	//idle ==> waiting to be assigned at order
-	SERV	//is-service ==> is delivering at order but hasn't returned yet.
-};
-
 
 enum PROG_MODE	//mode of the program interface
 {
 	MODE_INTR,	//interactive mode
 	MODE_STEP,	//Step-by-step mode
 	MODE_SLNT,	//Silent mode
-	MODE_TEST,	//Phase 1 Test
 	MODE_CNT	//number of possible modes
 };
 enum GUI_MODE
@@ -46,7 +39,6 @@ enum DrawMenuItem
 	INTERACTIVE,
 	STEPBYSTEP,
 	SILENT,
-	TEST,
 	MENU_COUNT
 };
 

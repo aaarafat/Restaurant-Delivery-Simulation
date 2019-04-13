@@ -9,19 +9,19 @@ private :
 	Node<ItemType>* headPtr; // Pointer to first node in the chain
 	Node<ItemType>* tailPtr;
 	int itemCount; // Current count of list items
-	Node<ItemType>* getNodeAt( int position) const ; //done
+	Node<ItemType>* getNodeAt(int position) const ; 
 public :
-	LinkedList(); //done
+	LinkedList(); 
 	LinkedList(const LinkedList<ItemType>& aList);
-	virtual ~LinkedList(); //done
-	bool isEmpty() const ; //done
-	int Size() const ; //done
-	bool add(const ItemType& newEntry); //done
-	bool remove( int position); //done
-	void clear(); //done
-	ItemType getEntry( int position) const; //done
-	bool removeBegin(ItemType& I); //done
-	bool getID(int id,ItemType& I); //done
+	virtual ~LinkedList(); 
+	bool isEmpty() const ; 
+	int Size() const ; 
+	bool add(const ItemType& newEntry); 
+	bool remove( int position); 
+	void clear(); 
+	ItemType getEntry( int position) const; 
+	bool removeBegin(ItemType& I); 
+	bool getID(int id,ItemType& I); 
 	
 };
 template < class ItemType>
@@ -101,13 +101,13 @@ bool LinkedList<ItemType>::remove( int position)
 			// Disconnect indicated node from chain by connecting the
 			// prior node with the one after
 			prevPtr->setNext(curPtr->getNext());
-		} // end if
+		}
 		// Return node to system
 		curPtr->setNext(nullptr);
 		delete curPtr;
 		curPtr = nullptr ;
 		itemCount--; // Decrease count of entries
-	} // end if
+	}
 	return ableToRemove;
 }
 
@@ -158,7 +158,7 @@ bool LinkedList<ItemType>::getID(int id,ItemType &I)
 	Node<ItemType>* trav = headPtr;
 	if(trav)
 	{
-		if(*(headPtr->getItem())==id) 
+		if(*(headPtr->getItem()) == id) 
 		{
 			Node<ItemType> *nod = headPtr;
 			headPtr = headPtr->getNext();
@@ -171,11 +171,13 @@ bool LinkedList<ItemType>::getID(int id,ItemType &I)
 		}
 		while(trav)
 		{
-			if (trav->getNext()&&(*(trav->getNext()->getItem())==id))
+			if (trav->getNext() && (*(trav->getNext()->getItem()) == id))
 			{
 				Node<ItemType>* nod = trav->getNext();
 				if(nod==tailPtr)
-				{tailPtr=trav;}
+				{
+					tailPtr = trav;
+				}
 				trav->setNext(nod->getNext());
 				nod->setNext(nullptr);
 				I = nod->getItem();
@@ -184,7 +186,7 @@ bool LinkedList<ItemType>::getID(int id,ItemType &I)
 				itemCount--;
 				return true;
 			}
-			else trav=trav->getNext();
+			else trav = trav->getNext();
 		}
 	}
 	return false;

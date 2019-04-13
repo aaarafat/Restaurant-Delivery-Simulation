@@ -41,16 +41,14 @@ public:
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money);
 	void AutoPromote(int cTime);
-	//
-	// TODO: Add More Member Functions As Needed
-	//
+
 	//Simulation Functions
 	void Interactive_Simulation(); //Steps on mouse clicks
 	void StepByStep_Simulation(); //Steps every Second
 	void Silent_Simulation();     //Doesn't generate a GUI 
-	void Test_Simulation(); //Testing for phase 1
+	void Simulation(bool SBS); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue
-	void CopyOrdersToDraw(); //Copy Orders to be Drawn
+	void SharingOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
 	void ArrivedMotors(int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
 	bool ActiveOrdersExist(); // returns true if active orders exist 

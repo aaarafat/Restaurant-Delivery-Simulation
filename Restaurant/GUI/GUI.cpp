@@ -67,6 +67,8 @@ GUI::~GUI()
 void GUI::waitForClick() const
 {
 	int x,y;
+	Sleep(50);
+	pWind->FlushMouseQueue();
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -150,7 +152,6 @@ void GUI::CreateMenuBar()
 		MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
 		MenuItemImages[STEPBYSTEP] = "images\\steps.jpg";
 		MenuItemImages[SILENT] = "images\\silent.jpg";
-		MenuItemImages[TEST] = "images\\test.jpg";
 		SwitchGUI = "images\\switch.jpg";
 		Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
 	}
@@ -159,7 +160,6 @@ void GUI::CreateMenuBar()
 		MenuItemImages[INTERACTIVE] = "images\\interactivel.jpg";
 		MenuItemImages[STEPBYSTEP] = "images\\stepsl.jpg";
 		MenuItemImages[SILENT] = "images\\silentl.jpg";
-		MenuItemImages[TEST] = "images\\testl.jpg";
 		SwitchGUI = "images\\switchl.jpg";
 		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
 	}
