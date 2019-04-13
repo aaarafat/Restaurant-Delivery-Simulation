@@ -410,3 +410,9 @@ string GUI::GetFileName(string mode)
 	SetCurrentDirectory(oldDir);
 	return s;
 }
+string GUI::SaveFileName()
+{
+	string s = pWind->save_file();
+	SetCurrentDirectory(oldDir);
+	return s;
+}

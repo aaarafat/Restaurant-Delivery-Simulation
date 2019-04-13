@@ -234,10 +234,11 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 		pGUI->PrintMessage("Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	}
 	else
-		pGUI->PrintMessage("Click Anywhere to terminate");
+
+	pGUI->PrintMenuMessage("Save the Output file");
+	PrintOutputFile(pGUI->SaveFileName());
+	pGUI->PrintMessage("Click Anywhere to terminate");
 	pGUI->PrintMenuMessage("Simulation Done Check Output file");
-	
-	PrintOutputFile();
 	pGUI->waitForClick();
 
 }
@@ -409,10 +410,10 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 
 }
 
-void Restaurant :: PrintOutputFile()
+void Restaurant :: PrintOutputFile(string file)
 {
-	string Out="Output.txt";
-	ofstream Outfile(Out);
+	file.append(".txt");
+	ofstream Outfile(file);
 	Order*ord=nullptr;
 	//counters
 	int Avip=0,Anorm=0,Afroz=0,Atotwait=0,Atotserve=0;
