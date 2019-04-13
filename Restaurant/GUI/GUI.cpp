@@ -1,6 +1,5 @@
 #include "GUI.h"
 #include <algorithm>
-#include <stdio.h>
 #pragma comment( lib, "Winmm.lib" )
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::GUI() : bufferSize(MAX_PATH)

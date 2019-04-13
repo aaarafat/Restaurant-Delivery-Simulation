@@ -21,11 +21,11 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	PROG_MODE	mode = pGUI->getGUIMode();
-	pGUI->PrintMessage("Select The input file.");
+	pGUI->PrintMenuMessage("Select The input file.");
 	while(!ReadFile(pGUI->GetFileName()))
 	{
 		mode = pGUI->getGUIMode();
-		pGUI->PrintMessage("Select The input file.");
+		pGUI->PrintMenuMessage("Select The input file.");
 	}
 
 	switch (mode)	//Add a function for each mode in next phases
@@ -220,10 +220,10 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			//Advance timestep
 			if(!Silent)
 			{
-			if(StepByStep)
-				Sleep(1000);
-			else
-				pGUI->waitForClick();
+				if(StepByStep)
+					Sleep(1000);
+				else
+					pGUI->waitForClick();
 			}
 			CurrentTimeStep++;	
 		}
@@ -233,8 +233,6 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 
 		pGUI->PrintMessage("Click Anywhere to terminate", Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
 	}
-	else
-
 	pGUI->PrintMenuMessage("Save the Output file");
 	PrintOutputFile(pGUI->SaveFileName());
 	pGUI->PrintMessage("Click Anywhere to terminate");
