@@ -544,7 +544,8 @@ void Restaurant :: PrintOutputFile()
 		}
 
 		Outfile<<setw(2)<<ord->GetFinishTime()<<setw(6)<<ord->GetID()<<setw(6)<<ord->getArrTime()<<setw(8)<<ord->GetWaitTime()<<setw(6)<<ord->getServeTime()<<endl;
-	}
+	delete ord;
+}
 	//Region A
 	Outfile<<endl<<"Region A: "<<endl;
 	Outfile<<setw(5)<<"Orders: "<<Avip+Anorm+Afroz<<" [Norm:"<<Anorm<<", Froz:"<<Afroz<<",VIP:"<<Avip<<"]"<<endl;
