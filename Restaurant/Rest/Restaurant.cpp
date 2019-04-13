@@ -415,167 +415,44 @@ void Restaurant :: PrintOutputFile()
 	ofstream Outfile(Out);
 	Order*ord=nullptr;
 	//counters
-	int Avip=0,Anorm=0,Afroz=0,Atotwait=0,Atotserve=0;
-	int Bvip=0,Bnorm=0,Bfroz=0,Btotwait=0,Btotserve=0;
-	int Cvip=0,Cnorm=0,Cfroz=0,Ctotwait=0,Ctotserve=0;
-	int Dvip=0,Dnorm=0,Dfroz=0,Dtotwait=0,Dtotserve=0;
+	int totwait[4] = {0}, totserve[4] = {0} , ordcnt[4][3] = {0};
 
 	Outfile<<" FT\tID\tAT\tWT\tST"<<endl;
 	while(!FinishedOrders.isEmpty())
 	{
-		ord=FinishedOrders.peek();
+		ord = FinishedOrders.peek();
 		FinishedOrders.remove();
-
-		switch(ord->GetRegion())
-		{
-			case(A_REG):
-				{
-					switch(ord->GetType())
-					{
-						case(TYPE_VIP):
-							{
-								Avip++;
-								Atotwait+=ord->GetWaitTime();
-								Atotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_FROZ):
-							{
-								Afroz++;
-								Atotwait+=ord->GetWaitTime();
-								Atotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_NRM):
-							{
-								Anorm++;
-								Atotwait+=ord->GetWaitTime();
-								Atotserve+=ord->getServeTime();
-								break;
-							}
-					}
-					break;
-				}
-
-			case(B_REG):
-				{
-					switch(ord->GetType())
-					{
-						case(TYPE_VIP):
-							{
-								Bvip++;
-								Btotwait+=ord->GetWaitTime();
-								Btotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_FROZ):
-							{
-								Bfroz++;
-								Btotwait+=ord->GetWaitTime();
-								Btotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_NRM):
-							{
-								Bnorm++;
-								Btotwait+=ord->GetWaitTime();
-								Btotserve+=ord->getServeTime();
-								break;
-							}
-					}
-					break;
-				}
-			case(C_REG):
-				{
-					switch(ord->GetType())
-					{
-						case(TYPE_VIP):
-							{
-								Cvip++;
-								Ctotwait+=ord->GetWaitTime();
-								Ctotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_FROZ):
-							{
-								Cfroz++;
-								Ctotwait+=ord->GetWaitTime();
-								Ctotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_NRM):
-							{
-								Cnorm++;
-								Ctotwait+=ord->GetWaitTime();
-								Ctotserve+=ord->getServeTime();
-								break;
-							}
-					}
-					break;
-				}
-			case(D_REG):
-				{
-					switch(ord->GetType())
-					{
-						case(TYPE_VIP):
-							{
-								Dvip++;
-								Dtotwait+=ord->GetWaitTime();
-								Dtotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_FROZ):
-							{
-								Dfroz++;
-								Dtotwait+=ord->GetWaitTime();
-								Dtotserve+=ord->getServeTime();
-								break;
-							}
-						case(TYPE_NRM):
-							{
-								Dnorm++;
-								Dtotwait+=ord->GetWaitTime();
-								Dtotserve+=ord->getServeTime();
-								break;
-							}
-					}
-					break;
-				}
-		}
-
+		REGION reg = ord->GetRegion();
+		totwait[reg] += ord->GetWaitTime();
+		totserve[reg] += ord->getServeTime();
+		ordcnt[reg][ord->GetType()]++;
 
 		Outfile<<setw(3)<<ord->GetFinishTime()<<"\t"<<ord->GetID()<<"\t"<<ord->getArrTime()<<"\t"<<ord->GetWaitTime()<<"\t"<<ord->getServeTime()<<endl;
-	delete ord;
-}
-
-	//Region A
-	Outfile<<endl<<"Region A: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Avip+Anorm+Afroz<<" [Norm:"<<Anorm<<", Froz:"<<Afroz<<",VIP:"<<Avip<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Reg[A_REG]->getVIPMotornum()+Reg[A_REG]->getNormalMotornum()+Reg[A_REG]->getFrozenMotornum()<<" [Norm:"<<Reg[A_REG]->getNormalMotornum()<<", Froz:"<<Reg[A_REG]->getFrozenMotornum()<<",VIP:"<<Reg[A_REG]->getVIPMotornum()<<"]"<<endl;
-	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)Atotwait/(Avip+Anorm+Afroz)<<",  Avg Serv = "<<(float)Atotserve/(Avip+Anorm+Afroz)<<endl;
-
-	//Region B
-	Outfile<<endl<<"Region B: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Bvip+Bnorm+Bfroz<<" [Norm:"<<Bnorm<<", Froz:"<<Bfroz<<",VIP:"<<Bvip<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Reg[B_REG]->getVIPMotornum()+Reg[B_REG]->getNormalMotornum()+Reg[B_REG]->getFrozenMotornum()<<" [Norm:"<<Reg[B_REG]->getNormalMotornum()<<", Froz:"<<Reg[B_REG]->getFrozenMotornum()<<",VIP:"<<Reg[B_REG]->getVIPMotornum()<<"]"<<endl;
-	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)Btotwait/(Bvip+Bnorm+Bfroz)<<",  Avg Serv = "<<(float)Btotserve/(Bvip+Bnorm+Bfroz)<<endl;
-
-	//Region C
-	Outfile<<endl<<"Region C: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Cvip+Cnorm+Cfroz<<" [Norm:"<<Cnorm<<", Froz:"<<Cfroz<<",VIP:"<<Cvip<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Reg[C_REG]->getVIPMotornum()+Reg[C_REG]->getNormalMotornum()+Reg[C_REG]->getFrozenMotornum()<<" [Norm:"<<Reg[C_REG]->getNormalMotornum()<<", Froz:"<<Reg[C_REG]->getFrozenMotornum()<<",VIP:"<<Reg[C_REG]->getVIPMotornum()<<"]"<<endl;
-	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)Ctotwait/(Cvip+Cnorm+Cfroz)<<",  Avg Serv = "<<(float)Ctotserve/(Cvip+Cnorm+Cfroz)<<endl;
-
-	//Region D
-	Outfile<<endl<<"Region D: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Dvip+Dnorm+Dfroz<<" [Norm:"<<Dnorm<<", Froz:"<<Dfroz<<",VIP:"<<Dvip<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Reg[D_REG]->getVIPMotornum()+Reg[D_REG]->getNormalMotornum()+Reg[D_REG]->getFrozenMotornum()<<" [Norm:"<<Reg[D_REG]->getNormalMotornum()<<", Froz:"<<Reg[D_REG]->getFrozenMotornum()<<",VIP:"<<Reg[D_REG]->getVIPMotornum()<<"]"<<endl;
-	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)Dtotwait/(Dvip+Dnorm+Dfroz)<<",  Avg Serv = "<<(float)Dtotserve/(Dvip+Dnorm+Dfroz)<<endl;
+		delete ord;
+	}
+	//Restaurant Counters
+	int Orders = 0, Normal = 0, Frozen = 0, VIP = 0;
+	int Motors = 0, MNormal = 0, MFrozen = 0, MVIP = 0;
+	int W = 0, S = 0; 
+	for(int i = A_REG; i < REG_CNT; i++)
+	{
+		int sum_ord = ordcnt[i][TYPE_NRM] + ordcnt[i][TYPE_FROZ] + ordcnt[i][TYPE_VIP];
+		int sum_moto = Reg[i]->getVIPMotornum() + Reg[i]->getNormalMotornum() + Reg[i]->getFrozenMotornum();
+		Orders += sum_ord;
+		Motors += sum_moto;
+		W += totwait[i]; S += totserve[i];
+		Normal += ordcnt[i][TYPE_NRM]; Frozen += ordcnt[i][TYPE_FROZ]; VIP += ordcnt[i][TYPE_VIP];
+		MNormal += Reg[i]->getNormalMotornum(); MFrozen += Reg[i]->getFrozenMotornum(); MVIP += Reg[i]->getVIPMotornum();
+		Outfile<<endl<<"Region "<<(char)('A' + i)<<": "<<endl;
+		Outfile<<setw(5)<<"Orders: "<<sum_ord<<" [Norm:"<<ordcnt[i][TYPE_NRM]<<", Froz:"<<ordcnt[i][TYPE_FROZ]<<", VIP:"<<ordcnt[i][TYPE_VIP]<<"]"<<endl;
+		Outfile<<setw(5)<<"MotorC: "<<sum_moto<<" [Norm:"<<Reg[i]->getNormalMotornum()<<", Froz:"<<Reg[i]->getFrozenMotornum()<<", VIP:"<<Reg[i]->getVIPMotornum()<<"]"<<endl;
+		Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)totwait[i] / (sum_ord)<<",  Avg Serv = "<<(float)totserve[i] / (sum_ord)<<endl;
+	}
 
 	//Retaurant
 	Outfile<<endl<<"Restaurant: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Avip+Anorm+Afroz+Bvip+Bnorm+Bfroz+Cvip+Cnorm+Cfroz+Dvip+Dnorm+Dfroz<<" [Norm:"<<Anorm+Bnorm+Cnorm+Dnorm<<", Froz:"<<Afroz+Bfroz+Cfroz+Dfroz<<",VIP:"<<Avip+Bvip+Cvip+Dvip<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Reg[A_REG]->getVIPMotornum()+Reg[A_REG]->getNormalMotornum()+Reg[A_REG]->getFrozenMotornum()+Reg[B_REG]->getVIPMotornum()+Reg[B_REG]->getNormalMotornum()+Reg[B_REG]->getFrozenMotornum()+Reg[C_REG]->getVIPMotornum()+Reg[C_REG]->getNormalMotornum()+Reg[C_REG]->getFrozenMotornum()+Reg[D_REG]->getVIPMotornum()+Reg[D_REG]->getNormalMotornum()+Reg[D_REG]->getFrozenMotornum();
-	Outfile<<" [Norm:"<<Reg[A_REG]->getNormalMotornum()+Reg[B_REG]->getNormalMotornum()+Reg[C_REG]->getNormalMotornum()+Reg[D_REG]->getNormalMotornum()<<", Froz:"<<Reg[A_REG]->getFrozenMotornum()+Reg[B_REG]->getFrozenMotornum()+Reg[C_REG]->getFrozenMotornum()+Reg[D_REG]->getFrozenMotornum()<<",VIP:"<<Reg[A_REG]->getVIPMotornum()+Reg[B_REG]->getVIPMotornum()+Reg[C_REG]->getVIPMotornum()+Reg[D_REG]->getVIPMotornum()<<"]"<<endl;
-	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)(Atotwait+Btotwait+Ctotwait+Dtotwait)/(Avip+Anorm+Afroz+Bvip+Bnorm+Bfroz+Cvip+Cnorm+Cfroz+Dvip+Dnorm+Dfroz)<<",  Avg Serv = "<<(float)(Atotserve+Btotserve+Ctotserve+Dtotserve)/(Avip+Anorm+Afroz+Bvip+Bnorm+Bfroz+Cvip+Cnorm+Cfroz+Dvip+Dnorm+Dfroz)<<endl;
+	Outfile<<setw(5)<<"Orders: "<<Orders<<" [Norm:"<<Normal<<", Froz:"<<Frozen<<",VIP:"<<VIP<<"]"<<endl;
+	Outfile<<setw(5)<<"MotorC: "<<Motors;
+	Outfile<<" [Norm:"<<MNormal<<", Froz:"<<MFrozen<<",VIP:"<<MVIP<<"]"<<endl;
+	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)(W)/(Orders)<<",  Avg Serv = "<<(float)(S)/(Orders)<<endl;
 }
