@@ -26,7 +26,6 @@ void Restaurant::RunSimulation()
 		mode = pGUI->getGUIMode();
 		pGUI->PrintMessage("Select The input file.");
 	}
-	
 
 	switch (mode)	//Add a function for each mode in next phases
 	{
