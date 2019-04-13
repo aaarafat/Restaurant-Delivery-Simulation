@@ -167,6 +167,7 @@ class window {
     void ChangeTitle(const char *cpNewTitle);
     void ChangeTitle(const string strNewTitle);
 	string open_file(string mode = "TXT");
+	string save_file();
     // Functions to get information about the size of the window
     int GetWidth() const;
     int GetHeight() const;

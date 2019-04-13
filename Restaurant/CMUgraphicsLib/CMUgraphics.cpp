@@ -275,6 +275,22 @@ string window::open_file(string mode)
 
 	return string(ofn.lpstrFile);
 }
+string window::save_file()
+{
+    OPENFILENAME ofn;
+	char filename[500];
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = hwndWindow;
+	ofn.lpstrFile = filename;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = 100;
+	ofn.lpstrFilter = "Text Files\0*.TXT\0";
+	ofn.nFilterIndex = 1;
+	GetSaveFileName(&ofn);
+
+	return string(ofn.lpstrFile);
+}
 window::~window() {
 
     //int iX, iY;

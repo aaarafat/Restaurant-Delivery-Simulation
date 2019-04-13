@@ -51,7 +51,7 @@ public:
 	bool ActiveOrdersExist(); // returns true if active orders exist 
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);
-	void PrintOutputFile();
+	void PrintOutputFile(string file);
 };
 
 #endif
