@@ -26,7 +26,6 @@ enum PROG_MODE	//mode of the program interface
 	MODE_INTR,	//interactive mode
 	MODE_STEP,	//Step-by-step mode
 	MODE_SLNT,	//Silent mode
-	MODE_TEST,	//Phase 1 Test
 	MODE_CNT	//number of possible modes
 };
 enum GUI_MODE
@@ -40,7 +39,6 @@ enum DrawMenuItem
 	INTERACTIVE,
 	STEPBYSTEP,
 	SILENT,
-	TEST,
 	MENU_COUNT
 };
 
