@@ -5,12 +5,12 @@ Order::Order(int id, ORD_TYPE r_Type, REGION r_region,int Dist,int TotalMon,int 
 	ID = (id>0&&id<1000)?id:0;	//1<ID<999
 	type = r_Type;
 	Region = r_region;	
-	Distance=Dist;
-	totalMoney=TotalMon;
-	ArrTime=ArrTim;
-	FinishTime=-1;
-	ServTime=-1;
-	WaitTime=-1;
+	Distance = Dist;
+	totalMoney = TotalMon;
+	ArrTime = ArrTim;
+	FinishTime = -1;
+	ServTime = -1;
+	WaitTime = -1;
 }
 
 
@@ -64,22 +64,22 @@ int Order::GetDistance() const
 }
 double Order::Priorty() const
 {
-	return (double(Distance)/ArrTime)+(double(totalMoney)/Distance);
+	return (double(Distance) / ArrTime) + (double(totalMoney) / Distance);
 }
 bool Order::operator< (const Order& o)
 {
-	if(FinishTime==-1)
-		return Priorty()<o.Priorty();
+	if(FinishTime == -1)
+		return Priorty() < o.Priorty();
 
-	else if(FinishTime!=o.FinishTime)
+	else if(FinishTime != o.FinishTime)
 		{
-			if(FinishTime>o.FinishTime)
+			if(FinishTime > o.FinishTime)
 				return true;
 
 			return false;
 		}
 
-	else if (ServTime>o.ServTime)
+	else if (ServTime > o.ServTime)
 		return true;
 
 	return false;
@@ -87,18 +87,18 @@ bool Order::operator< (const Order& o)
 
 bool Order::operator> (const Order& o)
 {
-	if(FinishTime==-1)
-	return Priorty()>o.Priorty();
+	if(FinishTime == -1)
+	return Priorty() > o.Priorty();
 
-	else if(FinishTime!=o.FinishTime)
+	else if(FinishTime != o.FinishTime)
 		{
-			if(FinishTime<o.FinishTime)
+			if(FinishTime < o.FinishTime)
 				return true;
 
 			return false;
 		}
 
-	else if (ServTime<o.ServTime)
+	else if (ServTime < o.ServTime)
 		return true;
 
 	return false;

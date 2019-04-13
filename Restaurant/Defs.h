@@ -20,12 +20,6 @@ enum ORD_TYPE	//types of orders
 	TYPE_CNT	//Number of types
 };
 
-enum STATUS	//status of motorcycles
-{
-	IDLE,	//idle ==> waiting to be assigned at order
-	SERV	//is-service ==> is delivering at order but hasn't returned yet.
-};
-
 
 enum PROG_MODE	//mode of the program interface
 {

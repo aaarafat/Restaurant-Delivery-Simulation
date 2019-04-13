@@ -58,7 +58,7 @@ public:
 	bool VIPDrawIsEmpty() const;
 	bool DrawOrdersIsEmpty() const;
 	bool FrozenDrawIsEmpty() const;
-	void CopyOrderstoDraw();
+	void SharingOrderstoDraw();
 	///////////////////////////////
 	string Print();
 

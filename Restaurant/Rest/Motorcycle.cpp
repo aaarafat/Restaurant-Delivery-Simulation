@@ -9,8 +9,8 @@ Motorcycle::Motorcycle()
 	ArriveTime = -1;
 }
 
-Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg, STATUS st) :
-	ID(++count), type(type), speed(spd), region(reg), status(st), ArriveTime(-1)
+Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg) :
+	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1)
 {
 }
 
@@ -61,17 +61,6 @@ REGION Motorcycle::GetRegion() const
 {
 	return region;
 }
-
-void Motorcycle::SetStatus(STATUS st)
-{
-	status = st;
-}
-
-STATUS Motorcycle::GetStatus() const
-{
-	return status;
-}
-
 bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 {
 	try

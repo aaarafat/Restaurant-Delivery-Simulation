@@ -194,12 +194,13 @@ string Region::Print()
 			+ "                                                                          Orders -->  VIP: "
 			+ to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
 }
-void Region::CopyOrderstoDraw()
+void Region::SharingOrderstoDraw()
 {
-	Queue<Order*> Q;Order* O;
+	Queue<Order*> Q;
+	Order* O;
 	while(!VIPOrderIsEmpty())
 	{
-		O=VIPOrder.peek();
+		O = VIPOrder.peek();
 		VIPOrder.remove();
 		DrawOrders.enqueue(O);
 		Q.enqueue(O);
@@ -208,11 +209,10 @@ void Region::CopyOrderstoDraw()
 	while(Q.dequeue(O))
 	{
 		VIPOrder.add(O);
-
 	}
 
-	int size=FrozenOrder.Size();
-	Order*temp=nullptr;
+	int size = FrozenOrder.Size();
+	Order*temp = nullptr;
 
 	for(int i=1;i<=size;i++)
 	{
@@ -221,8 +221,8 @@ void Region::CopyOrderstoDraw()
 		FrozenOrder.enqueue(temp);
 	}
 
-	size=NormalOrder.Size();
-	temp=nullptr;
+	size = NormalOrder.Size();
+	temp = nullptr;
 
 	for(int i=1;i<=size;i++)
 	{

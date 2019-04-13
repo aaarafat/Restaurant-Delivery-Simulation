@@ -15,11 +15,7 @@ protected:
 	double totalMoney;	//Total order money
 
 	int ArrTime, ServTime, FinishTime, WaitTime;	//arrival, service start, and finish times
-	
-	
-	//
-	// TODO: Add More Data Members As Needed
-	//
+
 
 public:
 	Order(int ID, ORD_TYPE r_Type, REGION r_region,int Dist,int TotalMon,int ArrTim);
@@ -40,9 +36,7 @@ public:
 	int GetWaitTime();
 	void FinishOrder(int Speed);
 	int GetFinishTime();
-	//
-	// TODO: Add More Member Functions As Needed
-	//
+
 	bool operator> (const Order& o);
 	bool operator< (const Order& o);
 	bool operator== (int id);
