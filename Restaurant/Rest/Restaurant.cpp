@@ -15,6 +15,7 @@ Restaurant::Restaurant()
 		Reg[i] = new Region();
 	}
 
+	AssignedOrders="";
 }
 
 void Restaurant::RunSimulation()
@@ -201,11 +202,14 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			//Execute the event and turn them into orders
 			ExecuteEvents(CurrentTimeStep);
 
+			//Copying the string to temp for printing the last timestep
+			AssignedOrderstemp=AssignedOrders;
+
 			//Print the number of the Orders in each region 
 			AssignOrder(CurrentTimeStep);
 			if(!Silent)
 			{
-				pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print());
+				pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp);
 
 				//Drawing the Orders
 				pGUI->ResetDrawingList();
@@ -328,6 +332,7 @@ void Restaurant::ArrivedMotors(int CurrentTimeStep)
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
 {
+	AssignedOrders="";
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		while(!Reg[i]->VIPOrderIsEmpty())
@@ -339,16 +344,19 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getVIPMotor();
+				AssignedOrders+='V'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
 			}
 			else if(!Reg[i]->NormalMotorIsEmpty())
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getNormalMotor();
+				AssignedOrders+='N'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
 			}
 			else if(!Reg[i]->FrozenMotorIsEmpty())
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getFrozenMotor();
+				AssignedOrders+='F'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
 			}
 			if(Ord && Moto)
 			{
@@ -375,6 +383,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
 				Reg[i]->setAssignedMotor(Moto);
+				AssignedOrders+='F'+to_string(Moto->GetID())+"(F"+to_string(Ord->GetID())+")  ";
 			}
 			else break;
 		}
@@ -387,11 +396,13 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getNormalMotor();
+				AssignedOrders+='N'+to_string(Moto->GetID())+"(N"+to_string(Ord->GetID())+") ";
 			}
 			else if(!Reg[i]->VIPMotorIsEmpty())
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getVIPMotor();
+				AssignedOrders+='V'+to_string(Moto->GetID())+"(N"+to_string(Ord->GetID())+") ";
 			}
 			if(Ord && Moto)
 			{

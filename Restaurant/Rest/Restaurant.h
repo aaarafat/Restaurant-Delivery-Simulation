@@ -4,6 +4,7 @@
 #include <time.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "..\Defs.h"
 #include "..\CMUgraphicsLib\CMUgraphics.h"
 #include "..\GUI\GUI.h"
@@ -22,7 +23,8 @@ private:
 	GUI *pGUI;
 	Queue<Event*> EventsQueue;	//Queue of all events that will be loaded from file
 	Heap_PriorityQueue<Order> FinishedOrders;
-	
+	string AssignedOrders;
+	string AssignedOrderstemp;
 	
 	Region* Reg[REG_CNT];
 	int AutoPromo;
