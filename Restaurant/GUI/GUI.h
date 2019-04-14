@@ -109,7 +109,8 @@ public:
 	// Input Functions  ---------------------------
 	void waitForClick(int &x,int &y) const;	// waits a user click from the user
 	void getClick(int &x,int &y) const;	// gets a user click from the user
-	bool MenuClicked(int x , int y)  ;
+	bool MenuClicked(int x , int y);
+	void ClearMouseClicks() const;
 	string GetString() const ; // reads a string (keyboard input) from the user
 	string GetFileName(string mode = "TXT");
 	string SaveFileName();

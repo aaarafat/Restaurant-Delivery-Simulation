@@ -66,9 +66,11 @@ GUI::~GUI()
 
 void GUI::waitForClick(int &x,int &y) const
 {
-	Sleep(50);
-	pWind->FlushMouseQueue();
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+}
+void GUI::ClearMouseClicks() const
+{
+	pWind->FlushMouseQueue();
 }
 
 void GUI::getClick(int &x,int &y) const

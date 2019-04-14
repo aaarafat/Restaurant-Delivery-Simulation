@@ -237,8 +237,10 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 					{
 						Draw(StepByStep,CurrentTimeStep);
 					}
-					else
-					Sleep(1000);
+					else{
+						Sleep(1000);
+						pGUI->ClearMouseClicks();
+					}
 				}
 			}
 			CurrentTimeStep++;	
