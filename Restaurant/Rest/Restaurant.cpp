@@ -209,13 +209,8 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			AssignOrder(CurrentTimeStep);
 			if(!Silent)
 			{
-				pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp);
+				Draw(false,CurrentTimeStep);
 
-				//Drawing the Orders
-				pGUI->ResetDrawingList();
-				SharingOrdersToDraw();
-				Draw_All();
-				pGUI->PrintTime(CurrentTimeStep);
 			}
 			//Check for Auto Promotion
 			if(CurrentTimeStep>=AutoPromo)
@@ -224,10 +219,27 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			//Advance timestep
 			if(!Silent)
 			{
-				if(StepByStep)
-					Sleep(1000);
+				if(!StepByStep)
+					while(true)
+					{
+					pGUI->waitForClick(x,y);
+					if(pGUI->MenuClicked(x,y))
+					{
+						Draw(StepByStep,CurrentTimeStep);	
+					}
+					else break;
+					}
 				else
-					pGUI->waitForClick();
+				{
+
+					pGUI->getClick(x,y);
+					if(pGUI->MenuClicked(x,y))
+					{
+						Draw(StepByStep,CurrentTimeStep);
+					}
+					else
+					Sleep(1000);
+				}
 			}
 			CurrentTimeStep++;	
 		}
@@ -241,7 +253,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 	PrintOutputFile(pGUI->SaveFileName());
 	pGUI->PrintMessage("Click Anywhere to terminate");
 	pGUI->PrintMenuMessage("Simulation Done Check Output file");
-	pGUI->waitForClick();
+	pGUI->waitForClick(x,y);
 
 }
 
@@ -266,6 +278,16 @@ void Restaurant :: Draw_All()
 
 	pGUI->UpdateInterface();
 
+}
+void Restaurant::Draw(bool StepByStep,int CurrentTimeStep)
+{
+	if(StepByStep) Sleep(250);
+	pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp);
+	pGUI->ResetDrawingList();
+	SharingOrdersToDraw();
+	Draw_All();
+	pGUI->PrintTime(CurrentTimeStep);
+	if(StepByStep) Sleep(250);
 }
 
 void Restaurant::SharingOrdersToDraw()

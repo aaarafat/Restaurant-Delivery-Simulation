@@ -54,6 +54,7 @@ public:
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);
 	void PrintOutputFile(string file);
+	void Draw(bool STS,int CurrentTimeStep);
 };
 
 #endif

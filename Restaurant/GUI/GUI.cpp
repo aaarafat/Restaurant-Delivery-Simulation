@@ -64,12 +64,33 @@ GUI::~GUI()
 // ================================== INPUT FUNCTIONS ====================================
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::waitForClick() const
+void GUI::waitForClick(int &x,int &y) const
 {
-	int x,y;
 	Sleep(50);
 	pWind->FlushMouseQueue();
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+}
+
+void GUI::getClick(int &x,int &y) const
+{
+	pWind->GetMouseClick(x,y);	//gets last click
+}
+bool GUI::MenuClicked(int x, int y) 
+{
+	int s=-1;
+	if (y >= 0 && y <= 50)
+		s = (WindWidth - x) / 120;
+	if(s==0)
+	{
+		ChangeMode();
+		return true;
+	}
+	else if(s==1)
+	{
+		//play pause
+		return true;
+	}
+	else return false;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 string GUI::GetString() const 
@@ -143,7 +164,22 @@ void GUI::ClearMenuBar() const
 {
 	pWind->SetPen(GUID, 3);
 	pWind->SetBrush(GUID);
-	pWind->DrawRectangle(0, 0, WindWidth, MenuBarHeight);	
+	pWind->DrawRectangle(0, 0, WindWidth, MenuBarHeight);
+		string SwitchGUI;
+	string Music;
+	if(GMode == MODE_DARK)
+	{
+		SwitchGUI = "images\\switch.jpg";
+		Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
+	}
+	else
+	{
+		SwitchGUI = "images\\switchl.jpg";
+		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
+	}
+
+	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
+	pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 		
