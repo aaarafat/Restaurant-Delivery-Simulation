@@ -27,7 +27,7 @@ private:
 	color GUIF;
 	color GUIR;
 	bool MusicOn;
-
+	bool Draw;
 	// Some Static Constant Data Members: ---------------------
 
 	static const int	

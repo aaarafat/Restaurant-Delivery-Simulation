@@ -189,8 +189,6 @@ Region* Restaurant::GetRegion(REGION x)
 
 void Restaurant :: Simulation(bool StepByStep,bool Silent)
 {
-	
-
 		pGUI->UpdateInterface();
 		int CurrentTimeStep = 1;
 		int x,y;
@@ -220,26 +218,39 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			if(!Silent)
 			{
 				if(!StepByStep)
+				{
 					while(true)
 					{
-					pGUI->waitForClick(x,y);
-					if(pGUI->MenuClicked(x,y))
-					{
-						Draw(StepByStep,CurrentTimeStep);	
+						pGUI->waitForClick(x,y);
+						if(pGUI->MenuClicked(x,y))
+						{
+							Draw(StepByStep,CurrentTimeStep);	
+						}
+						else break;
 					}
-					else break;
-					}
+				}
 				else
 				{
 
-					pGUI->getClick(x,y);
+					/*pGUI->getClick(x,y);
 					if(pGUI->MenuClicked(x,y))
 					{
 						Draw(StepByStep,CurrentTimeStep);
 					}
 					else{
 						Sleep(1000);
-						pGUI->ClearMouseClicks();
+						//pGUI->ClearMouseClicks();
+					}*/
+					//to get action while sleeping we divide the sleeping period into 200 parts
+					for(int i = 0; i < 200; i++)
+					{
+						pGUI->getClick(x,y);
+						if(pGUI->MenuClicked(x,y))
+						{
+							Draw(StepByStep,CurrentTimeStep);
+							i += 100; //we already slept 500 ms in the draw function
+						}
+						Sleep(5);
 					}
 				}
 			}

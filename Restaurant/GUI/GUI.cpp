@@ -8,6 +8,7 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	
 	cout<<endl;
 	MusicOn = false;
+	Draw = false;
 	GMode = MODE_DARK;
 	GUIL = DARKGUIL;
 	GUID = DARKGUID;
@@ -89,7 +90,7 @@ bool GUI::MenuClicked(int x, int y)
 	}
 	else if(s==1)
 	{
-		//play pause
+		//pause and resume
 		return true;
 	}
 	else return false;
@@ -167,17 +168,32 @@ void GUI::ClearMenuBar() const
 	pWind->SetPen(GUID, 3);
 	pWind->SetBrush(GUID);
 	pWind->DrawRectangle(0, 0, WindWidth, MenuBarHeight);
-		string SwitchGUI;
+	string SwitchGUI;
 	string Music;
 	if(GMode == MODE_DARK)
 	{
 		SwitchGUI = "images\\switch.jpg";
-		Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
+		if(!Draw)
+		{
+			Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
+		}
+		else
+		{
+			Music = (MusicOn) ? "images\\paused.jpg" :"images\\playd.jpg";
+		}
 	}
 	else
 	{
 		SwitchGUI = "images\\switchl.jpg";
-		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
+		if(!Draw)
+		{
+			Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
+		}
+		else
+		{
+			Music = (MusicOn) ? "images\\pausel.jpg" :"images\\playl.jpg";
+		}
+
 	}
 
 	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
@@ -355,7 +371,7 @@ void GUI::UpdateInterface()
 	ClearDrawingArea();
 	DrawRestArea();
 	DrawOrders();
-	 ClearMenuBar() ;
+	ClearMenuBar() ;
 }
 
 /*
@@ -431,6 +447,7 @@ PROG_MODE	GUI::getGUIMode()
 	//while(Mode> 0 || Mode >= MODE_CNT);
 	Mode = (PROG_MODE) (S);
 	UpdateInterface();
+	Draw = true;
 	return Mode;
 }
 
