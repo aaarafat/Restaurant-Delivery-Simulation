@@ -232,15 +232,15 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 				else
 				{
 
-					for(int i = 0; i < 550; i++)
+					for(int i = 0; i < 500; i++)
 					{
 						pGUI->getClick(x,y);
 						if(pGUI->MenuClicked(x,y))
 						{
 							Draw(CurrentTimeStep);
-							i += 5; //we already slept 500 ms in the draw function
+							i += 5; 
 						}
-						Sleep(1);
+						Sleep(2);
 					}
 				}
 			}
