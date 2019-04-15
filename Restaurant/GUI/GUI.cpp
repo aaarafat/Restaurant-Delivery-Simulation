@@ -7,6 +7,7 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	GetCurrentDirectory(bufferSize, oldDir);
 	
 	cout<<endl;
+	MusicMode = false;
 	MusicOn = false;
 	Draw = false;
 	GMode = MODE_DARK;
@@ -88,9 +89,21 @@ bool GUI::MenuClicked(int x, int y)
 		ChangeMode();
 		return true;
 	}
-	else if(s==1)
+	else if(s==1 && MusicMode)
 	{
 		//pause and resume
+		if(MusicOn)
+		{
+			MusicOn = false;
+			PlaySound(NULL, NULL, 0); 
+		}
+		else
+		{
+			MusicOn = true;
+			PlaySound((LPCSTR)MusicDir.c_str(), NULL, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
+		}
+
+		UpdateInterface();
 		return true;
 	}
 	else return false;
@@ -179,7 +192,10 @@ void GUI::ClearMenuBar() const
 		}
 		else
 		{
-			Music = (MusicOn) ? "images\\paused.jpg" :"images\\playd.jpg";
+			if(MusicMode)
+			{
+				Music = (MusicOn) ? "images\\paused.jpg" :"images\\playd.jpg";
+			}
 		}
 	}
 	else
@@ -191,13 +207,16 @@ void GUI::ClearMenuBar() const
 		}
 		else
 		{
-			Music = (MusicOn) ? "images\\pausel.jpg" :"images\\playl.jpg";
+			if(MusicMode)
+			{
+				Music = (MusicOn) ? "images\\pausel.jpg" :"images\\playl.jpg";
+			}
 		}
 
 	}
 
 	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
-	pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
+	if(Music != "") pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
 		
@@ -398,7 +417,6 @@ PROG_MODE	GUI::getGUIMode()
 	PROG_MODE Mode;
 	int x,y,S,s;
 	CreateMenuBar();
-	string Music;
 	
 	PrintMessage("Please select GUI mode From Menu");
 	S=-1;
@@ -427,13 +445,12 @@ PROG_MODE	GUI::getGUIMode()
 		}
 		else if(s == 1 && !MusicOn)
 		{
-			Music = GetFileName("WAV");
-			replace(Music.begin(), Music.end(), '\\', '/');
+			MusicDir = GetFileName("WAV");
 			fstream fin;
-			fin.open(Music);
+			fin.open(MusicDir);
 			if(fin.is_open())
 			{
-				PlaySound((LPCSTR)Music.c_str(), NULL, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
+				PlaySound((LPCSTR)MusicDir.c_str(), NULL, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 				MusicOn = true;
 				UpdateInterface();
 				CreateMenuBar();
@@ -448,6 +465,7 @@ PROG_MODE	GUI::getGUIMode()
 	Mode = (PROG_MODE) (S);
 	UpdateInterface();
 	Draw = true;
+	MusicMode = MusicOn;
 	return Mode;
 }
 

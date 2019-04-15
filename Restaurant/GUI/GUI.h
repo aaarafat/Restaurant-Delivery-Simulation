@@ -26,7 +26,9 @@ private:
 	color GUIS;
 	color GUIF;
 	color GUIR;
+	string MusicDir;
 	bool MusicOn;
+	bool MusicMode;
 	bool Draw;
 	// Some Static Constant Data Members: ---------------------
 
