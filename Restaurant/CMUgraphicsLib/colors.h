@@ -185,8 +185,8 @@ const color LIGHTGREEN = color(144, 238, 144);
 /////////////////////////////////////////////
 // Custom Colors
 ////////////////////////////////////////////
-const color NRED = color(214,9,9);
-const color NDARKBLUE = color(11,144,211);
+const color NRED = color(255,9,0);
+const color NDARKBLUE = color(0,85,255);
 const color NVIOLET = color(255,146,232);
 ///// Dark GUI /////////////////////////////
 const color DARKGUID = color(22,22,22);
@@ -196,6 +196,6 @@ const color LIGHTGUID = color(222,224,223);
 const color LIGHTGUIL = color(233,233,233);
 ///// Font ////////////////////////////////
 const color REDR = color(157,0,42);
-const color BLUER = color(21,150,230);
+const color BLUER = color(21,150,220);
 
 #endif //COLOR_H
