@@ -207,7 +207,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			AssignOrder(CurrentTimeStep);
 			if(!Silent)
 			{
-				Draw(false,CurrentTimeStep);
+				Draw(CurrentTimeStep);
 
 			}
 			//Check for Auto Promotion
@@ -224,7 +224,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 						pGUI->waitForClick(x,y);
 						if(pGUI->MenuClicked(x,y))
 						{
-							Draw(StepByStep,CurrentTimeStep);	
+							Draw(CurrentTimeStep);	
 						}
 						else break;
 					}
@@ -232,25 +232,15 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 				else
 				{
 
-					/*pGUI->getClick(x,y);
-					if(pGUI->MenuClicked(x,y))
-					{
-						Draw(StepByStep,CurrentTimeStep);
-					}
-					else{
-						Sleep(1000);
-						//pGUI->ClearMouseClicks();
-					}*/
-					//to get action while sleeping we divide the sleeping period into 200 parts
-					for(int i = 0; i < 200; i++)
+					for(int i = 0; i < 550; i++)
 					{
 						pGUI->getClick(x,y);
 						if(pGUI->MenuClicked(x,y))
 						{
-							Draw(StepByStep,CurrentTimeStep);
-							i += 100; //we already slept 500 ms in the draw function
+							Draw(CurrentTimeStep);
+							i += 5; //we already slept 500 ms in the draw function
 						}
-						Sleep(5);
+						Sleep(1);
 					}
 				}
 			}
@@ -292,15 +282,13 @@ void Restaurant :: Draw_All()
 	pGUI->UpdateInterface();
 
 }
-void Restaurant::Draw(bool StepByStep,int CurrentTimeStep)
+void Restaurant::Draw(int CurrentTimeStep)
 {
-	if(StepByStep) Sleep(250);
 	pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp);
 	pGUI->ResetDrawingList();
 	SharingOrdersToDraw();
 	Draw_All();
 	pGUI->PrintTime(CurrentTimeStep);
-	if(StepByStep) Sleep(250);
 }
 
 void Restaurant::SharingOrdersToDraw()
