@@ -122,25 +122,59 @@ bool Restaurant::ReadFile(string filename)
 	{
 		return false;
 	}
-	int SN, SF, SV, N, F, V;
-	fin>>SN>>SF>>SV;
-	for(int k = A_REG; k < REG_CNT; k++)
+	int SN, SF, SV, N, F, V, Traffic,dSpeed;
+	fin>>dSpeed>>Traffic;
+	if(dSpeed)
 	{
-		fin>>N>>F>>V;
-		for(int i = 0; i < N; i++)
+		for(int k = A_REG; k < REG_CNT; k++)
 		{
-			Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k)); 
-			Reg[k]->setNormalMotor(tmp);
+			int speed;
+			char type;
+			fin>>N>>F>>V;
+			fin>>type;
+			for(int i = 0; i < N; i++)
+			{
+				fin>>speed;
+				Motorcycle* tmp = new Motorcycle(TYPE_NRM, speed, REGION(k)); 
+				Reg[k]->setNormalMotor(tmp);
+			}
+			fin>>type;
+			for(int i = 0; i < F; i++)
+			{
+				fin>>speed;
+				Motorcycle* tmp = new Motorcycle(TYPE_FROZ, speed, REGION(k)); 
+				Reg[k]->setFrozenMotor(tmp);
+			}
+			fin>>type;
+			for(int i = 0; i < V; i++)
+			{
+				fin>>speed;
+				Motorcycle* tmp = new Motorcycle(TYPE_VIP, speed, REGION(k)); 
+				Reg[k]->setVIPMotor(tmp);
+			}
 		}
-		for(int i = 0; i < F; i++)
+	}
+	else
+	{
+		fin>>SN>>SF>>SV;
+		for(int k = A_REG; k < REG_CNT; k++)
 		{
-			Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k)); 
-			Reg[k]->setFrozenMotor(tmp);
-		}
-		for(int i = 0; i < V; i++)
-		{
-			Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k)); 
-			Reg[k]->setVIPMotor(tmp);
+			fin>>N>>F>>V;
+			for(int i = 0; i < N; i++)
+			{
+				Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k)); 
+				Reg[k]->setNormalMotor(tmp);
+			}
+			for(int i = 0; i < F; i++)
+			{
+				Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k)); 
+				Reg[k]->setFrozenMotor(tmp);
+			}
+			for(int i = 0; i < V; i++)
+			{
+				Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k)); 
+				Reg[k]->setVIPMotor(tmp);
+			}
 		}
 	}
 	fin>>AutoPromo;
@@ -238,9 +272,10 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 						if(pGUI->MenuClicked(x,y))
 						{
 							Draw(CurrentTimeStep);
-							i += 5; 
+							i += 15; 
 						}
-						Sleep(2);
+						else
+							Sleep(2);
 					}
 				}
 			}
