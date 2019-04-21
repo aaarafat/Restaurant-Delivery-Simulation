@@ -39,6 +39,7 @@ enum DrawMenuItem
 	INTERACTIVE,
 	STEPBYSTEP,
 	SILENT,
+	EXTRA,
 	MENU_COUNT
 };
 

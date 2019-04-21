@@ -31,7 +31,8 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	ClearDrawingArea(); 
 	DrawRestArea();  
 	CreateMenuBar();
-	
+	dSpeed = false;
+	Traffic = false;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ChangeMode()
@@ -83,7 +84,7 @@ bool GUI::MenuClicked(int x, int y)
 {
 	int s=-1;
 	if (y >= 0 && y <= 50)
-		s = (WindWidth - x) / 120;
+		s = (WindWidth - x -5) / 120;
 	if(s==0)
 	{
 		ChangeMode();
@@ -215,41 +216,42 @@ void GUI::ClearMenuBar() const
 
 	}
 
-	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
-	if(Music != "") pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
+	pWind->DrawImage(SwitchGUI,WindWidth-125, 0, 120, 50);
+	if(Music != "") pWind->DrawImage(Music,WindWidth-120 * 2-5, 0, 120, 50);
 	pWind->SetPen(GUIS, 3);
-	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
+	pWind->DrawLine(0, MenuBarHeight+1 , WindWidth,MenuBarHeight+1);
 		
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::CreateMenuBar()
 {
 	string MenuItemImages[MENU_COUNT];
-	string SwitchGUI;
-	string Music;
+	string diffspeed,traffic;
 	if(GMode == MODE_DARK)
 	{
 		MenuItemImages[INTERACTIVE] = "images\\interactive.jpg";
 		MenuItemImages[STEPBYSTEP] = "images\\steps.jpg";
 		MenuItemImages[SILENT] = "images\\silent.jpg";
-		SwitchGUI = "images\\switch.jpg";
-		Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
+		diffspeed = (dSpeed) ? "images\\speedond.jpg" : "images\\speedoffd.jpg";
+		traffic = (Traffic) ? "images\\trafficond.jpg" : "images\\trafficoffd.jpg";
+		
 	}
 	else
 	{
 		MenuItemImages[INTERACTIVE] = "images\\interactivel.jpg";
 		MenuItemImages[STEPBYSTEP] = "images\\stepsl.jpg";
 		MenuItemImages[SILENT] = "images\\silentl.jpg";
-		SwitchGUI = "images\\switchl.jpg";
-		Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
+		diffspeed = (dSpeed) ? "images\\speedonl.jpg" : "images\\speedoffl.jpg";
+		traffic = (Traffic) ? "images\\trafficonl.jpg" : "images\\trafficoffl.jpg";
+
 	}
-	
-	for(int i=0; i<MENU_COUNT; i++)
+	int i;
+	for(i=0; i<MENU_COUNT-1; i++)
 		pWind->DrawImage(MenuItemImages[i], i*MenuItemWidth, 0, MenuItemWidth, 50);
-	pWind->DrawImage(SwitchGUI,WindWidth-120, 0, 120, 50);
-	pWind->DrawImage(Music,WindWidth-120 * 2, 0, 120, 50);
+	pWind->DrawImage(diffspeed, i*MenuItemWidth, 0, MenuItemWidth, 25);
+	pWind->DrawImage(traffic, i*MenuItemWidth, 25, MenuItemWidth, 25);
 	pWind->SetPen(GUIS, 3);
-	pWind->DrawLine(0, MenuBarHeight , WindWidth,MenuBarHeight);
+	pWind->DrawLine(0, MenuBarHeight+1 , WindWidth,MenuBarHeight+1);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusBar() const
@@ -458,7 +460,24 @@ PROG_MODE	GUI::getGUIMode()
 			}
 			fin.close();
 		}
-
+		if(S==EXTRA)
+		{
+			if(y<25)
+			{
+				if(dSpeed) dSpeed = false;
+				else dSpeed = true;
+				UpdateInterface();
+				CreateMenuBar();
+			}
+			else
+			{
+				if(Traffic) Traffic = false;
+				else Traffic = true;
+				UpdateInterface();
+				CreateMenuBar();
+			}
+			S = - 1;
+		}
 		
 	}
 	//while(Mode> 0 || Mode >= MODE_CNT);
