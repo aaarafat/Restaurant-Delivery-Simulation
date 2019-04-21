@@ -10,12 +10,12 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	MusicMode = false;
 	MusicOn = false;
 	Draw = false;
-	GMode = MODE_DARK;
-	GUIL = DARKGUIL;
-	GUID = DARKGUID;
-	GUIS = BLACK;
-	GUIF = WHITE;
-	GUIR = REDR;
+	GMode = MODE_LIGHT;
+	GUIL = LIGHTGUIL;
+	GUID = LIGHTGUID;
+	GUIS = WHITE;
+	GUIF = BLACK;
+	GUIR = BLUER;
 	pWind = new window(WindWidth+10,WindHeight,0,0); 
 	pWind->ChangeTitle("The Restautant");
 	OrderCount = 0;
