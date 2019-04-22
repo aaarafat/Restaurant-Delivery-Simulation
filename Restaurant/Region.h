@@ -18,7 +18,7 @@ class Region
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	Queue<Order*> DrawOrders;
-	
+	Heap_PriorityQueue<Motorcycle> DamagedMotors;
 public:
 	Motorcycle* getVIPMotor() ;
 	void setVIPMotor(Motorcycle* M);
@@ -45,6 +45,7 @@ public:
 	bool FrozenMotorIsEmpty() const;
 	bool NormalMotorIsEmpty() const;
 	bool AssignedMotorsEmpty() const;
+	bool DamagedMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);

@@ -123,7 +123,7 @@ bool Restaurant::ReadFile(string filename)
 		return false;
 	}
 	int SN, SF, SV, N, F, V;
-	if(pGUI->dSpeed)
+	if(pGUI->getdSpeed())
 	{
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
@@ -391,14 +391,18 @@ bool Restaurant::AssignedMotorsExist()
 void Restaurant::ArrivedMotors(int CurrentTimeStep)
 {
 	for(int i = A_REG; i < REG_CNT; i++)
+	{
 		Reg[i]->ArrivedMotors(CurrentTimeStep);
+	}
 }
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
 {
 	AssignedOrders="";
+	srand(time(0));
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
+		int traffic = 0;
 		while(!Reg[i]->VIPOrderIsEmpty())
 		{
 			Order* Ord = NULL;
@@ -427,7 +431,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				} else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord);
 				Reg[i]->setAssignedMotor(Moto);
 			}
@@ -444,7 +452,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				}else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord);
 				Reg[i]->setAssignedMotor(Moto);
 				AssignedOrders+='F'+to_string(Moto->GetID())+"(F"+to_string(Ord->GetID())+")  ";
@@ -473,7 +485,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				} else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord);
 				Reg[i]->setAssignedMotor(Moto);
 			}

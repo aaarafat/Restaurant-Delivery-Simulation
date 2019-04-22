@@ -16,6 +16,8 @@ class Motorcycle
 	int speed;		//meters it can move in one clock tick (in one timestep)
 	REGION	region;	//region of the motorcycle
 	int ArriveTime; //arrive time of the motorcycle
+	int RepairTime; //Number of steps to repaire the motorcycle
+	int RestTime;   //Number of steps that motor needs to rest
 
 public:
 	Motorcycle();
@@ -27,6 +29,10 @@ public:
 	ORD_TYPE GetType() const;
 	void SetSpeed(int spd);
 	int GetSpeed() const;
+	int GetRepairTime() const;
+	void SetRepairTime(int rp);
+	int GetRestTime() const;
+	void SetRestTime(int rs);
 	void SetRegion(REGION reg);
 	REGION GetRegion() const;
 	friend bool operator> (const Motorcycle& moto, const Motorcycle& moto2);

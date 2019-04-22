@@ -189,7 +189,7 @@ void GUI::ClearMenuBar() const
 		SwitchGUI = "images\\switch.jpg";
 		if(!Draw)
 		{
-			Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
+			Music = (MusicOn) ? "images\\ond.jpg" :"images\\offd.jpg";
 		}
 		else
 		{
@@ -204,7 +204,7 @@ void GUI::ClearMenuBar() const
 		SwitchGUI = "images\\switchl.jpg";
 		if(!Draw)
 		{
-			Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
+			Music = (MusicOn) ? "images\\onl.jpg" :"images\\offl.jpg";
 		}
 		else
 		{
@@ -515,4 +515,22 @@ string GUI::SaveFileName()
 	string s = pWind->save_file();
 	SetCurrentDirectory(oldDir);
 	return s;
+}
+
+
+bool GUI::getTraffic() const
+{
+	return Traffic;
+}
+void GUI::setTraffic(bool tr)
+{
+	Traffic = tr;
+}
+bool GUI::getdSpeed() const
+{
+	return dSpeed;
+}
+void GUI::setdSpeed(bool dspd)
+{
+	dSpeed = dspd;
 }
