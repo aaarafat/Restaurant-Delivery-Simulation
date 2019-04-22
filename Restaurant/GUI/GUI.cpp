@@ -418,6 +418,8 @@ PROG_MODE	GUI::getGUIMode()
 {
 	PROG_MODE Mode;
 	int x,y,S,s;
+	Draw = false ;
+	ClearMenuBar();
 	CreateMenuBar();
 	
 	PrintMessage("Please select GUI mode From Menu");

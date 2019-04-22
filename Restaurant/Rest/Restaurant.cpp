@@ -122,9 +122,8 @@ bool Restaurant::ReadFile(string filename)
 	{
 		return false;
 	}
-	int SN, SF, SV, N, F, V, Traffic,dSpeed;
-	fin>>dSpeed>>Traffic;
-	if(dSpeed)
+	int SN, SF, SV, N, F, V;
+	if(pGUI->dSpeed)
 	{
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
@@ -132,6 +131,12 @@ bool Restaurant::ReadFile(string filename)
 			char type;
 			fin>>N>>F>>V;
 			fin>>type;
+			if(type!='N') 
+			{
+				pGUI->PrintMenuMessage("Please Choose a Valid File.");
+				Sleep(2500);
+				 return false;
+			}
 			for(int i = 0; i < N; i++)
 			{
 				fin>>speed;
@@ -139,6 +144,7 @@ bool Restaurant::ReadFile(string filename)
 				Reg[k]->setNormalMotor(tmp);
 			}
 			fin>>type;
+			if(type!='F') return false;
 			for(int i = 0; i < F; i++)
 			{
 				fin>>speed;
@@ -146,6 +152,7 @@ bool Restaurant::ReadFile(string filename)
 				Reg[k]->setFrozenMotor(tmp);
 			}
 			fin>>type;
+			if(type!='V') return false;
 			for(int i = 0; i < V; i++)
 			{
 				fin>>speed;
@@ -274,8 +281,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 							Draw(CurrentTimeStep);
 							i += 15; 
 						}
-						else
-							Sleep(2);
+							Sleep(1);
 					}
 				}
 			}
