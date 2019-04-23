@@ -18,6 +18,10 @@ class Region
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	Queue<Order*> DrawOrders;
+	Queue<Order*> NormalServed;
+	Queue<Order*> VIPServed;
+	Queue<Order*> FrozenServed;
+	Heap_PriorityQueue<Order> AssignedOrder;
 	
 public:
 	Motorcycle* getVIPMotor() ;
@@ -35,6 +39,14 @@ public:
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
+	Order* getVIPServed() ;
+	void setVIPServed(Order* O);
+	Order* getFrozenServed() ;
+	void setFrozenServed(Order* O);
+	Order* getNormalServed() ;
+	void setAssignedOrder(Order* O);
+	Order* getAssignedOrder();
+	void setNormalServed(Order* O);
 	void setAssignedMotor(Motorcycle* M);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
@@ -49,6 +61,7 @@ public:
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);
+	void ServingOrders(int cTime);
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);

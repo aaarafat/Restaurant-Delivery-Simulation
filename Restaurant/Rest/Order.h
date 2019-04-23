@@ -24,7 +24,7 @@ public:
 
 	int GetID();
 
-	int GetType() const;
+	ORD_TYPE GetType() const;
 	REGION GetRegion() const;
 
 	void SetDistance(int d);

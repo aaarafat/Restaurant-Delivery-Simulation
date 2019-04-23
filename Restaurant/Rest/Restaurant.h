@@ -43,7 +43,7 @@ public:
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money);
 	void AutoPromote(int cTime);
-
+	void ServingOrders(int cTime);
 	//Simulation Functions
 	void Simulation(bool SBS,bool S); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue

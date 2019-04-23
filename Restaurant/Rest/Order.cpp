@@ -24,7 +24,7 @@ int Order::GetID()
 }
 
 
-int Order::GetType() const
+ORD_TYPE Order::GetType() const
 {
 	return type;
 }
@@ -113,8 +113,8 @@ bool Order::operator== (int id)
 
 void Order::FinishOrder(int Speed)
 {
-	FinishTime = ArrTime + WaitTime + ceil(Distance * 1.0 / Speed);
-	ServTime=FinishTime-ArrTime-WaitTime;   //which equals the last term above 
+	ServTime = ceil(Distance * 1.0 / Speed);
+	FinishTime = ArrTime + WaitTime + ServTime;
 }
 int Order::GetFinishTime()
 {
