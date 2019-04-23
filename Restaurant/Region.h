@@ -22,7 +22,7 @@ class Region
 	Queue<Order*> VIPServed;
 	Queue<Order*> FrozenServed;
 	Heap_PriorityQueue<Order> AssignedOrder;
-	
+	Heap_PriorityQueue<Motorcycle> DamagedMotors;
 public:
 	Motorcycle* getVIPMotor() ;
 	void setVIPMotor(Motorcycle* M);
@@ -57,6 +57,7 @@ public:
 	bool FrozenMotorIsEmpty() const;
 	bool NormalMotorIsEmpty() const;
 	bool AssignedMotorsEmpty() const;
+	bool DamagedMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);

@@ -154,7 +154,10 @@ bool Region::NormalMotorIsEmpty() const
 {
 	return NormalMotor.isEmpty();
 }
-
+bool Region::DamagedMotorsEmpty() const
+{
+	return DamagedMotors.isEmpty();
+}
 bool Region::ArrivedMotors(int TimeStep) 
 {
 	bool Arrived = true;
@@ -169,6 +172,10 @@ bool Region::ArrivedMotors(int TimeStep)
 			Arrived_Flag = true;
 			AssignedMotors.remove();
 			AssignedMotor->SetArriveTime(-1);
+			
+			if (AssignedMotor->GetArriveTime() > 5) AssignedMotor->SetRestTime(2);
+			else AssignedMotor->SetRestTime(1);
+
 			switch (AssignedMotor->GetType())
 			{
 			case TYPE_NRM:

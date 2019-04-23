@@ -129,9 +129,8 @@ bool Restaurant::ReadFile(string filename)
 	{
 		return false;
 	}
-	int SN, SF, SV, N, F, V, Traffic,dSpeed;
-	fin>>dSpeed>>Traffic;
-	if(dSpeed)
+	int SN, SF, SV, N, F, V;
+	if(pGUI->getdSpeed())
 	{
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
@@ -139,6 +138,12 @@ bool Restaurant::ReadFile(string filename)
 			char type;
 			fin>>N>>F>>V;
 			fin>>type;
+			if(type!='N') 
+			{
+				pGUI->PrintMenuMessage("Please Choose a Valid File.");
+				Sleep(2500);
+				 return false;
+			}
 			for(int i = 0; i < N; i++)
 			{
 				fin>>speed;
@@ -146,6 +151,7 @@ bool Restaurant::ReadFile(string filename)
 				Reg[k]->setNormalMotor(tmp);
 			}
 			fin>>type;
+			if(type!='F') return false;
 			for(int i = 0; i < F; i++)
 			{
 				fin>>speed;
@@ -153,6 +159,7 @@ bool Restaurant::ReadFile(string filename)
 				Reg[k]->setFrozenMotor(tmp);
 			}
 			fin>>type;
+			if(type!='V') return false;
 			for(int i = 0; i < V; i++)
 			{
 				fin>>speed;
@@ -281,8 +288,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 							Draw(CurrentTimeStep);
 							i += 15; 
 						}
-						else
-							Sleep(2);
+							Sleep(1);
 					}
 				}
 			}
@@ -387,14 +393,18 @@ bool Restaurant::AssignedMotorsExist()
 void Restaurant::ArrivedMotors(int CurrentTimeStep)
 {
 	for(int i = A_REG; i < REG_CNT; i++)
+	{
 		Reg[i]->ArrivedMotors(CurrentTimeStep);
+	}
 }
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
 {
 	AssignedOrders="";
+	srand(time(0));
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
+		int traffic = 0;
 		while(!Reg[i]->VIPOrderIsEmpty())
 		{
 			Order* Ord = NULL;
@@ -423,7 +433,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				} else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord); //Maybe will be edited
 				Reg[i]->setAssignedOrder(Ord);
 				Reg[i]->setAssignedMotor(Moto);
@@ -441,7 +455,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				}else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord); //maybe will be edited
 				Reg[i]->setAssignedOrder(Ord);
 				Reg[i]->setAssignedMotor(Moto);
@@ -471,7 +489,11 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
-				Moto->SetArriveTime(ArriveTime);
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % ArriveTime;
+				} else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord); //maybe will be edited
 				Reg[i]->setAssignedOrder(Ord);
 				Reg[i]->setAssignedMotor(Moto);

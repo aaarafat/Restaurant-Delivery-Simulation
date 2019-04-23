@@ -7,10 +7,12 @@ Motorcycle::Motorcycle()
 	count++;
 	ID = count;
 	ArriveTime = -1;
+	RestTime = 0;
+	RepairTime = 0;
 }
 
 Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg) :
-	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1)
+	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1), RestTime(0), RepairTime(0)
 {
 }
 
@@ -51,7 +53,22 @@ int Motorcycle::GetSpeed() const
 {
 	return speed;
 }
-
+int Motorcycle::GetRepairTime() const
+{
+	return RepairTime;
+}
+void Motorcycle::SetRepairTime(int rp)
+{
+	RepairTime = rp;
+}
+int Motorcycle::GetRestTime() const
+{
+	return RestTime;
+}
+void Motorcycle::SetRestTime(int rs)
+{
+	RestTime = rs;
+}
 void Motorcycle::SetRegion(REGION reg)
 {
 	region = reg;
