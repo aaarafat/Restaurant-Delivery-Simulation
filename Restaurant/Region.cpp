@@ -126,6 +126,52 @@ void Region::setAssignedMotor(Motorcycle* M)
 	AssignedMotors.add(M);
 }
 
+void Region::setDamagedMotor(Motorcycle* M)
+{
+	DamagedMotors.add(M);
+}
+
+Motorcycle* Region::getDamagedMotor()
+{
+	Motorcycle* M = DamagedMotors.peek();
+	DamagedMotors.remove();
+	return M;
+}
+
+void Region::setRestMotor(Motorcycle* M)
+{
+	switch (M->GetType())
+	{
+		case TYPE_FROZ:
+			RestFrozenMotors.add(M);
+			break;
+		case TYPE_NRM:
+			RestNormalMotors.add(M);
+			break;
+		case TYPE_VIP:
+			RestVIPMotors.add(M);
+			break;
+	}
+}
+
+Motorcycle* Region::getRestVIPMotor()
+{
+	Motorcycle* M = RestVIPMotors.peek();
+	RestVIPMotors.remove();
+	return M;
+}
+Motorcycle* Region::getRestNormalMotor()
+{
+	Motorcycle* M = RestNormalMotors.peek();
+	RestFrozenMotors.remove();
+	return M;
+}
+Motorcycle* Region::getRestFrozenMotor()
+{
+	Motorcycle* M = RestFrozenMotors.peek();
+	RestFrozenMotors.remove();
+	return M;
+}
 bool Region::VIPOrderIsEmpty() const
 {
 	return VIPOrder.isEmpty();
@@ -158,9 +204,21 @@ bool Region::DamagedMotorsEmpty() const
 {
 	return DamagedMotors.isEmpty();
 }
+bool Region::RestVIPMotorsEmpty() const
+{
+	return RestVIPMotors.isEmpty();
+}
+bool Region::RestFrozenMotorsEmpty() const
+{
+	return RestFrozenMotors.isEmpty();
+}
+bool Region::RestNormalMotorsEmpty() const
+{
+	return RestNormalMotors.isEmpty();
+}
 bool Region::ArrivedMotors(int TimeStep) 
 {
-	bool Arrived = true;
+	bool Arrived = false;
 	bool Arrived_Flag = true;
 	while (!AssignedMotorsEmpty() && Arrived_Flag)
 	{
@@ -172,28 +230,111 @@ bool Region::ArrivedMotors(int TimeStep)
 			Arrived_Flag = true;
 			AssignedMotors.remove();
 			AssignedMotor->SetArriveTime(-1);
-			
-			if (AssignedMotor->GetArriveTime() > 5) AssignedMotor->SetRestTime(2);
-			else AssignedMotor->SetRestTime(1);
-
-			switch (AssignedMotor->GetType())
+			int RepairTime = AssignedMotor->GetRepairTime();
+			int ArriveTime = AssignedMotor->GetArriveTime();
+			if (RepairTime)
 			{
-			case TYPE_NRM:
-				setNormalMotor(AssignedMotor);
-				break;
+				int rest;
+				if (ArriveTime > 5) 
+					rest = (2 + TimeStep);
+				else 
+					rest = (1 + TimeStep);
+				AssignedMotor->SetRepairTime(rest + RepairTime);
+				setDamagedMotor(AssignedMotor);
+			}
+			else
+			{
+				if (ArriveTime > 5) 
+					AssignedMotor->SetRestTime(2 + TimeStep);
 				
-			case TYPE_FROZ:
-				setFrozenMotor(AssignedMotor);
-				break;
-				
-			case TYPE_VIP:
-				setVIPMotor(AssignedMotor);
-				break;
+				else 
+					AssignedMotor->SetRestTime(1 + TimeStep);
+
+				setRestMotor(AssignedMotor);
 			}
 		}
 	}
 	return Arrived;
 }
+
+bool Region::RefreshedMotors(int TimeStep)
+{
+	bool Refreshed = false;
+	bool Refreshed_Flag = true;
+	while (!RestVIPMotorsEmpty() && Refreshed_Flag)
+	{
+		Refreshed_Flag = false;
+		Motorcycle* RefMotor = RestVIPMotors.peek();
+		if (RefMotor->GetRestTime() <= TimeStep)
+		{
+			Refreshed = true;
+			Refreshed_Flag = true;
+			RestVIPMotors.remove();
+			RefMotor->SetRestTime(-1);
+			setNormalMotor(RefMotor);
+		}
+	}
+	while (!RestFrozenMotorsEmpty() && Refreshed_Flag)
+	{
+		Refreshed_Flag = false;
+		Motorcycle* RefMotor = RestFrozenMotors.peek();
+		if (RefMotor->GetRestTime() <= TimeStep)
+		{
+			Refreshed = true;
+			Refreshed_Flag = true;
+			RestFrozenMotors.remove();
+			RefMotor->SetRestTime(-1);
+			setFrozenMotor(RefMotor);
+		}
+	}
+	while (!RestNormalMotorsEmpty() && Refreshed_Flag)
+	{
+		Refreshed_Flag = false;
+		Motorcycle* RefMotor = RestNormalMotors.peek();
+		if (RefMotor->GetRestTime() <= TimeStep)
+		{
+			Refreshed = true;
+			Refreshed_Flag = true;
+			RestNormalMotors.remove();
+			RefMotor->SetRestTime(-1);
+			setNormalMotor(RefMotor);
+		}
+	}
+	return Refreshed;
+}
+
+bool Region::FixedMotors(int TimeStep)
+{
+	
+	bool Fixed = false;
+	bool Fixed_Flag = true;
+	while (!DamagedMotorsEmpty() && Fixed_Flag)
+	{
+		Fixed_Flag = false;
+		Motorcycle* FixedMotor = DamagedMotors.peek();
+		if (FixedMotor->GetRepairTime() <= TimeStep)
+		{
+			Fixed = true;
+			Fixed_Flag = true;
+			DamagedMotors.remove();
+			FixedMotor->SetRepairTime(-1);
+			switch (FixedMotor->GetType())
+			{
+				case TYPE_FROZ:
+					setFrozenMotor(FixedMotor);
+					break;
+				case TYPE_VIP:
+					setVIPMotor(FixedMotor);
+					break;
+				case TYPE_NRM:
+					setNormalMotor(FixedMotor);
+					break;
+			}
+		}
+	}
+	return Fixed;
+}
+
 bool Region::CancelOrder(int id)
 {
 	Order* O;
