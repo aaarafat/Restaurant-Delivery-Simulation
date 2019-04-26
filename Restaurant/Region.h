@@ -22,6 +22,9 @@ class Region
 	Queue<Order*> VIPServed;
 	Queue<Order*> FrozenServed;
 	Heap_PriorityQueue<Order> AssignedOrder;
+	Heap_PriorityQueue<Motorcycle> RestVIPMotors;
+	Heap_PriorityQueue<Motorcycle> RestNormalMotors;
+	Heap_PriorityQueue<Motorcycle> RestFrozenMotors;
 	Heap_PriorityQueue<Motorcycle> DamagedMotors;
 public:
 	Motorcycle* getVIPMotor() ;
@@ -48,6 +51,12 @@ public:
 	Order* getAssignedOrder();
 	void setNormalServed(Order* O);
 	void setAssignedMotor(Motorcycle* M);
+	void setDamagedMotor(Motorcycle* M);
+	Motorcycle* getDamagedMotor();
+	void setRestMotor(Motorcycle* M);
+	Motorcycle* getRestVIPMotor();
+	Motorcycle* getRestNormalMotor();
+	Motorcycle* getRestFrozenMotor();
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 	bool VIPOrderIsEmpty() const;
@@ -58,7 +67,12 @@ public:
 	bool NormalMotorIsEmpty() const;
 	bool AssignedMotorsEmpty() const;
 	bool DamagedMotorsEmpty() const;
+	bool RestNormalMotorsEmpty() const;
+	bool RestVIPMotorsEmpty() const;
+	bool RestFrozenMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
+	bool RefreshedMotors(int TimeStep);
+	bool FixedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);

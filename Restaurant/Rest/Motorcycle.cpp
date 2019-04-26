@@ -7,12 +7,12 @@ Motorcycle::Motorcycle()
 	count++;
 	ID = count;
 	ArriveTime = -1;
-	RestTime = 0;
-	RepairTime = 0;
+	RestTime = -1;
+	RepairTime = -1;
 }
 
 Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg) :
-	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1), RestTime(0), RepairTime(0)
+	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1), RestTime(-1), RepairTime(-1)
 {
 }
 
@@ -82,12 +82,29 @@ bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 {
 	try
 	{
+		if (moto.RepairTime != -1 && moto2.RepairTime != -1)
+		{
+			return moto.RepairTime < moto2.RepairTime;
+		}
 		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
 		{
-			return moto.speed > moto2.speed;
+			if (moto.RestTime == -1 && moto2.RestTime == -1)
+			{
+				return moto.speed > moto2.speed;
+			}
+			if (moto.RestTime != -1 && moto2.RestTime != -1)
+			{
+				if (moto.RestTime == moto2.RestTime) 
+					return moto.speed > moto2.speed;
+				return moto.RestTime < moto2.RestTime;
+			}
 		}
 		else if (moto.ArriveTime != -1 && moto2.ArriveTime != -1)
 		{
+			if (moto.ArriveTime == moto2.ArriveTime)
+			{
+				return moto.speed > moto2.speed;
+			}
 			return moto.ArriveTime < moto2.ArriveTime;
 		}
 		else
@@ -106,12 +123,29 @@ bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
 {
 	try
 	{
+		if (moto.RepairTime != -1 && moto2.RepairTime != -1)
+		{
+			return moto.RepairTime > moto2.RepairTime;
+		}
 		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
 		{
-			return moto.speed < moto2.speed;
+			if (moto.RestTime == -1 && moto2.RestTime == -1)
+			{
+				return moto.speed < moto2.speed;
+			}
+			if (moto.RestTime != -1 && moto2.RestTime != -1)
+			{
+				if (moto.RestTime == moto2.RestTime) 
+					return moto.speed < moto2.speed;
+				return moto.RestTime > moto2.RestTime;
+			}
 		}
 		else if (moto.ArriveTime != -1 && moto2.ArriveTime != -1)
 		{
+			if (moto.ArriveTime == moto2.ArriveTime)
+			{
+				return moto.speed < moto2.speed;
+			}
 			return moto.ArriveTime > moto2.ArriveTime;
 		}
 		else

@@ -18,7 +18,6 @@ class Motorcycle
 	int ArriveTime; //arrive time of the motorcycle
 	int RepairTime; //Number of steps to repaire the motorcycle
 	int RestTime;   //Number of steps that motor needs to rest
-
 public:
 	Motorcycle();
 	Motorcycle(ORD_TYPE type, int spd, REGION reg);
