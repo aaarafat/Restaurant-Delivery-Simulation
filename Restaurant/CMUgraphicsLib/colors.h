@@ -188,6 +188,8 @@ const color LIGHTGREEN = color(144, 238, 144);
 const color NRED = color(255,9,0);
 const color NDARKBLUE = color(0,85,255);
 const color NVIOLET = color(255,146,232);
+const color NGREEN = color(34,234,34);
+const color NPURPLE = color(134,34,234);
 ///// Dark GUI /////////////////////////////
 const color DARKGUID = color(22,22,22);
 const color DARKGUIL = color(33,32,32);
