@@ -52,6 +52,7 @@ public:
 	void ArrivedMotors(int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
 	void RefreshedMotors(int CurrentTimeStep); //Add Refreshed Motors to the Restaurant Motors
 	void FixedMotors(int CurrentTimeStep); //Add Fixed Motors to the Restaurant Motors
+	void UpdateMotors(int CurrentTimeStep); //Update All Motors
 	bool ActiveOrdersExist(); // returns true if active orders exist 
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);

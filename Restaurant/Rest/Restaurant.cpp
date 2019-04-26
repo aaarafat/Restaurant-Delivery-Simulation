@@ -243,9 +243,9 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 		// Save the drawings in a Linked List 
 		while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
 		{
-			ArrivedMotors(CurrentTimeStep);
-			RefreshedMotors(CurrentTimeStep);
-			FixedMotors(CurrentTimeStep);
+			// Update all Motorcycles
+			UpdateMotors(CurrentTimeStep);
+
 			ServingOrders(CurrentTimeStep);
 			//Execute the event and turn them into orders
 			ExecuteEvents(CurrentTimeStep);
@@ -414,6 +414,13 @@ void Restaurant::FixedMotors(int CurrentTimeStep)
 	{
 		Reg[i]->FixedMotors(CurrentTimeStep);
 	}
+}
+
+void Restaurant::UpdateMotors(int CurrentTimeStep)
+{
+	ArrivedMotors(CurrentTimeStep);
+	RefreshedMotors(CurrentTimeStep);
+	FixedMotors(CurrentTimeStep);
 }
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
