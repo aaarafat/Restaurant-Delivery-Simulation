@@ -17,6 +17,7 @@ enum ORD_TYPE	//types of orders
 	TYPE_NRM,	//normal order
 	TYPE_FROZ,	//frozen
 	TYPE_VIP,	//VIP
+	TYPE_VIPFROZ, //VIP frozen
 	TYPE_CNT	//Number of types
 };
 

@@ -13,11 +13,13 @@ class Region
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;
+	Heap_PriorityQueue<Order> VIPFrozenOrder;
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	Queue<Order*> DrawOrders;
+	Queue<Order*> VIPFrozenServed;
 	Queue<Order*> NormalServed;
 	Queue<Order*> VIPServed;
 	Queue<Order*> FrozenServed;
@@ -36,6 +38,8 @@ public:
 	Motorcycle* getFrozenMotor() ;
 	void setFrozenMotor(Motorcycle* M);
 	int getFrozenMotornum();
+	Order* getVIPFrozenOrder();
+	void setVIPFrozenOrder(Order* O);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
 	Order* getFrozenOrder() ;
@@ -59,6 +63,7 @@ public:
 	Motorcycle* getRestFrozenMotor();
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
+	bool VIPFrozenOrderIsEmpty() const;
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;

@@ -429,6 +429,51 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		int traffic = 0;
+		//Frozen VIP Frozen Motors only
+			while(!Reg[i]->VIPFrozenOrderIsEmpty())
+		{
+			//frozen motor only
+			if(!Reg[i]->FrozenMotorIsEmpty())
+			{
+				Order* Ord = Reg[i]->getVIPFrozenOrder();
+				Motorcycle* Moto = Reg[i]->getFrozenMotor();
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 2.0 / Moto->GetSpeed());
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % 10;
+				}else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
+				FinishedOrders.add(Ord); //maybe will be edited
+				Reg[i]->setAssignedOrder(Ord);
+				Reg[i]->setAssignedMotor(Moto);
+				AssignedOrders+='F'+to_string(Moto->GetID())+"(VF"+to_string(Ord->GetID())+")  ";
+			}
+			else if(!Reg[i]->RestFrozenMotorsEmpty())
+			{
+				Order* Ord = Reg[i]->getVIPFrozenOrder();
+				Motorcycle* Moto = Reg[i]->getRestFrozenMotor();
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 2.0 / Moto->GetSpeed());
+				if (pGUI->getTraffic())
+				{
+					traffic = rand() % 10;
+				}else traffic = 0;
+				Moto->SetArriveTime(ArriveTime + traffic);
+				FinishedOrders.add(Ord); //maybe will be edited
+				if (Moto->GetRestTime() > CurrentTimeStep)
+				{
+					Moto->SetRepairTime(Moto->GetRestTime() - CurrentTimeStep);
+				}
+				Moto->SetRestTime(-1);
+				Reg[i]->setAssignedOrder(Ord);
+				Reg[i]->setAssignedMotor(Moto);
+				AssignedOrders+='F'+to_string(Moto->GetID())+"(VF"+to_string(Ord->GetID())+")  ";
+			}
+			else break;
+		}
 		while(!Reg[i]->VIPOrderIsEmpty())
 		{
 			Order* Ord = NULL;

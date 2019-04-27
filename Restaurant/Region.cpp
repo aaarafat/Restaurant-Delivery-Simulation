@@ -25,6 +25,12 @@ Motorcycle* Region::getNormalMotor()
 	NormalMotor.remove();
 	return M;
 }
+Order* Region::getVIPFrozenOrder()
+{
+	Order* O=VIPFrozenOrder.peek();
+	VIPFrozenOrder.remove();
+	return O;
+}
 Order* Region::getVIPOrder() 
 {
 	Order*O=VIPOrder.peek();
@@ -84,6 +90,10 @@ void Region::setFrozenMotor(Motorcycle* F)
 void Region::setNormalMotor(Motorcycle* N)
 {
 	NormalMotor.add(N);
+}
+void Region::setVIPFrozenOrder(Order*O)
+{
+	VIPFrozenOrder.add(O);
 }
 void Region::setVIPOrder( Order* O)
 {
@@ -171,6 +181,10 @@ Motorcycle* Region::getRestFrozenMotor()
 	Motorcycle* M = RestFrozenMotors.peek();
 	RestFrozenMotors.remove();
 	return M;
+}
+bool Region::VIPFrozenOrderIsEmpty() const
+{
+	return VIPFrozenOrder.isEmpty();
 }
 bool Region::VIPOrderIsEmpty() const
 {
@@ -432,6 +446,18 @@ void Region::SharingOrderstoDraw()
 {
 	Queue<Order*> Q;
 	Order* O;
+	while(!VIPFrozenOrderIsEmpty())
+	{
+		O = VIPFrozenOrder.peek();
+		VIPFrozenOrder.remove();
+		DrawOrders.enqueue(O);
+		Q.enqueue(O);
+
+	}
+	while(Q.dequeue(O))
+	{
+		VIPFrozenOrder.add(O);
+	}
 	while(!VIPOrderIsEmpty())
 	{
 		O = VIPOrder.peek();

@@ -23,7 +23,7 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	OrdersClrs[TYPE_NRM] = 	NDARKBLUE;	//normal-order color
 	OrdersClrs[TYPE_FROZ] = NVIOLET;		//Frozen-order color
 	OrdersClrs[TYPE_VIP] = 	NRED;		//VIP-order color
-
+	OrdersClrs[TYPE_VIP] = 	NPURPLE;    //VIP Frozen-order color
 	//Initializing the Number of Orders and Motors in each region
 	ResetDrawNumbers();
 	ClearMenuBar();
