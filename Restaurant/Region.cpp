@@ -232,6 +232,8 @@ bool Region::ArrivedMotors(int TimeStep)
 			int ArriveTime = AssignedMotor->GetArriveTime();
 			AssignedMotors.remove();
 			AssignedMotor->SetArriveTime(-1);
+			AssignedMotor->SetRepairTime(-1);
+			AssignedMotor->SetRestTime(-1);
 			if (RepairTime != -1)
 			{
 				int rest;
@@ -270,7 +272,6 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestVIPMotors.remove();
 			RefMotor->SetRestTime(-1);
-			RefMotor->SetArriveTime(-1);
 			setNormalMotor(RefMotor);
 		}
 	}
@@ -284,7 +285,6 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestFrozenMotors.remove();
 			RefMotor->SetRestTime(-1);
-			RefMotor->SetArriveTime(-1);
 			setFrozenMotor(RefMotor);
 		}
 	}
@@ -298,7 +298,6 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestNormalMotors.remove();
 			RefMotor->SetRestTime(-1);
-			RefMotor->SetArriveTime(-1);
 			setNormalMotor(RefMotor);
 		}
 	}
@@ -320,7 +319,6 @@ bool Region::FixedMotors(int TimeStep)
 			Fixed_Flag = true;
 			DamagedMotors.remove();
 			FixedMotor->SetRepairTime(-1);
-			FixedMotor->SetArriveTime(-1);
 			switch (FixedMotor->GetType())
 			{
 				case TYPE_FROZ:

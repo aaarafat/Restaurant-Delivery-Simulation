@@ -245,7 +245,6 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 		{
 			// Update all Motorcycles
 			UpdateMotors(CurrentTimeStep);
-
 			ServingOrders(CurrentTimeStep);
 			//Execute the event and turn them into orders
 			ExecuteEvents(CurrentTimeStep);
@@ -485,9 +484,10 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				if (Moto->GetRestTime() >= CurrentTimeStep)
 				{
 					Moto->SetRepairTime(Moto->GetRestTime() - CurrentTimeStep);
+					Moto->SetRestTime(-1);
 				}
-				Moto->SetRestTime(-1);
 				Reg[i]->setAssignedOrder(Ord);
+				cout << Moto->GetArriveTime() << endl;
 				Reg[i]->setAssignedMotor(Moto);
 
 			}
@@ -503,7 +503,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Motorcycle* Moto = Reg[i]->getFrozenMotor();
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
-				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 2.0 / Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				if (pGUI->getTraffic())
 				{
 					traffic = rand() % 10;
@@ -511,6 +511,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord); //maybe will be edited
 				Reg[i]->setAssignedOrder(Ord);
+				cout << Moto->GetArriveTime() << endl;
 				Reg[i]->setAssignedMotor(Moto);
 				AssignedOrders+='F'+to_string(Moto->GetID())+"(F"+to_string(Ord->GetID())+")  ";
 			}
@@ -520,19 +521,20 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Motorcycle* Moto = Reg[i]->getRestFrozenMotor();
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
-				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 2.0 / Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				if (pGUI->getTraffic())
 				{
 					traffic = rand() % 10;
 				}else traffic = 0;
 				Moto->SetArriveTime(ArriveTime + traffic);
 				FinishedOrders.add(Ord); //maybe will be edited
-				if (Moto->GetRestTime() > CurrentTimeStep)
+				if (Moto->GetRestTime() >= CurrentTimeStep)
 				{
 					Moto->SetRepairTime(Moto->GetRestTime() - CurrentTimeStep);
+					Moto->SetRestTime(-1);
 				}
-				Moto->SetRestTime(-1);
 				Reg[i]->setAssignedOrder(Ord);
+				cout << Moto->GetArriveTime() << endl;
 				Reg[i]->setAssignedMotor(Moto);
 				AssignedOrders+='F'+to_string(Moto->GetID())+"(F"+to_string(Ord->GetID())+")  ";
 			}
@@ -571,7 +573,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
-				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 2.0 / Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				if (pGUI->getTraffic())
 				{
 					traffic = rand() % 10;
@@ -581,10 +583,10 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				if (Moto->GetRestTime() >= CurrentTimeStep)
 				{
 					Moto->SetRepairTime(Moto->GetRestTime() - CurrentTimeStep);
-					
+					Moto->SetRestTime(-1);
 				}
-				Moto->SetRestTime(-1);
 				Reg[i]->setAssignedOrder(Ord);
+				cout << Moto->GetArriveTime() << endl;
 				Reg[i]->setAssignedMotor(Moto);
 			}
 			else break;

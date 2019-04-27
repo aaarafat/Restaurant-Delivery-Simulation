@@ -113,8 +113,8 @@ bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 			error += std::to_string(moto.ArriveTime);
 			error += " and ";
 			error += std::to_string(moto2.ArriveTime);
-			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetID()<< std::endl;
-			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetID()<< std::endl;
+			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetRepairTime()<< std::endl;
+			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetRepairTime()<< std::endl;
 			throw std::exception(error.c_str());
 		}
 	}catch(std::exception& e)
@@ -161,8 +161,8 @@ bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
 			error += std::to_string(moto.ArriveTime);
 			error += " and ";
 			error += std::to_string(moto2.ArriveTime);
-			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetID()<< std::endl;
-			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetID()<< std::endl;
+			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetRepairTime()<< std::endl;
+			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetRepairTime()<< std::endl;
 			throw std::exception(error.c_str());
 		}
 	}catch(std::exception& e)
