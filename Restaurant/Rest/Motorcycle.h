@@ -1,7 +1,7 @@
 #ifndef __MOTORCYCLE_H_
 #define __MOTORCYCLE_H_
 
-
+#include <string>
 #include "..\Defs.h"
 #include <exception>
 #include <cstdlib>

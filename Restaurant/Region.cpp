@@ -228,28 +228,27 @@ bool Region::ArrivedMotors(int TimeStep)
 		{
 			Arrived = true;
 			Arrived_Flag = true;
-			AssignedMotors.remove();
-			AssignedMotor->SetArriveTime(-1);
 			int RepairTime = AssignedMotor->GetRepairTime();
 			int ArriveTime = AssignedMotor->GetArriveTime();
-			if (RepairTime)
+			AssignedMotors.remove();
+			AssignedMotor->SetArriveTime(-1);
+			if (RepairTime != -1)
 			{
 				int rest;
 				if (ArriveTime > 5) 
-					rest = (2 + TimeStep);
+					rest = (4 + TimeStep);
 				else 
-					rest = (1 + TimeStep);
+					rest = (2 + TimeStep);
 				AssignedMotor->SetRepairTime(rest + RepairTime);
 				setDamagedMotor(AssignedMotor);
 			}
 			else
 			{
 				if (ArriveTime > 5) 
-					AssignedMotor->SetRestTime(2 + TimeStep);
+					AssignedMotor->SetRestTime(4 + TimeStep);
 				
 				else 
-					AssignedMotor->SetRestTime(1 + TimeStep);
-
+					AssignedMotor->SetRestTime(2 + TimeStep);
 				setRestMotor(AssignedMotor);
 			}
 		}
@@ -271,6 +270,7 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestVIPMotors.remove();
 			RefMotor->SetRestTime(-1);
+			RefMotor->SetArriveTime(-1);
 			setNormalMotor(RefMotor);
 		}
 	}
@@ -284,6 +284,7 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestFrozenMotors.remove();
 			RefMotor->SetRestTime(-1);
+			RefMotor->SetArriveTime(-1);
 			setFrozenMotor(RefMotor);
 		}
 	}
@@ -297,6 +298,7 @@ bool Region::RefreshedMotors(int TimeStep)
 			Refreshed_Flag = true;
 			RestNormalMotors.remove();
 			RefMotor->SetRestTime(-1);
+			RefMotor->SetArriveTime(-1);
 			setNormalMotor(RefMotor);
 		}
 	}
@@ -318,6 +320,7 @@ bool Region::FixedMotors(int TimeStep)
 			Fixed_Flag = true;
 			DamagedMotors.remove();
 			FixedMotor->SetRepairTime(-1);
+			FixedMotor->SetArriveTime(-1);
 			switch (FixedMotor->GetType())
 			{
 				case TYPE_FROZ:
@@ -420,7 +423,9 @@ string Region::Print()
 	return "Region " + name + ":    Motors -->  VIP: " + to_string(VIPMotor.Size()) 
 			+ "    Frozen: " + to_string(FrozenMotor.Size()) 
 			+ "    Normal: " + to_string(NormalMotor.Size())
-			+ "                                        Orders -->  VIP: "
+			+ "    Damaged: " + to_string(DamagedMotors.Size())
+			+ " Rest: "+to_string(RestNormalMotors.Size() + RestFrozenMotors.Size() + RestVIPMotors.Size())
+			+ "                       Orders -->  VIP: "
 			+ to_string(VIPOrder.Size()) + "    Served: " + to_string(VIPServed.Size())
 			+ "    Frozen: " + to_string(FrozenOrder.Size()) + "    Served: " + to_string(FrozenServed.Size())
 			+ "    Normal: " + to_string(NormalOrder.Size()) + "    Served: " + to_string(NormalServed.Size());

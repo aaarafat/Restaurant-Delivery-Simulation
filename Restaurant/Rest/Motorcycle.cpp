@@ -82,12 +82,12 @@ bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 {
 	try
 	{
-		if (moto.RepairTime != -1 && moto2.RepairTime != -1)
-		{
-			return moto.RepairTime < moto2.RepairTime;
-		}
 		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
 		{
+			if (moto.RepairTime != -1 && moto2.RepairTime != -1)
+			{
+				return moto.RepairTime < moto2.RepairTime;
+			}
 			if (moto.RestTime == -1 && moto2.RestTime == -1)
 			{
 				return moto.speed > moto2.speed;
@@ -109,12 +109,19 @@ bool operator> (const Motorcycle& moto, const Motorcycle& moto2)
 		}
 		else
 		{
-			throw std::exception("Cannot Compare Ready Motorcycle with Unready Motorcycle");
+			std::string error = "Cannot Compare Ready Motorcycle with Unready Motorcycle  ";
+			error += std::to_string(moto.ArriveTime);
+			error += " and ";
+			error += std::to_string(moto2.ArriveTime);
+			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetID()<< std::endl;
+			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetID()<< std::endl;
+			throw std::exception(error.c_str());
 		}
 	}catch(std::exception& e)
 	{
 		std::cout << e.what() << '\n';
-		std::exit(0);
+		//std::exit(0);
+		throw e;
 	}
 	
 }
@@ -123,12 +130,12 @@ bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
 {
 	try
 	{
-		if (moto.RepairTime != -1 && moto2.RepairTime != -1)
-		{
-			return moto.RepairTime > moto2.RepairTime;
-		}
 		if (moto.ArriveTime == -1 && moto2.ArriveTime == -1)
 		{
+			if (moto.RepairTime != -1 && moto2.RepairTime != -1)
+			{
+				return moto.RepairTime > moto2.RepairTime;
+			}
 			if (moto.RestTime == -1 && moto2.RestTime == -1)
 			{
 				return moto.speed < moto2.speed;
@@ -150,12 +157,19 @@ bool operator< (const Motorcycle& moto, const Motorcycle& moto2)
 		}
 		else
 		{
-			throw std::exception("Cannot Compare Ready Motorcycle with Unready Motorcycle");
+			std::string error = "Cannot Compare Ready Motorcycle with Unready Motorcycle  ";
+			error += std::to_string(moto.ArriveTime);
+			error += " and ";
+			error += std::to_string(moto2.ArriveTime);
+			std::cout << moto.GetRegion() << " " << moto.GetType()  << " " << moto.GetID()<< std::endl;
+			std::cout << moto2.GetRegion() << " " << moto2.GetType() << " " << moto2.GetID()<< std::endl;
+			throw std::exception(error.c_str());
 		}
 	}catch(std::exception& e)
 	{
 		std::cout << e.what() << '\n';
-		std::exit(0);
+		//std::exit(0);
+		throw e;
 	}
 }
 
