@@ -9,7 +9,7 @@ Motorcycle::Motorcycle()
 	ArriveTime = -1;
 }
 
-Motorcycle::Motorcycle(ORD_TYPE type, int spd, REGION reg) :
+Motorcycle::Motorcycle(MOTO_TYPE type, int spd, REGION reg) :
 	ID(++count), type(type), speed(spd), region(reg), ArriveTime(-1)
 {
 }
@@ -29,12 +29,12 @@ int Motorcycle::GetArriveTime() const
 	return ArriveTime;
 }
 
-void Motorcycle::SetType(ORD_TYPE type)
+void Motorcycle::SetType(MOTO_TYPE type)
 {
 	type = this->type;
 }
 
-ORD_TYPE Motorcycle::GetType() const
+MOTO_TYPE Motorcycle::GetType() const
 {
 	return type;
 }

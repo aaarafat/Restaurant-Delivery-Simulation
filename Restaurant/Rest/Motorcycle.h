@@ -12,19 +12,19 @@ class Motorcycle
 {
 	static int count;
 	int ID;
-	ORD_TYPE type;	//for each order type there is a corresponding motorcycle type 
+	MOTO_TYPE type;	//for each order type there is a corresponding motorcycle type 
 	int speed;		//meters it can move in one clock tick (in one timestep)
 	REGION	region;	//region of the motorcycle
 	int ArriveTime; //arrive time of the motorcycle
 
 public:
 	Motorcycle();
-	Motorcycle(ORD_TYPE type, int spd, REGION reg);
+	Motorcycle(MOTO_TYPE type, int spd, REGION reg);
 	int GetID() const;
-	void SetType(ORD_TYPE type);
+	void SetType(MOTO_TYPE type);
 	void SetArriveTime(int ArriveTime);
 	int GetArriveTime() const;
-	ORD_TYPE GetType() const;
+	MOTO_TYPE GetType() const;
 	void SetSpeed(int spd);
 	int GetSpeed() const;
 	void SetRegion(REGION reg);

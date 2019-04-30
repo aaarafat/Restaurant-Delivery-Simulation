@@ -6,25 +6,23 @@ Region::Region()
 	name = 'A' + cnt;
 	cnt++;
 }
+Motorcycle* Region::getMotor(MOTO_TYPE type)
+{
+	Motorcycle* M = Motor[type].peek();
+	Motor[type].remove();
+	return M;
+}
 
-Motorcycle* Region::getVIPMotor()
+void Region::setMotor(Motorcycle* M)
 {
-	Motorcycle*M=VIPMotor.peek();
-	VIPMotor.remove();
-	return M;
+	Motor[M->GetType()].add(M);
 }
-Motorcycle* Region::getFrozenMotor()  
+
+int Region::getMotornum(MOTO_TYPE type)
 {
-	Motorcycle*M=FrozenMotor.peek();
-	FrozenMotor.remove();
-	return M;
+	return Motor[type].Size();
 }
-Motorcycle* Region::getNormalMotor() 
-{
-	Motorcycle*M=NormalMotor.peek();
-	NormalMotor.remove();
-	return M;
-}
+
 Order* Region::getVIPOrder() 
 {
 	Order*O=VIPOrder.peek();
@@ -42,30 +40,6 @@ Order* Region::getNormalOrder()
 	Order* O;
 	NormalOrder.removeBegin(O);
 	return O;
-}
-int Region::getVIPMotornum()
-{
-	return VIPMotor.Size();
-}
-int Region::getNormalMotornum()
-{
-	return NormalMotor.Size();
-}
-int Region::getFrozenMotornum()
-{
-	return FrozenMotor.Size();
-}
-void Region::setVIPMotor(Motorcycle* V)
-{
-	VIPMotor.add(V);
-}
-void Region::setFrozenMotor(Motorcycle* F)
-{
-	FrozenMotor.add(F);
-}
-void Region::setNormalMotor(Motorcycle* N)
-{
-	NormalMotor.add(N);
 }
 void Region::setVIPOrder( Order* O)
 {
@@ -100,18 +74,11 @@ bool Region::AssignedMotorsEmpty() const
 {
 	return AssignedMotors.isEmpty();
 }
-bool Region::VIPMotorIsEmpty() const
+bool Region::MotorIsEmpty(MOTO_TYPE type) const
 {
-	return VIPMotor.isEmpty();
+	return Motor[type].isEmpty();
 }
-bool Region::FrozenMotorIsEmpty() const
-{
-	return FrozenMotor.isEmpty();
-}
-bool Region::NormalMotorIsEmpty() const
-{
-	return NormalMotor.isEmpty();
-}
+
 
 bool Region::ArrivedMotors(int TimeStep) 
 {
@@ -127,20 +94,7 @@ bool Region::ArrivedMotors(int TimeStep)
 			Arrived_Flag = true;
 			AssignedMotors.remove();
 			AssignedMotor->SetArriveTime(-1);
-			switch (AssignedMotor->GetType())
-			{
-			case TYPE_NRM:
-				setNormalMotor(AssignedMotor);
-				break;
-				
-			case TYPE_FROZ:
-				setFrozenMotor(AssignedMotor);
-				break;
-				
-			case TYPE_VIP:
-				setVIPMotor(AssignedMotor);
-				break;
-			}
+			setMotor(AssignedMotor);
 		}
 	}
 	return Arrived;
@@ -197,7 +151,7 @@ bool Region::DrawOrdersIsEmpty() const
 }
 string Region::Print()
 {
-	return "Region " + name + ":    Motors -->  VIP: " + to_string(VIPMotor.Size()) + "    Frozen: " + to_string(FrozenMotor.Size()) + "    Normal: " + to_string(NormalMotor.Size())
+	return "Region " + name + ":    Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) + "    Frozen: " + to_string(Motor[MOTO_FROZ].Size()) + "    Normal: " + to_string(Motor[MOTO_NRM].Size())
 			+ "                                                                          Orders -->  VIP: "
 			+ to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
 }

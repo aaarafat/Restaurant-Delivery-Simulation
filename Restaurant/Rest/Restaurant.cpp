@@ -122,65 +122,48 @@ bool Restaurant::ReadFile(string filename)
 	{
 		return false;
 	}
-	int SN, SF, SV, N, F, V;
+	int S[MOTO_CNT], N[MOTO_CNT];
 	if(pGUI->dSpeed)
 	{
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
 			int speed;
 			char type;
-			fin>>N>>F>>V;
-			fin>>type;
-			if(type!='N') 
+			char t[] = {'N', 'F', 'V'};
+			for(int i = MOTO_NRM; i < MOTO_CNT; i++) fin>>N[i];
+			for(int i = MOTO_NRM; i < MOTO_CNT; i++)
 			{
-				pGUI->PrintMenuMessage("Please Choose a Valid File.");
-				Sleep(2500);
-				 return false;
-			}
-			for(int i = 0; i < N; i++)
-			{
-				fin>>speed;
-				Motorcycle* tmp = new Motorcycle(TYPE_NRM, speed, REGION(k)); 
-				Reg[k]->setNormalMotor(tmp);
-			}
-			fin>>type;
-			if(type!='F') return false;
-			for(int i = 0; i < F; i++)
-			{
-				fin>>speed;
-				Motorcycle* tmp = new Motorcycle(TYPE_FROZ, speed, REGION(k)); 
-				Reg[k]->setFrozenMotor(tmp);
-			}
-			fin>>type;
-			if(type!='V') return false;
-			for(int i = 0; i < V; i++)
-			{
-				fin>>speed;
-				Motorcycle* tmp = new Motorcycle(TYPE_VIP, speed, REGION(k)); 
-				Reg[k]->setVIPMotor(tmp);
+				fin>>type;
+				if(type != t[i]) 
+				{
+					pGUI->PrintMenuMessage("Please Choose a Valid File.");
+					Sleep(2500);
+					 return false;
+				}
+				for(int j = 0; j < N[i]; j++)
+				{
+					fin>>speed;
+					Motorcycle* tmp = new Motorcycle(MOTO_TYPE(i), speed, REGION(k));
+					Reg[k]->setMotor(tmp);
+				}
+
 			}
 		}
 	}
 	else
 	{
-		fin>>SN>>SF>>SV;
+		for(int i = MOTO_NRM; i < MOTO_CNT; i++) fin>>S[i];
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
-			fin>>N>>F>>V;
-			for(int i = 0; i < N; i++)
+			for(int i = MOTO_NRM; i < MOTO_CNT; i++) fin>>N[i];
+			for(int i = MOTO_NRM; i < MOTO_CNT; i++)
 			{
-				Motorcycle* tmp = new Motorcycle(TYPE_NRM, SN, REGION(k)); 
-				Reg[k]->setNormalMotor(tmp);
-			}
-			for(int i = 0; i < F; i++)
-			{
-				Motorcycle* tmp = new Motorcycle(TYPE_FROZ, SF, REGION(k)); 
-				Reg[k]->setFrozenMotor(tmp);
-			}
-			for(int i = 0; i < V; i++)
-			{
-				Motorcycle* tmp = new Motorcycle(TYPE_VIP, SV, REGION(k)); 
-				Reg[k]->setVIPMotor(tmp);
+				for(int j = 0; j < N[i]; j++)
+				{
+					Motorcycle* tmp = new Motorcycle(MOTO_TYPE(i), S[i], REGION(k));
+					Reg[k]->setMotor(tmp);
+				}
+
 			}
 		}
 	}
@@ -396,7 +379,7 @@ void Restaurant::ArrivedMotors(int CurrentTimeStep)
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
 {
-	AssignedOrders="";
+	AssignedOrders = "";
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		while(!Reg[i]->VIPOrderIsEmpty())
@@ -404,23 +387,23 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
 			//vip motor then normal motor then frozen motor
-			if(!Reg[i]->VIPMotorIsEmpty())
+			if(!Reg[i]->MotorIsEmpty(MOTO_VIP))
 			{
 				Ord = Reg[i]->getVIPOrder();
-				Moto = Reg[i]->getVIPMotor();
-				AssignedOrders+='V'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
+				Moto = Reg[i]->getMotor(MOTO_VIP);
+				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
-			else if(!Reg[i]->NormalMotorIsEmpty())
+			else if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
 			{
 				Ord = Reg[i]->getVIPOrder();
-				Moto = Reg[i]->getNormalMotor();
-				AssignedOrders+='N'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
+				Moto = Reg[i]->getMotor(MOTO_NRM);
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V"+to_string(Ord->GetID()) + ") ";
 			}
-			else if(!Reg[i]->FrozenMotorIsEmpty())
+			else if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
 			{
 				Ord = Reg[i]->getVIPOrder();
-				Moto = Reg[i]->getFrozenMotor();
-				AssignedOrders+='F'+to_string(Moto->GetID())+"(V"+to_string(Ord->GetID())+") ";
+				Moto = Reg[i]->getMotor(MOTO_FROZ);
+				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			if(Ord && Moto)
 			{
@@ -437,17 +420,17 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		while(!Reg[i]->FrozenOrderIsEmpty())
 		{
 			//frozen motor only
-			if(!Reg[i]->FrozenMotorIsEmpty())
+			if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
 			{
 				Order* Ord = Reg[i]->getFrozenOrder();
-				Motorcycle* Moto = Reg[i]->getFrozenMotor();
+				Motorcycle* Moto = Reg[i]->getMotor(MOTO_FROZ);
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
 				Reg[i]->setAssignedMotor(Moto);
-				AssignedOrders+='F'+to_string(Moto->GetID())+"(F"+to_string(Ord->GetID())+")  ";
+				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(F" + to_string(Ord->GetID()) + ")  ";
 			}
 			else break;
 		}
@@ -456,17 +439,17 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			//Normal motor if possible then vip motors
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
-			if(!Reg[i]->NormalMotorIsEmpty())
+			if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
 			{
 				Ord = Reg[i]->getNormalOrder();
-				Moto = Reg[i]->getNormalMotor();
-				AssignedOrders+='N'+to_string(Moto->GetID())+"(N"+to_string(Ord->GetID())+") ";
+				Moto = Reg[i]->getMotor(MOTO_NRM);
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
-			else if(!Reg[i]->VIPMotorIsEmpty())
+			else if(!Reg[i]->MotorIsEmpty(MOTO_VIP))
 			{
 				Ord = Reg[i]->getNormalOrder();
-				Moto = Reg[i]->getVIPMotor();
-				AssignedOrders+='V'+to_string(Moto->GetID())+"(N"+to_string(Ord->GetID())+") ";
+				Moto = Reg[i]->getMotor(MOTO_VIP);
+				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
 			if(Ord && Moto)
 			{
@@ -487,7 +470,7 @@ void Restaurant :: PrintOutputFile(string file)
 {
 	file.append(".txt");
 	ofstream Outfile(file);
-	Order*ord=nullptr;
+	Order* ord = nullptr;
 	//counters
 	int totwait[4] = {0}, totserve[4] = {0} , ordcnt[4][3] = {0};
 
@@ -505,29 +488,60 @@ void Restaurant :: PrintOutputFile(string file)
 		delete ord;
 	}
 	//Restaurant Counters
-	int Orders = 0, Normal = 0, Frozen = 0, VIP = 0;
-	int Motors = 0, MNormal = 0, MFrozen = 0, MVIP = 0;
+	int Orders = 0, Order_cnt[TYPE_CNT] = {0};
+	int Motors = 0, Motor_cnt[MOTO_CNT] = {0};
+	string str[] = {"Norm:", "Froz:", "VIP:"};
 	int W = 0, S = 0; 
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		int sum_ord = ordcnt[i][TYPE_NRM] + ordcnt[i][TYPE_FROZ] + ordcnt[i][TYPE_VIP];
-		int sum_moto = Reg[i]->getVIPMotornum() + Reg[i]->getNormalMotornum() + Reg[i]->getFrozenMotornum();
+		int sum_ord = 0, sum_moto = 0;
+		for(int j = TYPE_NRM; j < TYPE_CNT; j++)
+		{
+			sum_ord += ordcnt[i][j];
+			Order_cnt[j] += ordcnt[i][j];
+		}
+		for(int j = MOTO_NRM; j < MOTO_CNT; j++)
+		{
+			sum_moto += Reg[i]->getMotornum((MOTO_TYPE)j);
+			Motor_cnt[j] += Reg[i]->getMotornum((MOTO_TYPE)j);
+		}
 		Orders += sum_ord;
 		Motors += sum_moto;
 		W += totwait[i]; S += totserve[i];
-		Normal += ordcnt[i][TYPE_NRM]; Frozen += ordcnt[i][TYPE_FROZ]; VIP += ordcnt[i][TYPE_VIP];
-		MNormal += Reg[i]->getNormalMotornum(); MFrozen += Reg[i]->getFrozenMotornum(); MVIP += Reg[i]->getVIPMotornum();
 		Outfile<<endl<<"Region "<<(char)('A' + i)<<": "<<endl;
-		Outfile<<setw(5)<<"Orders: "<<sum_ord<<" [Norm:"<<ordcnt[i][TYPE_NRM]<<", Froz:"<<ordcnt[i][TYPE_FROZ]<<", VIP:"<<ordcnt[i][TYPE_VIP]<<"]"<<endl;
-		Outfile<<setw(5)<<"MotorC: "<<sum_moto<<" [Norm:"<<Reg[i]->getNormalMotornum()<<", Froz:"<<Reg[i]->getFrozenMotornum()<<", VIP:"<<Reg[i]->getVIPMotornum()<<"]"<<endl;
+		Outfile<<setw(5)<<"Orders: "<<sum_ord<<" [";
+		for(int j = TYPE_NRM; j < TYPE_CNT; j++)
+		{
+			if(j != 0) Outfile<<", ";
+			Outfile<<str[j]<<ordcnt[i][j];
+		}
+		Outfile<<"]"<<endl;
+		Outfile<<setw(5)<<"MotorC: "<<sum_moto<<" [";
+		for(int j = MOTO_NRM; j < MOTO_CNT; j++)
+		{
+			if(j != 0) Outfile<<", ";
+			Outfile<<str[j]<<Reg[i]->getMotornum((MOTO_TYPE)j);
+		}
+		Outfile<<"]"<<endl;
 		Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)totwait[i] / (sum_ord)<<",  Avg Serv = "<<(float)totserve[i] / (sum_ord)<<endl;
 	}
 
 	//Retaurant
 	Outfile<<endl<<"Restaurant: "<<endl;
-	Outfile<<setw(5)<<"Orders: "<<Orders<<" [Norm:"<<Normal<<", Froz:"<<Frozen<<",VIP:"<<VIP<<"]"<<endl;
-	Outfile<<setw(5)<<"MotorC: "<<Motors;
-	Outfile<<" [Norm:"<<MNormal<<", Froz:"<<MFrozen<<",VIP:"<<MVIP<<"]"<<endl;
+	Outfile<<setw(5)<<"Orders: "<<Orders<<" [";
+	for(int j = TYPE_NRM; j < TYPE_CNT; j++)
+	{
+		if(j != 0) Outfile<<", ";
+		Outfile<<str[j]<<Order_cnt[j];
+	}
+	Outfile<<"]"<<endl;
+	Outfile<<setw(5)<<"MotorC: "<<Motors<<" [";
+	for(int j = TYPE_NRM; j < TYPE_CNT; j++)
+	{
+		if(j != 0) Outfile<<", ";
+		Outfile<<str[j]<<Motor_cnt[j];
+	}
+	Outfile<<"]"<<endl;
 	Outfile<<setw(5)<<"Avg Wait = "<<setprecision(5)<<(float)(W)/(Orders)<<",  Avg Serv = "<<(float)(S)/(Orders)<<endl;
 	Outfile.close();
 }

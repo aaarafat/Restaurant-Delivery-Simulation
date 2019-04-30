@@ -19,7 +19,13 @@ enum ORD_TYPE	//types of orders
 	TYPE_VIP,	//VIP
 	TYPE_CNT	//Number of types
 };
-
+enum MOTO_TYPE	//types of orders
+{
+	MOTO_NRM,	//normal order
+	MOTO_FROZ,	//frozen
+	MOTO_VIP,	//VIP
+	MOTO_CNT	//Number of types
+};
 
 enum PROG_MODE	//mode of the program interface
 {

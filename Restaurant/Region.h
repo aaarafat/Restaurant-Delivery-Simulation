@@ -10,9 +10,10 @@ class Region
 {
 	static int cnt;
 	string name;
-	Heap_PriorityQueue<Motorcycle> VIPMotor;
-	Heap_PriorityQueue<Motorcycle> FrozenMotor;
-	Heap_PriorityQueue<Motorcycle> NormalMotor;
+	//Heap_PriorityQueue<Motorcycle> VIPMotor;
+	//Heap_PriorityQueue<Motorcycle> FrozenMotor;
+	//Heap_PriorityQueue<Motorcycle> NormalMotor;
+	Heap_PriorityQueue<Motorcycle> Motor[MOTO_CNT];
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
@@ -20,15 +21,9 @@ class Region
 	Queue<Order*> DrawOrders;
 	
 public:
-	Motorcycle* getVIPMotor() ;
-	void setVIPMotor(Motorcycle* M);
-	int getVIPMotornum();
-	Motorcycle* getNormalMotor() ;
-	void setNormalMotor(Motorcycle* M);
-	int getNormalMotornum();
-	Motorcycle* getFrozenMotor() ;
-	void setFrozenMotor(Motorcycle* M);
-	int getFrozenMotornum();
+	Motorcycle* getMotor(MOTO_TYPE type);
+	void setMotor(Motorcycle* M);
+	int getMotornum(MOTO_TYPE type);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
 	Order* getFrozenOrder() ;
@@ -41,9 +36,7 @@ public:
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;
-	bool VIPMotorIsEmpty() const;
-	bool FrozenMotorIsEmpty() const;
-	bool NormalMotorIsEmpty() const;
+	bool MotorIsEmpty(MOTO_TYPE type) const;
 	bool AssignedMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);
