@@ -536,7 +536,7 @@ void Restaurant :: PrintOutputFile(string file)
 	}
 	Outfile<<"]"<<endl;
 	Outfile<<setw(5)<<"MotorC: "<<Motors<<" [";
-	for(int j = TYPE_NRM; j < TYPE_CNT; j++)
+	for(int j = MOTO_NRM; j < MOTO_CNT; j++)
 	{
 		if(j != 0) Outfile<<", ";
 		Outfile<<str[j]<<Motor_cnt[j];
