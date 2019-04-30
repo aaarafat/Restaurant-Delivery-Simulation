@@ -23,7 +23,7 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	OrdersClrs[TYPE_NRM] = 	NDARKBLUE;	//normal-order color
 	OrdersClrs[TYPE_FROZ] = NVIOLET;		//Frozen-order color
 	OrdersClrs[TYPE_VIP] = 	NRED;		//VIP-order color
-	OrdersClrs[TYPE_VIP] = 	NPURPLE;    //VIP Frozen-order color
+
 	//Initializing the Number of Orders and Motors in each region
 	ResetDrawNumbers();
 	ClearMenuBar();
@@ -189,7 +189,7 @@ void GUI::ClearMenuBar() const
 		SwitchGUI = "images\\switch.jpg";
 		if(!Draw)
 		{
-			Music = (MusicOn) ? "images\\ond.jpg" :"images\\offd.jpg";
+			Music = (MusicOn) ? "images\\offd.jpg" :"images\\ond.jpg";
 		}
 		else
 		{
@@ -204,7 +204,7 @@ void GUI::ClearMenuBar() const
 		SwitchGUI = "images\\switchl.jpg";
 		if(!Draw)
 		{
-			Music = (MusicOn) ? "images\\onl.jpg" :"images\\offl.jpg";
+			Music = (MusicOn) ? "images\\offl.jpg" :"images\\onl.jpg";
 		}
 		else
 		{
@@ -515,22 +515,4 @@ string GUI::SaveFileName()
 	string s = pWind->save_file();
 	SetCurrentDirectory(oldDir);
 	return s;
-}
-
-
-bool GUI::getTraffic() const
-{
-	return Traffic;
-}
-void GUI::setTraffic(bool tr)
-{
-	Traffic = tr;
-}
-bool GUI::getdSpeed() const
-{
-	return dSpeed;
-}
-void GUI::setdSpeed(bool dspd)
-{
-	dSpeed = dspd;
 }

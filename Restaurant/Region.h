@@ -13,21 +13,12 @@ class Region
 	Heap_PriorityQueue<Motorcycle> VIPMotor;
 	Heap_PriorityQueue<Motorcycle> FrozenMotor;
 	Heap_PriorityQueue<Motorcycle> NormalMotor;
-	Heap_PriorityQueue<Order> VIPFrozenOrder;
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	Queue<Order*> DrawOrders;
-	Queue<Order*> VIPFrozenServed;
-	Queue<Order*> NormalServed;
-	Queue<Order*> VIPServed;
-	Queue<Order*> FrozenServed;
-	Heap_PriorityQueue<Order> AssignedOrder;
-	Heap_PriorityQueue<Motorcycle> RestVIPMotors;
-	Heap_PriorityQueue<Motorcycle> RestNormalMotors;
-	Heap_PriorityQueue<Motorcycle> RestFrozenMotors;
-	Heap_PriorityQueue<Motorcycle> DamagedMotors;
+	
 public:
 	Motorcycle* getVIPMotor() ;
 	void setVIPMotor(Motorcycle* M);
@@ -38,32 +29,15 @@ public:
 	Motorcycle* getFrozenMotor() ;
 	void setFrozenMotor(Motorcycle* M);
 	int getFrozenMotornum();
-	Order* getVIPFrozenOrder();
-	void setVIPFrozenOrder(Order* O);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
 	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
-	Order* getVIPServed() ;
-	void setVIPServed(Order* O);
-	Order* getFrozenServed() ;
-	void setFrozenServed(Order* O);
-	Order* getNormalServed() ;
-	void setAssignedOrder(Order* O);
-	Order* getAssignedOrder();
-	void setNormalServed(Order* O);
 	void setAssignedMotor(Motorcycle* M);
-	void setDamagedMotor(Motorcycle* M);
-	Motorcycle* getDamagedMotor();
-	void setRestMotor(Motorcycle* M);
-	Motorcycle* getRestVIPMotor();
-	Motorcycle* getRestNormalMotor();
-	Motorcycle* getRestFrozenMotor();
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
-	bool VIPFrozenOrderIsEmpty() const;
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;
@@ -71,17 +45,10 @@ public:
 	bool FrozenMotorIsEmpty() const;
 	bool NormalMotorIsEmpty() const;
 	bool AssignedMotorsEmpty() const;
-	bool DamagedMotorsEmpty() const;
-	bool RestNormalMotorsEmpty() const;
-	bool RestVIPMotorsEmpty() const;
-	bool RestFrozenMotorsEmpty() const;
 	bool ArrivedMotors(int TimeStep);
-	bool RefreshedMotors(int TimeStep);
-	bool FixedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);
-	void ServingOrders(int cTime);
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);

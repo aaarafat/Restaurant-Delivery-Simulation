@@ -84,8 +84,7 @@ private:
 	int NumberOfFrozenOrders[REG_CNT];
 	int bufferSize ;
 	char oldDir[MAX_PATH]; 
-	bool dSpeed;
-	bool Traffic;
+
 
 	// 
 	// TODO: Add more members if needed
@@ -117,11 +116,8 @@ public:
 	string GetString() const ; // reads a string (keyboard input) from the user
 	string GetFileName(string mode = "TXT");
 	string SaveFileName();
-	bool getTraffic() const;
-	void setTraffic(bool tr);
-	bool getdSpeed() const;
-	void setdSpeed(bool dspd);
-
+	bool dSpeed;
+	bool Traffic;
 	// Output Functions  ---------------------------
 	void PrintMessage(string msg, string line1 = "", string line2 = "", string line3 = "", string line4 = "") const; // prints a message in the status bar
 	void PrintMenuMessage(string msg) const;

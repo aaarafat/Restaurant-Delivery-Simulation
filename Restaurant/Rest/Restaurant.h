@@ -43,16 +43,13 @@ public:
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money);
 	void AutoPromote(int cTime);
-	void ServingOrders(int cTime);
+
 	//Simulation Functions
 	void Simulation(bool SBS,bool S); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue
 	void SharingOrdersToDraw(); //Copy Orders to be Drawn
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
 	void ArrivedMotors(int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
-	void RefreshedMotors(int CurrentTimeStep); //Add Refreshed Motors to the Restaurant Motors
-	void FixedMotors(int CurrentTimeStep); //Add Fixed Motors to the Restaurant Motors
-	void UpdateMotors(int CurrentTimeStep); //Update All Motors
 	bool ActiveOrdersExist(); // returns true if active orders exist 
 	bool AssignedMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);
