@@ -31,6 +31,10 @@ void ArrivalEvent::Execute()
 	{
 		R->setFrozenOrder(pOrd);
 	}
+	else if(OrdType == TYPE_VIPFROZ)
+	{
+		R->setVIPFrozenOrder(pOrd);
+	}
 
 }
 void ArrivalEvent::ReadEvent(ifstream& fin)
@@ -42,6 +46,7 @@ void ArrivalEvent::ReadEvent(ifstream& fin)
 	case 'N': OrdType = TYPE_NRM; break;
 	case 'V': OrdType = TYPE_VIP; break;
 	case 'F': OrdType = TYPE_FROZ; break;
+	case 'Y': OrdType = TYPE_VIPFROZ; break;
 	}
 	switch (reg)
 	{

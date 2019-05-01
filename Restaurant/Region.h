@@ -14,12 +14,14 @@ class Region
 	Restaurant* pRest;
 	Heap_PriorityQueue<Motorcycle> Motor[MOTO_CNT];
 	Heap_PriorityQueue<Order> VIPFrozenOrder;
+	Queue<Order*> CharityOrder;
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	//Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	//Heap_PriorityQueue<Motorcycle> RestMotors;
 	//Heap_PriorityQueue<Motorcycle> DamagedMotors;
+	Queue<Order*> VIPFrozenServed;
 	Queue<Order*> NormalServed;
 	Queue<Order*> VIPServed;
 	Queue<Order*> FrozenServed;
@@ -37,6 +39,8 @@ public:
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
 	Order* getVIPServed() ;
+	Order* getVIPFrozenOrder();
+	void setVIPFrozenOrder(Order* O);
 	void setVIPServed(Order* O);
 	Order* getFrozenServed() ;
 	void setFrozenServed(Order* O);
@@ -59,6 +63,7 @@ public:
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);
+	bool VIPFrozenOrderIsEmpty() const;
 	//DrawFunctions
 	Order* getVIPDraw(Order* O) ;
 	void setVIPDraw(Order* O);

@@ -26,6 +26,13 @@ void Region::setMotor(Motorcycle* M)
 	Motor[M->GetType()].add(M);
 }
 
+Order* Region::getVIPFrozenOrder()
+{
+	Order* O=VIPFrozenOrder.peek();
+	VIPFrozenOrder.remove();
+	return O;
+}
+
 int Region::getMotornum(MOTO_TYPE type)
 {
 	return Motor[type].Size();
@@ -84,6 +91,11 @@ void Region::setSMotor(Motorcycle* M)
 	MotorStatus[M->GetStatus()].add(M);
 }
 
+void Region::setVIPFrozenOrder(Order*O)
+{
+	VIPFrozenOrder.add(O);
+}
+
 bool Region::VIPOrderIsEmpty() const
 {
 	return VIPOrder.isEmpty();
@@ -127,6 +139,11 @@ Order* Region::getAssignedOrder()
 bool Region::MotorIsEmpty(MOTO_TYPE type) const
 {
 	return Motor[type].isEmpty();
+}
+
+bool Region::VIPFrozenOrderIsEmpty() const
+{
+	return VIPFrozenOrder.isEmpty();
 }
 
 
@@ -286,6 +303,19 @@ void Region::SharingOrderstoDraw()
 {
 	Queue<Order*> Q;
 	Order* O;
+
+	while(!VIPFrozenOrderIsEmpty())
+	{
+		O = VIPFrozenOrder.peek();
+		VIPFrozenOrder.remove();
+		DrawOrders.enqueue(O);
+		Q.enqueue(O);
+
+	}
+	while(Q.dequeue(O))
+	{
+		VIPFrozenOrder.add(O);
+	}
 	while(!VIPOrderIsEmpty())
 	{
 		O = VIPOrder.peek();

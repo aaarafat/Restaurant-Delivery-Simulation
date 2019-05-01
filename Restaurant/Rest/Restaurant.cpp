@@ -399,6 +399,37 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 	AssignedOrders = "";
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
+		while(!Reg[i]->VIPFrozenOrderIsEmpty())
+		{
+			//frozen motor only
+			Order* Ord = NULL;
+			Motorcycle* Moto = NULL;
+			if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
+			{
+				Ord = Reg[i]->getVIPFrozenOrder();
+				Moto = Reg[i]->getMotor(MOTO_FROZ);
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_FROZ))
+			{
+				Ord = Reg[i]->getVIPFrozenOrder();
+				Moto = Reg[i]->getSMotor(REST_FROZ);
+				Moto->SetDamaged(true);
+			}
+			if(Ord && Moto)
+			{
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
+				Moto->SetArriveTime(ArriveTime);
+				FinishedOrders.add(Ord);
+				Reg[i]->setAssignedOrder(Ord);
+				Moto->SetStatus(ASSIGNED);
+				Reg[i]->setSMotor(Moto);
+				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(VF" + to_string(Ord->GetID()) + ")  ";
+			}
+			else break;
+		}
+
 		while(!Reg[i]->VIPOrderIsEmpty())
 		{
 			Order* Ord = NULL;
