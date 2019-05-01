@@ -13,12 +13,17 @@ class Region
 	string name;
 	Restaurant* pRest;
 	Heap_PriorityQueue<Motorcycle> Motor[MOTO_CNT];
+	Heap_PriorityQueue<Order> VIPFrozenOrder;
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
 	//Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	//Heap_PriorityQueue<Motorcycle> RestMotors;
 	//Heap_PriorityQueue<Motorcycle> DamagedMotors;
+	Queue<Order*> NormalServed;
+	Queue<Order*> VIPServed;
+	Queue<Order*> FrozenServed;
+	Heap_PriorityQueue<Order> AssignedOrder;
 	Heap_PriorityQueue<Motorcycle> MotorStatus[STATUS_CNT];
 	Queue<Order*> DrawOrders;
 	
@@ -31,6 +36,14 @@ public:
 	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
+	Order* getVIPServed() ;
+	void setVIPServed(Order* O);
+	Order* getFrozenServed() ;
+	void setFrozenServed(Order* O);
+	Order* getNormalServed() ;
+	void setAssignedOrder(Order* O);
+	Order* getAssignedOrder();
+	void setNormalServed(Order* O);
 	void setNormalOrder(Order* O);
 	void setSMotor(Motorcycle* M);
 	Motorcycle* getSMotor(STATUS_TYPE type);
@@ -42,6 +55,7 @@ public:
 	bool MotorIsEmpty(MOTO_TYPE type) const;
 	bool SMotorsEmpty(STATUS_TYPE type) const;
 	bool ArrivedMotors(int TimeStep);
+	void ServingOrders(int cTime);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
 	void AutoPromote(int cTime,int pTime);

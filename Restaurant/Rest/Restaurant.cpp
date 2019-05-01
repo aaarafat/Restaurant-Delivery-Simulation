@@ -80,6 +80,13 @@ void Restaurant::AutoPromote(int cTime)
 		Reg[i]->AutoPromote(cTime, AutoPromo);
 	}
 }
+void Restaurant::ServingOrders(int cTime)
+{
+	for(int i = A_REG; i < REG_CNT; i++)
+	{
+		Reg[i]->ServingOrders(cTime);
+	}
+}
 //Executes ALL events that should take place at current timestep
 void Restaurant::ExecuteEvents(int CurrentTimeStep)
 {
@@ -229,6 +236,9 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 
 			//Print the number of the Orders in each region 
 			AssignOrder(CurrentTimeStep);
+
+			ServingOrders(CurrentTimeStep);
+
 			if(!Silent)
 			{
 				Draw(CurrentTimeStep);
@@ -439,7 +449,9 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
+				Reg[i]->setAssignedOrder(Ord);
 				FinishedOrders.add(Ord);
+				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
 			}
@@ -469,6 +481,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
+				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
 				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(F" + to_string(Ord->GetID()) + ")  ";
@@ -513,6 +526,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
+				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
 			}

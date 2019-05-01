@@ -46,6 +46,7 @@ public:
 	void AutoPromote(int cTime);
 
 	//Simulation Functions
+	void ServingOrders(int cTime);
 	void Simulation(bool SBS,bool S); //Testing for phase 1
 	void Draw_All(); //drawing from the Draw Queue
 	void SharingOrdersToDraw(); //Copy Orders to be Drawn

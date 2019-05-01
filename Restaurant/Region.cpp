@@ -61,6 +61,24 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
+Order* Region::getNormalServed() 
+{
+	Order*O;
+	NormalServed.dequeue(O);
+	return O;
+}
+Order* Region::getVIPServed() 
+{
+	Order*O;
+	VIPServed.dequeue(O);
+	return O;
+}
+Order* Region::getFrozenServed() 
+{
+	Order * O;
+	FrozenServed.dequeue(O);
+	return O;
+}
 void Region::setSMotor(Motorcycle* M)
 {
 	MotorStatus[M->GetStatus()].add(M);
@@ -82,6 +100,30 @@ bool Region::SMotorsEmpty(STATUS_TYPE type) const
 {
 	return MotorStatus[type].isEmpty();
 }
+void Region::setVIPServed(Order* O)
+{
+	VIPServed.enqueue(O);
+}
+void Region::setFrozenServed(Order* O)
+{
+	FrozenServed.enqueue(O);
+}
+void Region::setNormalServed(Order* O)
+{
+	NormalServed.enqueue(O);
+}
+void Region::setAssignedOrder(Order* O)
+{
+	AssignedOrder.add(O);
+}
+
+Order* Region::getAssignedOrder()
+{
+	Order * O = AssignedOrder.peek();
+	AssignedOrder.remove();
+	return O;
+}
+
 bool Region::MotorIsEmpty(MOTO_TYPE type) const
 {
 	return Motor[type].isEmpty();
@@ -184,6 +226,37 @@ void Region::AutoPromote(int cTime,int pTime)
 			found = false;
 	}
 }
+
+void Region::ServingOrders(int cTime)
+{
+	bool found = true;
+	while(!AssignedOrder.isEmpty() && found)
+	{
+		Order* O = AssignedOrder.peek();
+		if(cTime >= O->GetFinishTime())
+		{
+			AssignedOrder.remove();
+			ORD_TYPE type = O->GetType();
+			switch (type)
+			{
+				case TYPE_NRM:
+					NormalServed.enqueue(O);
+					break;
+				case TYPE_FROZ:
+					FrozenServed.enqueue(O);
+					break;
+				case TYPE_VIP:
+					VIPServed.enqueue(O);
+					break;
+			}
+		}
+		else
+			found = false;
+
+	}
+
+}
+
 //Draw functions
 
 Order* Region::getDrawOrders(Order* O) 
@@ -201,9 +274,13 @@ bool Region::DrawOrdersIsEmpty() const
 }
 string Region::Print()
 {
-	return "Region " + name + ":    Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) + "    Frozen: " + to_string(Motor[MOTO_FROZ].Size()) + "    Normal: " + to_string(Motor[MOTO_NRM].Size())
-			+ "                                                                          Orders -->  VIP: "
-			+ to_string(VIPOrder.Size()) + "    Frozen: " + to_string(FrozenOrder.Size()) + "    Normal: " + to_string(NormalOrder.Size());
+	return "Region " + name + ":    Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) 
+			+ "    Frozen: " + to_string(Motor[MOTO_FROZ].Size()) 
+			+ "    Normal: " + to_string(Motor[MOTO_NRM].Size())
+			+ "                                        Orders -->  VIP: "
+			+ to_string(VIPOrder.Size()) + "    Served: " + to_string(VIPServed.Size())
+			+ "    Frozen: " + to_string(FrozenOrder.Size()) + "    Served: " + to_string(FrozenServed.Size())
+			+ "    Normal: " + to_string(NormalOrder.Size()) + "    Served: " + to_string(NormalServed.Size());
 }
 void Region::SharingOrderstoDraw()
 {

@@ -24,7 +24,7 @@ int Order::GetID()
 }
 
 
-int Order::GetType() const
+ORD_TYPE Order::GetType() const
 {
 	return type;
 }
