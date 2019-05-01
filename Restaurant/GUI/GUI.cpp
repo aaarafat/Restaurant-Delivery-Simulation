@@ -412,6 +412,14 @@ void GUI::ResetDrawingList()
 {
 	OrderCount = 0;		//resets the orders count to be ready for next timestep updates
 }
+bool GUI::getTraffic()
+{
+	return Traffic;
+}
+bool GUI::getSpeed()
+{
+	return dSpeed;
+}
 
 
 PROG_MODE	GUI::getGUIMode() 
@@ -466,15 +474,13 @@ PROG_MODE	GUI::getGUIMode()
 		{
 			if(y<25)
 			{
-				if(dSpeed) dSpeed = false;
-				else dSpeed = true;
+				dSpeed = !dSpeed;
 				UpdateInterface();
 				CreateMenuBar();
 			}
 			else
 			{
-				if(Traffic) Traffic = false;
-				else Traffic = true;
+				Traffic = !Traffic;
 				UpdateInterface();
 				CreateMenuBar();
 			}
@@ -496,9 +502,9 @@ void GUI::ResetDrawNumbers()
 	for(int i=A_REG;i<REG_CNT;i++)
 	{
 
-		NumberOfVIPOrders[i]=0;        
-		NumberOfNormalOrders[i]=0;
-		NumberOfFrozenOrders[i]=0;
+		NumberOfVIPOrders[i] = 0;        
+		NumberOfNormalOrders[i] = 0;
+		NumberOfFrozenOrders[i] = 0;
 
 	}
 

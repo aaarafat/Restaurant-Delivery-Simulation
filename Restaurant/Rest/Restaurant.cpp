@@ -12,7 +12,7 @@ Restaurant::Restaurant()
 	pGUI = NULL;
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
-		Reg[i] = new Region();
+		Reg[i] = new Region(this);
 	}
 
 	AssignedOrders="";
@@ -123,7 +123,7 @@ bool Restaurant::ReadFile(string filename)
 		return false;
 	}
 	int S[MOTO_CNT], N[MOTO_CNT];
-	if(pGUI->dSpeed)
+	if(pGUI->getSpeed())
 	{
 		for(int k = A_REG; k < REG_CNT; k++)
 		{
@@ -217,7 +217,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 		int CurrentTimeStep = 1;
 		int x,y;
 		// Save the drawings in a Linked List 
-		while(!EventsQueue.isEmpty() || ActiveOrdersExist() || AssignedMotorsExist())
+		while(!EventsQueue.isEmpty() || ActiveOrdersExist() || SMotorsExist())
 		{
 			ArrivedMotors(CurrentTimeStep);
 
@@ -342,6 +342,10 @@ void Restaurant::DeleteFirstDrawn(int region)
 		delete O;
 	}
 }
+bool Restaurant::getTraffic()
+{
+	return pGUI->getTraffic();
+}
 
 //////////////////////////////////////
 bool Restaurant::ActiveOrdersExist()
@@ -358,16 +362,19 @@ bool Restaurant::ActiveOrdersExist()
 }
 
 /////////////////////////////////////
-bool Restaurant::AssignedMotorsExist()
+bool Restaurant::SMotorsExist() //returns true if there's still assigned, rest or damaged motorcycles
 {
-	bool Exist = false;
 	for (int i = A_REG; i < REG_CNT; i++)
-		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist : true;
-	for (int i = A_REG; i < REG_CNT; i++)
-		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist:true;
-	for (int i = A_REG;i < REG_CNT; i++)
-		Exist = Reg[i]->AssignedMotorsEmpty() ? Exist : true;
-	return Exist;
+	{
+		for(int j = ASSIGNED; j < STATUS_CNT; j++)
+		{
+			if(!Reg[i]->SMotorsEmpty((STATUS_TYPE)j))
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 /////////////////////////////////////
@@ -397,12 +404,33 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getMotor(MOTO_NRM);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V"+to_string(Ord->GetID()) + ") ";
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getMotor(MOTO_FROZ);
+				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_VIP))
+			{
+				Ord = Reg[i]->getVIPOrder();
+				Moto = Reg[i]->getSMotor(REST_VIP);
+				Moto->SetDamaged(true);
+				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_NRM))
+			{
+				Ord = Reg[i]->getVIPOrder();
+				Moto = Reg[i]->getSMotor(REST_NRM);
+				Moto->SetDamaged(true);
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_FROZ))
+			{
+				Ord = Reg[i]->getVIPOrder();
+				Moto = Reg[i]->getSMotor(REST_FROZ);
+				Moto->SetDamaged(true);
 				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			if(Ord && Moto)
@@ -412,7 +440,8 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
-				Reg[i]->setAssignedMotor(Moto);
+				Moto->SetStatus(ASSIGNED);
+				Reg[i]->setSMotor(Moto);
 			}
 			else break;
 
@@ -420,16 +449,28 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		while(!Reg[i]->FrozenOrderIsEmpty())
 		{
 			//frozen motor only
+			Order* Ord = NULL;
+			Motorcycle* Moto = NULL;
 			if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
 			{
-				Order* Ord = Reg[i]->getFrozenOrder();
-				Motorcycle* Moto = Reg[i]->getMotor(MOTO_FROZ);
+				Ord = Reg[i]->getFrozenOrder();
+				Moto = Reg[i]->getMotor(MOTO_FROZ);
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_FROZ))
+			{
+				Ord = Reg[i]->getFrozenOrder();
+				Moto = Reg[i]->getSMotor(REST_FROZ);
+				Moto->SetDamaged(true);
+			}
+			if(Ord && Moto)
+			{
 				Ord->SetWaitTime(CurrentTimeStep);
 				Ord->FinishOrder(Moto->GetSpeed());
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
-				Reg[i]->setAssignedMotor(Moto);
+				Moto->SetStatus(ASSIGNED);
+				Reg[i]->setSMotor(Moto);
 				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(F" + to_string(Ord->GetID()) + ")  ";
 			}
 			else break;
@@ -451,6 +492,20 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Moto = Reg[i]->getMotor(MOTO_VIP);
 				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
+			else if(!Reg[i]->SMotorsEmpty(REST_NRM))
+			{
+				Ord = Reg[i]->getNormalOrder();
+				Moto = Reg[i]->getSMotor(REST_NRM);
+				Moto->SetDamaged(true);
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_VIP))
+			{
+				Ord = Reg[i]->getNormalOrder();
+				Moto = Reg[i]->getSMotor(REST_VIP);
+				Moto->SetDamaged(true);
+				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+			}
 			if(Ord && Moto)
 			{
 				Ord->SetWaitTime(CurrentTimeStep);
@@ -458,7 +513,8 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
 				Moto->SetArriveTime(ArriveTime);
 				FinishedOrders.add(Ord);
-				Reg[i]->setAssignedMotor(Moto);
+				Moto->SetStatus(ASSIGNED);
+				Reg[i]->setSMotor(Moto);
 			}
 			else break;
 		}

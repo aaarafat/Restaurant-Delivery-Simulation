@@ -41,6 +41,7 @@ public:
 	bool ReadFile(string filename);
 	Region* GetRegion(REGION x);
 	bool CancelOrder(int id);
+	bool getTraffic();
 	bool PromoteOrder(int id,int money);
 	void AutoPromote(int cTime);
 
@@ -51,7 +52,7 @@ public:
 	void DeleteFirstDrawn(int region); //for test deletes the first in the queue
 	void ArrivedMotors(int CurrentTimeStep); //Add Arrived Motors to the Restaurant Motors
 	bool ActiveOrdersExist(); // returns true if active orders exist 
-	bool AssignedMotorsExist(); // returns true if assigned motor exist 
+	bool SMotorsExist(); // returns true if assigned motor exist 
 	void AssignOrder(int TimeStep);
 	void PrintOutputFile(string file);
 	void Draw(int CurrentTimeStep);

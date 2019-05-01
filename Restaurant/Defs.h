@@ -26,6 +26,15 @@ enum MOTO_TYPE	//types of orders
 	MOTO_VIP,	//VIP
 	MOTO_CNT	//Number of types
 };
+enum STATUS_TYPE
+{
+	ASSIGNED, //ASSIGNED Means it can be IDLE or in service depends on which queue the motorcycle is at.
+	REST_NRM,
+	REST_FROZ,
+	REST_VIP,
+	DMGD,
+	STATUS_CNT
+};
 
 enum PROG_MODE	//mode of the program interface
 {

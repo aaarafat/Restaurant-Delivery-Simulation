@@ -1,8 +1,10 @@
 #include "Region.h"
+#include "Rest\Restaurant.h"
 #include <string>
 int Region::cnt = 0;
-Region::Region()
+Region::Region(Restaurant* ptr)
 {
+	pRest = ptr;
 	name = 'A' + cnt;
 	cnt++;
 }
@@ -10,6 +12,12 @@ Motorcycle* Region::getMotor(MOTO_TYPE type)
 {
 	Motorcycle* M = Motor[type].peek();
 	Motor[type].remove();
+	return M;
+}
+Motorcycle* Region::getSMotor(STATUS_TYPE type)
+{
+	Motorcycle* M = MotorStatus[type].peek();
+	MotorStatus[type].remove();
 	return M;
 }
 
@@ -25,7 +33,7 @@ int Region::getMotornum(MOTO_TYPE type)
 
 Order* Region::getVIPOrder() 
 {
-	Order*O=VIPOrder.peek();
+	Order*O = VIPOrder.peek();
 	VIPOrder.remove();
 	return O;
 }
@@ -53,9 +61,9 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
-void Region::setAssignedMotor(Motorcycle* M)
+void Region::setSMotor(Motorcycle* M)
 {
-	AssignedMotors.add(M);
+	MotorStatus[M->GetStatus()].add(M);
 }
 
 bool Region::VIPOrderIsEmpty() const
@@ -70,9 +78,9 @@ bool Region::FrozenOrderIsEmpty() const
 {
 	return FrozenOrder.isEmpty();
 }
-bool Region::AssignedMotorsEmpty() const
+bool Region::SMotorsEmpty(STATUS_TYPE type) const
 {
-	return AssignedMotors.isEmpty();
+	return MotorStatus[type].isEmpty();
 }
 bool Region::MotorIsEmpty(MOTO_TYPE type) const
 {
@@ -82,19 +90,61 @@ bool Region::MotorIsEmpty(MOTO_TYPE type) const
 
 bool Region::ArrivedMotors(int TimeStep) 
 {
-	bool Arrived = true;
-	bool Arrived_Flag = true;
-	while (!AssignedMotorsEmpty() && Arrived_Flag)
+	bool Arrived = false;
+	while(!SMotorsEmpty(ASSIGNED))
 	{
-		Arrived_Flag = false;
-		Motorcycle* AssignedMotor = AssignedMotors.peek();
-		if (AssignedMotor->GetArriveTime() <= TimeStep)
+		Motorcycle* M = MotorStatus[ASSIGNED].peek();
+		if(M->GetArriveTime() <= TimeStep)
 		{
 			Arrived = true;
-			Arrived_Flag = true;
-			AssignedMotors.remove();
-			AssignedMotor->SetArriveTime(-1);
-			setMotor(AssignedMotor);
+			MotorStatus[ASSIGNED].remove();
+			M->SetArriveTime(-1);
+			if(pRest->getTraffic())
+			{
+				srand(time(NULL));
+				if(M->GetDamaged())
+				{
+					int Rest = rand() % 20 + 10;
+					M->SetRestTime(Rest + TimeStep);
+					M->SetStatus(DMGD);
+					M->SetDamaged(false);
+				}
+				else
+				{
+					int Rest = rand() % 10 + 5;
+					M->SetRestTime(Rest + TimeStep);
+					M->SetStatus(STATUS_TYPE(REST_NRM + M->GetType()));
+				}
+				setSMotor(M);
+			}
+			else
+				setMotor(M);
+		}
+		else
+		{
+			break;
+		}
+	}
+	if(pRest->getTraffic())
+	{
+		for(int i = REST_NRM; i < STATUS_CNT; i++)
+		{
+			while(!SMotorsEmpty((STATUS_TYPE)i))
+			{
+				Motorcycle* M = MotorStatus[i].peek();
+				if(M->GetRestTime() <= TimeStep)
+				{
+					Arrived = true;
+					MotorStatus[i].remove();
+					M->SetRestTime(-1);
+					M->SetStatus(ASSIGNED);
+					setMotor(M);
+				}
+				else
+				{
+					break;
+				}
+			}
 		}
 	}
 	return Arrived;

@@ -6,18 +6,20 @@
 #include "Rest\Order.h"
 #include <iostream>
 using namespace std;
+class Restaurant;
 class Region
 {
 	static int cnt;
 	string name;
-	//Heap_PriorityQueue<Motorcycle> VIPMotor;
-	//Heap_PriorityQueue<Motorcycle> FrozenMotor;
-	//Heap_PriorityQueue<Motorcycle> NormalMotor;
+	Restaurant* pRest;
 	Heap_PriorityQueue<Motorcycle> Motor[MOTO_CNT];
 	Heap_PriorityQueue<Order> VIPOrder;
 	Queue<Order*> FrozenOrder;
 	LinkedList<Order*> NormalOrder;
-	Heap_PriorityQueue<Motorcycle> AssignedMotors;
+	//Heap_PriorityQueue<Motorcycle> AssignedMotors;
+	//Heap_PriorityQueue<Motorcycle> RestMotors;
+	//Heap_PriorityQueue<Motorcycle> DamagedMotors;
+	Heap_PriorityQueue<Motorcycle> MotorStatus[STATUS_CNT];
 	Queue<Order*> DrawOrders;
 	
 public:
@@ -30,14 +32,15 @@ public:
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
 	void setNormalOrder(Order* O);
-	void setAssignedMotor(Motorcycle* M);
+	void setSMotor(Motorcycle* M);
+	Motorcycle* getSMotor(STATUS_TYPE type);
 	//seter and getter for both the list
 	//search functions for the cancelation and Prompotion 
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;
 	bool MotorIsEmpty(MOTO_TYPE type) const;
-	bool AssignedMotorsEmpty() const;
+	bool SMotorsEmpty(STATUS_TYPE type) const;
 	bool ArrivedMotors(int TimeStep);
 	bool CancelOrder(int id);
 	bool PromoteOrder(int id,int money=0);
@@ -56,7 +59,7 @@ public:
 	///////////////////////////////
 	string Print();
 
-	Region();
+	Region(Restaurant* ptr);
 	~Region();
 };
 
