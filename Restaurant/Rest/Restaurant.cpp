@@ -85,6 +85,7 @@ void Restaurant::ServingOrders(int cTime)
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		Reg[i]->ServingOrders(cTime);
+		Reg[i]->AddCharityOrders(400,10,cTime);
 	}
 }
 //Executes ALL events that should take place at current timestep
@@ -399,6 +400,37 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 	AssignedOrders = "";
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
+		while(!Reg[i]->CharityOrderIsEmpty())
+		{
+			//frozen motor only
+			Order* Ord = NULL;
+			Motorcycle* Moto = NULL;
+			if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
+			{
+				Ord = Reg[i]->getCharityOrder();
+				Moto = Reg[i]->getMotor(MOTO_NRM);
+			}
+			else if(!Reg[i]->SMotorsEmpty(REST_NRM))
+			{
+				Ord = Reg[i]->getCharityOrder();
+				Moto = Reg[i]->getSMotor(REST_NRM);
+				Moto->SetDamaged(true);
+			}
+			if(Ord && Moto)
+			{
+				Ord->SetWaitTime(CurrentTimeStep);
+				Ord->FinishOrder(Moto->GetSpeed());
+				int ArriveTime = Ord->GetFinishTime() + ceil(Ord->GetDistance() * 1.0 / Moto->GetSpeed());
+				Moto->SetArriveTime(ArriveTime);
+				FinishedOrders.add(Ord);
+				Reg[i]->setAssignedOrder(Ord);
+				Moto->SetStatus(ASSIGNED);
+				Reg[i]->setSMotor(Moto);
+				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(CH" + to_string(Ord->GetID()) + ")  ";
+			}
+			else break;
+		}
+
 		while(!Reg[i]->VIPFrozenOrderIsEmpty())
 		{
 			//frozen motor only

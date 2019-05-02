@@ -2,9 +2,11 @@
 #include "Rest\Restaurant.h"
 #include <string>
 int Region::cnt = 0;
+int Region::ID=999;
 Region::Region(Restaurant* ptr)
 {
 	pRest = ptr;
+	TotalProfit = 0;
 	name = 'A' + cnt;
 	cnt++;
 }
@@ -136,9 +138,26 @@ Order* Region::getAssignedOrder()
 	return O;
 }
 
+Order* Region:: getCharityOrder() 
+{
+	Order* O;
+	CharityOrder.dequeue(O);
+	return O;
+}
+
+void Region::setCharityOrder(Order* O)
+{
+	CharityOrder.enqueue(O);
+}
+
 bool Region::MotorIsEmpty(MOTO_TYPE type) const
 {
 	return Motor[type].isEmpty();
+}
+
+bool Region::CharityOrderIsEmpty() const
+{
+	return CharityOrder.isEmpty();
 }
 
 bool Region::VIPFrozenOrderIsEmpty() const
@@ -254,6 +273,7 @@ void Region::ServingOrders(int cTime)
 		{
 			AssignedOrder.remove();
 			ORD_TYPE type = O->GetType();
+			TotalProfit+=O->getTotalMoney();
 			switch (type)
 			{
 				case TYPE_NRM:
@@ -312,6 +332,16 @@ void Region::SharingOrderstoDraw()
 	Queue<Order*> Q;
 	Order* O;
 
+	int size = CharityOrder.Size();
+	Order*temp = nullptr;
+
+	for(int i=1;i<=size;i++)
+	{
+		CharityOrder.dequeue(temp);
+		DrawOrders.enqueue(temp);
+		CharityOrder.enqueue(temp);
+	}
+
 	while(!VIPFrozenOrderIsEmpty())
 	{
 		O = VIPFrozenOrder.peek();
@@ -337,8 +367,8 @@ void Region::SharingOrderstoDraw()
 		VIPOrder.add(O);
 	}
 
-	int size = FrozenOrder.Size();
-	Order*temp = nullptr;
+	size = FrozenOrder.Size();
+	temp = nullptr;
 
 	for(int i=1;i<=size;i++)
 	{
@@ -357,6 +387,24 @@ void Region::SharingOrderstoDraw()
 		NormalOrder.add(temp);
 	}
 	
+}
+
+//after timesteps of time Total Profit is divided by the Profit per Order and the output of the equation is turned to new orders
+void Region::AddCharityOrders(int ProfitPerOrder,int timesteps,int currenttime)
+{
+	if(currenttime%timesteps==0)
+	{
+		int i = TotalProfit/ProfitPerOrder;
+		Order* O = nullptr;
+		for(;i>0;i--)
+		{
+			O = new Order(ID--,TYPE_CHAR,(REGION)((int)name[0]-65),rand()%100,0,currenttime);
+			CharityOrder.enqueue(O);
+		}
+		TotalProfit=0;
+	}
+
+
 }
 
 ////////////////////////////////////////////////////

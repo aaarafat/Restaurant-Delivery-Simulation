@@ -23,6 +23,10 @@ int Order::GetID()
 	return ID;
 }
 
+int Order:: getTotalMoney()
+{
+	return totalMoney;
+}
 
 ORD_TYPE Order::GetType() const
 {

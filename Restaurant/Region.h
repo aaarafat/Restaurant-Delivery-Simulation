@@ -10,6 +10,8 @@ class Restaurant;
 class Region
 {
 	static int cnt;
+	static int ID;
+	int TotalProfit;
 	string name;
 	Restaurant* pRest;
 	Heap_PriorityQueue<Motorcycle> Motor[MOTO_CNT];
@@ -36,6 +38,8 @@ public:
 	int getMotornum(MOTO_TYPE type);
 	Order* getVIPOrder() ;
 	void setVIPOrder(Order* O);
+	Order* getCharityOrder() ;
+	void setCharityOrder(Order* O);
 	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
@@ -57,6 +61,7 @@ public:
 	bool VIPOrderIsEmpty() const;
 	bool NormalOrderIsEmpty() const;
 	bool FrozenOrderIsEmpty() const;
+	bool CharityOrderIsEmpty() const;
 	bool MotorIsEmpty(MOTO_TYPE type) const;
 	bool SMotorsEmpty(STATUS_TYPE type) const;
 	bool ArrivedMotors(int TimeStep);
@@ -76,6 +81,7 @@ public:
 	bool DrawOrdersIsEmpty() const;
 	bool FrozenDrawIsEmpty() const;
 	void SharingOrderstoDraw();
+	void AddCharityOrders(int ProfitPerOrder,int timesteps,int currenttime); //Adds Charity Orders
 	///////////////////////////////
 	string Print();
 

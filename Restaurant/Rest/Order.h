@@ -37,7 +37,7 @@ public:
 	int getServeTime();
 	void FinishOrder(int Speed);
 	int GetFinishTime();
-
+	int getTotalMoney();
 	bool operator> (const Order& o);
 	bool operator< (const Order& o);
 	bool operator== (int id);
