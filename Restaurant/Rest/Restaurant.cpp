@@ -16,6 +16,8 @@ Restaurant::Restaurant()
 	}
 
 	AssignedOrders="";
+	CharityProfit=-1;
+	CharityTimesteps=-1;
 }
 
 void Restaurant::RunSimulation()
@@ -85,7 +87,7 @@ void Restaurant::ServingOrders(int cTime)
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		Reg[i]->ServingOrders(cTime);
-		Reg[i]->AddCharityOrders(400,10,cTime);
+		Reg[i]->AddCharityOrders(CharityProfit,CharityTimesteps,cTime);
 	}
 }
 //Executes ALL events that should take place at current timestep
@@ -176,8 +178,14 @@ bool Restaurant::ReadFile(string filename)
 		}
 	}
 	fin>>AutoPromo;
-	int n;
-	fin>>n;
+	string t;int n;
+	fin>>t;
+	if(t[0]=='C'||t[0]=='c')
+	{
+		fin>>CharityTimesteps>>CharityProfit>>n;;
+	}
+	else
+	{n=stoi(t);}
 	for(int i = 0; i < n; i++)
 	{
 		Event* ptr;

@@ -392,6 +392,8 @@ void Region::SharingOrderstoDraw()
 //after timesteps of time Total Profit is divided by the Profit per Order and the output of the equation is turned to new orders
 void Region::AddCharityOrders(int ProfitPerOrder,int timesteps,int currenttime)
 {
+	if(ProfitPerOrder==-1&&timesteps==-1)
+		return;
 	if(currenttime%timesteps==0)
 	{
 		int i = TotalProfit/ProfitPerOrder;

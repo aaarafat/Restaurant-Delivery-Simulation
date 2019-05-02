@@ -27,8 +27,7 @@ private:
 	string AssignedOrderstemp;
 	
 	Region* Reg[REG_CNT];
-	int AutoPromo;
-	
+	int AutoPromo, CharityTimesteps, CharityProfit;
 
 public:
 	
