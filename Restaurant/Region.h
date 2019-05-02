@@ -25,6 +25,7 @@ class Region
 	Queue<Order*> NormalServed;
 	Queue<Order*> VIPServed;
 	Queue<Order*> FrozenServed;
+	Queue<Order*> CharityServed;
 	Heap_PriorityQueue<Order> AssignedOrder;
 	Heap_PriorityQueue<Motorcycle> MotorStatus[STATUS_CNT];
 	Queue<Order*> DrawOrders;

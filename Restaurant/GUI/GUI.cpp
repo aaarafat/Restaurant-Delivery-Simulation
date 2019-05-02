@@ -140,8 +140,8 @@ void GUI::PrintMessage(string line0, string line1, string line2, string line3, s
 	ClearStatusBar();	//First clear the status bar
 	
 	pWind->SetPen(GUIR);
-	pWind->SetFont(18, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(13, WindHeight - (StatusBarHeight - 11), line0); //First line 
+	pWind->SetFont(16, BOLD , BY_NAME, "Arial");   
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 11), line0); //First line 
 	pWind->DrawString(10, WindHeight - (StatusBarHeight - 33), line1); //Second line
 	pWind->DrawString(10, WindHeight - (StatusBarHeight - 55), line2); //Third line
 	pWind->DrawString(10, WindHeight - (StatusBarHeight - 77), line3); //Fourth line 

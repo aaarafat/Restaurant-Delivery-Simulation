@@ -573,7 +573,7 @@ void Restaurant :: PrintOutputFile(string file)
 	ofstream Outfile(file);
 	Order* ord = nullptr;
 	//counters
-	int totwait[4] = {0}, totserve[4] = {0} , ordcnt[4][3] = {0};
+	int totwait[4] = {0}, totserve[4] = {0} , ordcnt[4][5] = {0};
 
 	Outfile<<" FT\tID\tAT\tWT\tST"<<endl;
 	while(!FinishedOrders.isEmpty())
@@ -591,7 +591,7 @@ void Restaurant :: PrintOutputFile(string file)
 	//Restaurant Counters
 	int Orders = 0, Order_cnt[TYPE_CNT] = {0};
 	int Motors = 0, Motor_cnt[MOTO_CNT] = {0};
-	string str[] = {"Norm:", "Froz:", "VIP:"};
+	string str[] = {"Norm:", "Froz:", "VIP:", "VIPFrozen:", "Charity:"};
 	int W = 0, S = 0; 
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
@@ -614,7 +614,7 @@ void Restaurant :: PrintOutputFile(string file)
 		for(int j = TYPE_NRM; j < TYPE_CNT; j++)
 		{
 			if(j != 0) Outfile<<", ";
-			Outfile<<str[j]<<ordcnt[i][j];
+			Outfile<<str[j]<<to_string(ordcnt[i][j]);
 		}
 		Outfile<<"]"<<endl;
 		Outfile<<setw(5)<<"MotorC: "<<sum_moto<<" [";

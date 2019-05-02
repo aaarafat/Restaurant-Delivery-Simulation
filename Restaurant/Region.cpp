@@ -265,6 +265,12 @@ void Region::ServingOrders(int cTime)
 				case TYPE_VIP:
 					VIPServed.enqueue(O);
 					break;
+				case TYPE_VIPFROZ:
+					VIPFrozenServed.enqueue(O);
+					break;
+				case TYPE_CHAR:
+					CharityServed.enqueue(O);
+					break;
 			}
 		}
 		else
@@ -291,13 +297,15 @@ bool Region::DrawOrdersIsEmpty() const
 }
 string Region::Print()
 {
-	return "Region " + name + ":    Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) 
-			+ "    Frozen: " + to_string(Motor[MOTO_FROZ].Size()) 
-			+ "    Normal: " + to_string(Motor[MOTO_NRM].Size())
-			+ "                                        Orders -->  VIP: "
+	return "Region " + name + ":   Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) 
+			+ "   Frozen: " + to_string(Motor[MOTO_FROZ].Size()) 
+			+ "   Normal: " + to_string(Motor[MOTO_NRM].Size())
+			+ "  ||||   Orders -->  VIPFrozen: " + to_string(VIPFrozenOrder.Size()) + "    Served: " + to_string(VIPFrozenServed.Size())
+			+"   VIP: "
 			+ to_string(VIPOrder.Size()) + "    Served: " + to_string(VIPServed.Size())
-			+ "    Frozen: " + to_string(FrozenOrder.Size()) + "    Served: " + to_string(FrozenServed.Size())
-			+ "    Normal: " + to_string(NormalOrder.Size()) + "    Served: " + to_string(NormalServed.Size());
+			+ "   Frozen: " + to_string(FrozenOrder.Size()) + "   Served: " + to_string(FrozenServed.Size())
+			+ "   Normal: " + to_string(NormalOrder.Size()) + "   Served: " + to_string(NormalServed.Size())
+			+ "   Charity: " + to_string(CharityOrder.Size()) + "   Served: " + to_string(CharityServed.Size());;
 }
 void Region::SharingOrderstoDraw()
 {
