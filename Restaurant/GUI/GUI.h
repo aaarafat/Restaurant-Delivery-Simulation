@@ -27,6 +27,12 @@ private:
 	color GUIF;
 	color GUIR;
 	string MusicDir;
+	int oFsize;
+	int OrderWidth ;	//width of the order to be drawn on GUI
+	int OrderHeight ; 		//height of the order to be drawn on GUI
+	int MaxHorizOrders	;	//The max no. of orders the can be drawn in on Horizontal line in a region
+	int	MaxVerticalOrders;   //The max no. of orders the can be drawn in on Vertical line in a region	
+	int	MaxRegionOrderCount  ;//Max no of orders that can be drawn in a single region
 	bool MusicOn;
 	bool MusicMode;
 	bool Draw;
@@ -52,17 +58,11 @@ private:
 		RestEndY = YHalfDrawingArea + RestWidth/2,   //The y coordinate of the lower right corner of the Rest
 
 
-		FontSize = 20,	//font size used to draw orders ID on Interface
-		OrderWidth = 2*FontSize,	//width of the order to be drawn on GUI
-		OrderHeight = FontSize,		//height of the order to be drawn on GUI
+		FontSize = 20;	//font size used to draw orders ID on Interface
+		
+		
 
-
-		MaxHorizOrders	= ((WindWidth-RestWidth)/2 ) / (OrderWidth+1),		//The max no. of orders the can be drwan in on Horizontal line in a region
-		MaxVerticalOrders = (DrawingAreaHeight /2)/(OrderHeight + 1),   //The max no. of orders the can be drwan in on Horizontal line in a region
-
-
-		//Max no of orders that can be drawn in a single region
-		MaxRegionOrderCount  = MaxHorizOrders*MaxVerticalOrders;
+		
 		
 		
 		

@@ -16,9 +16,15 @@ GUI::GUI() : bufferSize(MAX_PATH)
 	GUIS = WHITE;
 	GUIF = BLACK;
 	GUIR = BLUER;
+	oFsize = 20;
 	pWind = new window(WindWidth+10,WindHeight,0,0); 
 	pWind->ChangeTitle("The Restautant");
 	OrderCount = 0;
+	OrderWidth = 2 * oFsize;
+	OrderHeight = oFsize;
+	MaxHorizOrders	= ((WindWidth-RestWidth)/2 ) / (OrderWidth+1);	
+	MaxVerticalOrders = (DrawingAreaHeight /2)/(OrderHeight + 1);   	
+	MaxRegionOrderCount  = MaxHorizOrders*MaxVerticalOrders; 
 	//Set color for each order type
 	OrdersClrs[TYPE_NRM] = 	NDARKBLUE;	//normal-order color
 	OrdersClrs[TYPE_FROZ] = NVIOLET;		//Frozen-order color
@@ -84,8 +90,12 @@ void GUI::getClick(int &x,int &y) const
 bool GUI::MenuClicked(int x, int y) 
 {
 	int s=-1;
+	int d = -1;
 	if (y >= 0 && y <= 50)
+	{
 		s = (WindWidth - x -5) / 120;
+		d = y/25;
+	}
 	if(s==0)
 	{
 		ChangeMode();
@@ -105,6 +115,46 @@ bool GUI::MenuClicked(int x, int y)
 			PlaySound((LPCSTR)MusicDir.c_str(), NULL, SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 		}
 
+		UpdateInterface();
+		return true;
+	}
+	else if(s==1 && !MusicMode )
+	{
+		if(d==1)
+			{
+				if(oFsize > 10) 
+					oFsize -= 2;
+
+		}
+		else {
+			if(oFsize < 30)
+			oFsize += 2;
+		}
+		OrderWidth = 2 * oFsize;
+		OrderHeight = oFsize;
+		MaxHorizOrders	= ((WindWidth-RestWidth)/2 ) / (OrderWidth+1);	
+		MaxVerticalOrders = (DrawingAreaHeight /2)/(OrderHeight + 1);   	
+		MaxRegionOrderCount  = MaxHorizOrders*MaxVerticalOrders;
+		UpdateInterface();
+		return true;
+	}
+		else if(s==2 && MusicMode )
+	{
+		if(d==1)
+			{
+				if(oFsize > 10) 
+					oFsize -= 2;
+
+		}
+		else {
+			if(oFsize < 30)
+			oFsize += 2;
+		}
+		OrderWidth = 2 * oFsize;
+		OrderHeight = oFsize;
+		MaxHorizOrders	= ((WindWidth-RestWidth)/2 ) / (OrderWidth+1);	
+		MaxVerticalOrders = (DrawingAreaHeight /2)/(OrderHeight + 1);   	
+		MaxRegionOrderCount  = MaxHorizOrders*MaxVerticalOrders;
 		UpdateInterface();
 		return true;
 	}
@@ -185,6 +235,8 @@ void GUI::ClearMenuBar() const
 	pWind->DrawRectangle(0, 0, WindWidth, MenuBarHeight);
 	string SwitchGUI;
 	string Music;
+	string zIn;
+	string zOut;
 	if(GMode == MODE_DARK)
 	{
 		SwitchGUI = "images\\switch.jpg";
@@ -198,6 +250,8 @@ void GUI::ClearMenuBar() const
 			{
 				Music = (MusicOn) ? "images\\paused.jpg" :"images\\playd.jpg";
 			}
+			zIn="images\\zoomind.jpg";
+			zOut="images\\zoomoutd.jpg";
 		}
 	}
 	else
@@ -213,12 +267,22 @@ void GUI::ClearMenuBar() const
 			{
 				Music = (MusicOn) ? "images\\pausel.jpg" :"images\\playl.jpg";
 			}
+			zIn="images\\zoominl.jpg";
+			zOut="images\\zoomoutl.jpg";
 		}
 
 	}
 
 	pWind->DrawImage(SwitchGUI,WindWidth-125, 0, 120, 50);
-	if(Music != "") pWind->DrawImage(Music,WindWidth-120 * 2-5, 0, 120, 50);
+	if(Music != ""){ 
+		pWind->DrawImage(Music,WindWidth-120 * 2 - 5, 0, 120, 50);
+		if(zIn!="") pWind->DrawImage(zIn,WindWidth-120 * 3 - 5,0,120,25);
+		if(zOut!="") pWind->DrawImage(zOut,WindWidth-120 * 3 - 5,25,120,25);
+	}
+	else{
+		if(zIn!="") pWind->DrawImage(zIn,WindWidth-120*2  - 5,0,120,25);
+		if(zOut!="") pWind->DrawImage(zOut,WindWidth-120*2 - 5,25,120,25);
+	}
 	pWind->SetPen(GUIS, 3);
 	pWind->DrawLine(0, MenuBarHeight+1 , WindWidth,MenuBarHeight+1);
 		
@@ -362,7 +426,7 @@ void GUI::DrawSingleOrder(Order* pO, int RegionCount) const       // It is a pri
 	pWind->SetPen(clr);
 	pWind->SetBrush(clr);
 	//pWind->DrawRectangle(x, y, x + OrderWidth, y + OrderHeight);
-	pWind->SetFont(20,BOLD, MODERN);
+	pWind->SetFont(oFsize,BOLD, MODERN);
 	pWind->DrawInteger(x,y,pO->GetID());
 }
 
