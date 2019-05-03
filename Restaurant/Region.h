@@ -9,7 +9,7 @@ using namespace std;
 class Restaurant;
 class Region
 {
-	static int cnt;
+	static char cnt;
 	static int ID;
 	int TotalProfit;
 	string name;
@@ -23,11 +23,12 @@ class Region
 	//Heap_PriorityQueue<Motorcycle> AssignedMotors;
 	//Heap_PriorityQueue<Motorcycle> RestMotors;
 	//Heap_PriorityQueue<Motorcycle> DamagedMotors;
-	Queue<Order*> VIPFrozenServed;
-	Queue<Order*> NormalServed;
-	Queue<Order*> VIPServed;
-	Queue<Order*> FrozenServed;
-	Queue<Order*> CharityServed;
+	//Queue<Order*> VIPFrozenServed;
+	//Queue<Order*> NormalServed;
+	//Queue<Order*> VIPServed;
+	//Queue<Order*> FrozenServed;
+	//Queue<Order*> CharityServed;
+	Queue<Order*> Served[TYPE_CNT];
 	Heap_PriorityQueue<Order> AssignedOrder;
 	Heap_PriorityQueue<Motorcycle> MotorStatus[STATUS_CNT];
 	Queue<Order*> DrawOrders;
@@ -43,16 +44,12 @@ public:
 	Order* getFrozenOrder() ;
 	void setFrozenOrder(Order* O);
 	Order* getNormalOrder() ;
-	Order* getVIPServed() ;
 	Order* getVIPFrozenOrder();
 	void setVIPFrozenOrder(Order* O);
-	void setVIPServed(Order* O);
-	Order* getFrozenServed() ;
-	void setFrozenServed(Order* O);
-	Order* getNormalServed() ;
+	void setServed(Order* O);
+	Order* getServed(ORD_TYPE type) ;
 	void setAssignedOrder(Order* O);
 	Order* getAssignedOrder();
-	void setNormalServed(Order* O);
 	void setNormalOrder(Order* O);
 	void setSMotor(Motorcycle* M);
 	Motorcycle* getSMotor(STATUS_TYPE type);

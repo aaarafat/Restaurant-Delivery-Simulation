@@ -1,13 +1,13 @@
 #include "Region.h"
 #include "Rest\Restaurant.h"
 #include <string>
-int Region::cnt = 0;
+char Region::cnt = 'A';
 int Region::ID=999;
 Region::Region(Restaurant* ptr)
 {
 	pRest = ptr;
 	TotalProfit = 0;
-	name = 'A' + cnt;
+	name = cnt;
 	cnt++;
 }
 Motorcycle* Region::getMotor(MOTO_TYPE type)
@@ -70,22 +70,10 @@ void Region::setNormalOrder(Order* O)
 {
 	NormalOrder.add(O);
 }
-Order* Region::getNormalServed() 
+Order* Region::getServed(ORD_TYPE type) 
 {
 	Order*O;
-	NormalServed.dequeue(O);
-	return O;
-}
-Order* Region::getVIPServed() 
-{
-	Order*O;
-	VIPServed.dequeue(O);
-	return O;
-}
-Order* Region::getFrozenServed() 
-{
-	Order * O;
-	FrozenServed.dequeue(O);
+	Served[type].dequeue(O);
 	return O;
 }
 void Region::setSMotor(Motorcycle* M)
@@ -114,17 +102,9 @@ bool Region::SMotorsEmpty(STATUS_TYPE type) const
 {
 	return MotorStatus[type].isEmpty();
 }
-void Region::setVIPServed(Order* O)
+void Region::setServed(Order* O)
 {
-	VIPServed.enqueue(O);
-}
-void Region::setFrozenServed(Order* O)
-{
-	FrozenServed.enqueue(O);
-}
-void Region::setNormalServed(Order* O)
-{
-	NormalServed.enqueue(O);
+	Served[O->GetType()].enqueue(O);
 }
 void Region::setAssignedOrder(Order* O)
 {
@@ -265,36 +245,17 @@ void Region::AutoPromote(int cTime,int pTime)
 
 void Region::ServingOrders(int cTime)
 {
-	bool found = true;
-	while(!AssignedOrder.isEmpty() && found)
+	while(!AssignedOrder.isEmpty())
 	{
 		Order* O = AssignedOrder.peek();
 		if(cTime >= O->GetFinishTime())
 		{
 			AssignedOrder.remove();
-			ORD_TYPE type = O->GetType();
-			TotalProfit+=O->getTotalMoney();
-			switch (type)
-			{
-				case TYPE_NRM:
-					NormalServed.enqueue(O);
-					break;
-				case TYPE_FROZ:
-					FrozenServed.enqueue(O);
-					break;
-				case TYPE_VIP:
-					VIPServed.enqueue(O);
-					break;
-				case TYPE_VIPFROZ:
-					VIPFrozenServed.enqueue(O);
-					break;
-				case TYPE_CHAR:
-					CharityServed.enqueue(O);
-					break;
-			}
+			TotalProfit += O->getTotalMoney();
+			Served[O->GetType()].enqueue(O);
 		}
 		else
-			found = false;
+			break;
 
 	}
 
@@ -320,12 +281,12 @@ string Region::Print()
 	return "Region " + name + ":   Motors -->  VIP: " + to_string(Motor[MOTO_VIP].Size()) 
 			+ "   Frozen: " + to_string(Motor[MOTO_FROZ].Size()) 
 			+ "   Normal: " + to_string(Motor[MOTO_NRM].Size())
-			+ "  ||||   Orders -->  VIPFrozen: " + to_string(VIPFrozenOrder.Size()) + "    Served: " + to_string(VIPFrozenServed.Size())
+			+ "  ||||   Orders -->  VIPFrozen: " + to_string(VIPFrozenOrder.Size()) + "    Served: " + to_string(Served[TYPE_VIPFROZ].Size())
 			+"   VIP: "
-			+ to_string(VIPOrder.Size()) + "    Served: " + to_string(VIPServed.Size())
-			+ "   Frozen: " + to_string(FrozenOrder.Size()) + "   Served: " + to_string(FrozenServed.Size())
-			+ "   Normal: " + to_string(NormalOrder.Size()) + "   Served: " + to_string(NormalServed.Size())
-			+ "   Charity: " + to_string(CharityOrder.Size()) + "   Served: " + to_string(CharityServed.Size());;
+			+ to_string(VIPOrder.Size()) + "    Served: " + to_string(Served[TYPE_VIP].Size())
+			+ "   Frozen: " + to_string(FrozenOrder.Size()) + "   Served: " + to_string(Served[TYPE_FROZ].Size())
+			+ "   Normal: " + to_string(NormalOrder.Size()) + "   Served: " + to_string(Served[TYPE_NRM].Size())
+			+ "   Charity: " + to_string(CharityOrder.Size()) + "   Served: " + to_string(Served[TYPE_CHAR].Size());
 }
 void Region::SharingOrderstoDraw()
 {
@@ -390,20 +351,20 @@ void Region::SharingOrderstoDraw()
 }
 
 //after timesteps of time Total Profit is divided by the Profit per Order and the output of the equation is turned to new orders
-void Region::AddCharityOrders(int ProfitPerOrder,int timesteps,int currenttime)
+void Region::AddCharityOrders(int ProfitPerOrder, int timesteps, int currenttime)
 {
-	if(ProfitPerOrder==-1&&timesteps==-1)
+	if(ProfitPerOrder == -1 && timesteps == -1)
 		return;
-	if(currenttime%timesteps==0)
+	if(currenttime % timesteps ==0 )
 	{
-		int i = TotalProfit/ProfitPerOrder;
+		int i = TotalProfit / ProfitPerOrder;
 		Order* O = nullptr;
-		for(;i>0;i--)
+		for(; i > 0; i--)
 		{
-			O = new Order(ID--,TYPE_CHAR,(REGION)((int)name[0]-65),rand()%100,0,currenttime);
+			O = new Order(ID--, TYPE_CHAR, (REGION)(name[0] - 'A'), rand() % 100, 0, currenttime);
 			CharityOrder.enqueue(O);
 		}
-		TotalProfit=0;
+		TotalProfit = 0;
 	}
 
 

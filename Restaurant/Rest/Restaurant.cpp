@@ -180,12 +180,12 @@ bool Restaurant::ReadFile(string filename)
 	fin>>AutoPromo;
 	string t;int n;
 	fin>>t;
-	if(t[0]=='C'||t[0]=='c')
+	if(t[0] == 'C'|| t[0] == 'c')
 	{
-		fin>>CharityTimesteps>>CharityProfit>>n;;
+		fin>>CharityTimesteps>>CharityProfit>>n;
 	}
 	else
-	{n=stoi(t);}
+		n = stoi(t);
 	for(int i = 0; i < n; i++)
 	{
 		Event* ptr;
@@ -410,7 +410,6 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 	{
 		while(!Reg[i]->CharityOrderIsEmpty())
 		{
-			//frozen motor only
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
 			if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
@@ -441,7 +440,6 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 
 		while(!Reg[i]->VIPFrozenOrderIsEmpty())
 		{
-			//frozen motor only
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
 			if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
@@ -474,7 +472,6 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		{
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
-			//vip motor then normal motor then frozen motor
 			if(!Reg[i]->MotorIsEmpty(MOTO_VIP))
 			{
 				Ord = Reg[i]->getVIPOrder();
@@ -531,7 +528,6 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		}
 		while(!Reg[i]->FrozenOrderIsEmpty())
 		{
-			//frozen motor only
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
 			if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
@@ -561,7 +557,6 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 		}
 		while(!Reg[i]->NormalOrderIsEmpty())
 		{
-			//Normal motor if possible then vip motors
 			Order* Ord = NULL;
 			Motorcycle* Moto = NULL;
 			if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
@@ -613,7 +608,7 @@ void Restaurant :: PrintOutputFile(string file)
 	ofstream Outfile(file);
 	Order* ord = nullptr;
 	//counters
-	int totwait[4] = {0}, totserve[4] = {0} , ordcnt[4][5] = {0};
+	int totwait[REG_CNT] = {0}, totserve[REG_CNT] = {0} , ordcnt[REG_CNT][TYPE_CNT] = {0};
 
 	Outfile<<" FT\tID\tAT\tWT\tST"<<endl;
 	while(!FinishedOrders.isEmpty())
