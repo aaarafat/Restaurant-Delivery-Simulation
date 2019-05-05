@@ -14,8 +14,9 @@ Restaurant::Restaurant()
 	{
 		Reg[i] = new Region(this);
 	}
-
-	AssignedOrders="";
+	
+	for(int i=A_REG;i<REG_CNT;i++)
+		AssignedOrders[i] = "";
 	CharityProfit=-1;
 	CharityTimesteps=-1;
 }
@@ -241,7 +242,8 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 			ExecuteEvents(CurrentTimeStep);
 
 			//Copying the string to temp for printing the last timestep
-			AssignedOrderstemp=AssignedOrders;
+			for(int i=A_REG;i<REG_CNT;i++)
+				AssignedOrderstemp[i] =AssignedOrders[i];
 
 			//Print the number of the Orders in each region 
 			AssignOrder(CurrentTimeStep);
@@ -327,7 +329,7 @@ void Restaurant :: Draw_All()
 }
 void Restaurant::Draw(int CurrentTimeStep)
 {
-	pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp);
+	pGUI->PrintMessage(Reg[A_REG]->Print(), Reg[B_REG]->Print(), Reg[C_REG]->Print(), Reg[D_REG]->Print(),AssignedOrderstemp[0],AssignedOrderstemp[1],AssignedOrderstemp[2],AssignedOrderstemp[3]);
 	pGUI->ResetDrawingList();
 	SharingOrdersToDraw();
 	Draw_All();
@@ -405,7 +407,8 @@ void Restaurant::ArrivedMotors(int CurrentTimeStep)
 
 void Restaurant::AssignOrder(int CurrentTimeStep)
 {
-	AssignedOrders = "";
+	for(int i=A_REG;i<REG_CNT;i++)
+		AssignedOrders[i] = "";
 	for(int i = A_REG; i < REG_CNT; i++)
 	{
 		while(!Reg[i]->CharityOrderIsEmpty())
@@ -433,7 +436,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(CH" + to_string(Ord->GetID()) + ")  ";
+				AssignedOrders[Ord->GetRegion()] += 'N' + to_string(Moto->GetID()) + "(CH" + to_string(Ord->GetID()) + ")  ";
 			}
 			else break;
 		}
@@ -463,7 +466,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
-				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(VF" + to_string(Ord->GetID()) + ")  ";
+				AssignedOrders[Ord->GetRegion()] += 'F' + to_string(Moto->GetID()) + "(VF" + to_string(Ord->GetID()) + ")  ";
 			}
 			else break;
 		}
@@ -476,40 +479,40 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getMotor(MOTO_VIP);
-				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->MotorIsEmpty(MOTO_NRM))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getMotor(MOTO_NRM);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->MotorIsEmpty(MOTO_FROZ))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getMotor(MOTO_FROZ);
-				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->SMotorsEmpty(REST_VIP))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getSMotor(REST_VIP);
 				Moto->SetDamaged(true);
-				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'V' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->SMotorsEmpty(REST_NRM))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getSMotor(REST_NRM);
 				Moto->SetDamaged(true);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'N' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->SMotorsEmpty(REST_FROZ))
 			{
 				Ord = Reg[i]->getVIPOrder();
 				Moto = Reg[i]->getSMotor(REST_FROZ);
 				Moto->SetDamaged(true);
-				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'F' + to_string(Moto->GetID()) + "(V" + to_string(Ord->GetID()) + ") ";
 			}
 			if(Ord && Moto)
 			{
@@ -551,7 +554,7 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 				Reg[i]->setAssignedOrder(Ord);
 				Moto->SetStatus(ASSIGNED);
 				Reg[i]->setSMotor(Moto);
-				AssignedOrders += 'F' + to_string(Moto->GetID()) + "(F" + to_string(Ord->GetID()) + ")  ";
+				AssignedOrders[Ord->GetRegion()] += 'F' + to_string(Moto->GetID()) + "(F" + to_string(Ord->GetID()) + ")  ";
 			}
 			else break;
 		}
@@ -563,27 +566,27 @@ void Restaurant::AssignOrder(int CurrentTimeStep)
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getMotor(MOTO_NRM);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->MotorIsEmpty(MOTO_VIP))
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getMotor(MOTO_VIP);
-				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->SMotorsEmpty(REST_NRM))
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getSMotor(REST_NRM);
 				Moto->SetDamaged(true);
-				AssignedOrders += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'N' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
 			else if(!Reg[i]->SMotorsEmpty(REST_VIP))
 			{
 				Ord = Reg[i]->getNormalOrder();
 				Moto = Reg[i]->getSMotor(REST_VIP);
 				Moto->SetDamaged(true);
-				AssignedOrders += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
+				AssignedOrders[Ord->GetRegion()] += 'V' + to_string(Moto->GetID()) + "(N" + to_string(Ord->GetID()) + ") ";
 			}
 			if(Ord && Moto)
 			{

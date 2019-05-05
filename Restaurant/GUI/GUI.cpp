@@ -185,17 +185,20 @@ string GUI::GetString() const
 // ================================== OUTPUT FUNCTIONS ===================================
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::PrintMessage(string line0, string line1, string line2, string line3, string line4) const	//Prints a message on status bar
+void GUI::PrintMessage(string line0, string line2, string line4, string line6 , string line1, string line3, string line5, string line7 ) const	//Prints a message on status bar
 {
 	ClearStatusBar();	//First clear the status bar
 	
 	pWind->SetPen(GUIR);
-	pWind->SetFont(16, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(10, WindHeight - (StatusBarHeight - 11), line0); //First line 
-	pWind->DrawString(10, WindHeight - (StatusBarHeight - 33), line1); //Second line
-	pWind->DrawString(10, WindHeight - (StatusBarHeight - 55), line2); //Third line
-	pWind->DrawString(10, WindHeight - (StatusBarHeight - 77), line3); //Fourth line 
-	pWind->DrawString(10, WindHeight - (StatusBarHeight - 99), line4); //Fifth Line
+	pWind->SetFont(15, BOLD , BY_NAME, "Arial");   
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 6), line0); //First line 
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 22), line1); //Second line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 38), line2); //Third line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 54), line3); //Fourth line 
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 70), line4); //Fifth Line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 86), line5); //sixth Line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 102), line6); //seventh Line
+	pWind->DrawString(10, WindHeight - (StatusBarHeight - 118), line7); //eight Line
 
 }
 void GUI::PrintMenuMessage(string msg) const

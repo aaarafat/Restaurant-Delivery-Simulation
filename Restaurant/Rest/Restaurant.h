@@ -23,8 +23,8 @@ private:
 	GUI *pGUI;
 	Queue<Event*> EventsQueue;	//Queue of all events that will be loaded from file
 	Heap_PriorityQueue<Order> FinishedOrders;
-	string AssignedOrders;
-	string AssignedOrderstemp;
+	string AssignedOrders[4];
+	string AssignedOrderstemp[4];
 	
 	Region* Reg[REG_CNT];
 	int AutoPromo, CharityTimesteps, CharityProfit;
