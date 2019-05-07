@@ -6,7 +6,6 @@ GUI::GUI() : bufferSize(MAX_PATH)
 {
 	GetCurrentDirectory(bufferSize, oldDir);
 	
-	cout<<endl;
 	MusicMode = false;
 	MusicOn = false;
 	Draw = false;
