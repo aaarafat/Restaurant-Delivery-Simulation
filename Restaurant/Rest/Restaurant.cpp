@@ -277,7 +277,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 				else
 				{
 
-					for(int i = 0; i < 500; i++)
+					for(int i = 0; i < 250; i++)
 					{
 						pGUI->getClick(x,y);
 						if(pGUI->MenuClicked(x,y))

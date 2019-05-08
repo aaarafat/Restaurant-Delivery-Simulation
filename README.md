@@ -33,10 +33,10 @@ At the bottom of the screen, the following information should be printed:
 ▪ Type & ID for ALL motorcycles and orders that were assigned in the last timestep.
 e.g. N6(V3) ➔ normal motorcycle#6 assigned VIP order#3
 ▪ Total number of orders served so far of each order type
-
+#Light Mode
 ![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterface.jpg)
-
-
+#Dark Mode
+![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterfaceD.jpg)
 Step-by-step mode is identical to interactive mode except that each time step, the program waits for one second (not for mouse click) then resumes automatically.
 
 In silent mode, the program produces only an output file. It does not draw anything graphically.
