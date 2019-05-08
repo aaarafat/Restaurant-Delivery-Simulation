@@ -36,7 +36,7 @@ e.g. N6(V3) ➔ normal motorcycle#6 assigned VIP order#3
 
 # Light Mode
 
-![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterface.jpg)
+![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterfaceL.jpg)
 
 # Dark Mode
 
