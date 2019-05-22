@@ -3,6 +3,8 @@
 #include <iostream>
 #include <Windows.h>
 #include <iomanip>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 #include "Restaurant.h"
@@ -276,17 +278,20 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 				}
 				else
 				{
-
-					for(int i = 0; i < 500; i++)
+					steady_clock::time_point t1 = steady_clock::now();
+					steady_clock::time_point t2;
+					duration<double> time_span;
+					do 
 					{
+						t2 = steady_clock::now();
+						time_span = duration_cast<duration<double>>(t2 - t1);
 						pGUI->getClick(x,y);
 						if(pGUI->MenuClicked(x,y))
 						{
 							Draw(CurrentTimeStep);
-							i += 15; 
 						}
-							Sleep(1);
 					}
+					while(time_span.count() < 1);
 				}
 			}
 			CurrentTimeStep++;	
