@@ -281,7 +281,7 @@ void Restaurant :: Simulation(bool StepByStep,bool Silent)
 					steady_clock::time_point t1 = steady_clock::now();
 					steady_clock::time_point t2;
 					duration<double> time_span;
-					do 
+					do
 					{
 						t2 = steady_clock::now();
 						time_span = duration_cast<duration<double>>(t2 - t1);
