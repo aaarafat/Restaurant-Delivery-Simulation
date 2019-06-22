@@ -1,4 +1,4 @@
-# Data Structures and Algorithms
+# Delivery Simulation System
 ##     Restaurant Delivery
 
 ### Problem Description
@@ -36,11 +36,11 @@ e.g. N6(V3) ➔ normal motorcycle#6 assigned VIP order#3
 
 # Light Mode
 
-![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterfaceL.jpg)
+![Light Mode](https://user-images.githubusercontent.com/44725090/59968734-cf4dbc80-953e-11e9-9666-2d05c6513f4c.gif)
 
 # Dark Mode
 
-![](https://github.com/D4rk1n/DS-Project/blob/master/ProjectInterfaceD.jpg)
+![Dark Mode](https://user-images.githubusercontent.com/44725090/59968764-6adf2d00-953f-11e9-8d0c-b26b4f6b868c.gif)
 Step-by-step mode is identical to interactive mode except that each time step, the program waits for one second (not for mouse click) then resumes automatically.
 
 In silent mode, the program produces only an output file. It does not draw anything graphically.
