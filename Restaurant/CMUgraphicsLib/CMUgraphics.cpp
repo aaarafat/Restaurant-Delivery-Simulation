@@ -7,7 +7,7 @@ This file was last modified on 05.16.1999
 #include <iostream>
 #include <cstdio>
 #include <cmath>
-
+#include "../resource.h"
 #include "CMUgraphics.h"
 #include "error.h"
 #include "windowinput.h"
@@ -200,6 +200,12 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 window::window(const int iWindWidth, const int iWindHeight, const int iWindXPos, const int iWindYPos) :
 hInstance(GetModuleHandle(0)), iWindowWidth(iWindWidth), iWindowHeight(iWindHeight) {
 
+	//////////////// ICON HERE ////////////////////
+	HICON icon, iconSmall;
+	
+	icon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	////////////////////////////////////////////////
+
 	iMouseX = -1;
 	iMouseY = -1;
 
@@ -208,7 +214,7 @@ hInstance(GetModuleHandle(0)), iWindowWidth(iWindWidth), iWindowHeight(iWindHeig
 	wndcWindow.cbClsExtra = 0;
 	wndcWindow.cbWndExtra = 0;
 	wndcWindow.hInstance = hInstance;
-	wndcWindow.hIcon = NULL;
+	wndcWindow.hIcon = icon;
 	wndcWindow.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndcWindow.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndcWindow.lpszMenuName = NULL;
